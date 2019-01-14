@@ -27,6 +27,7 @@
 # 1.30 jenkins持续集成
 # 2.13 第一阶段复习总结
 
-
+# 项目接口地址：
+# http://47.107.168.87:8080/futureloan/mvc/api/member/login
 
 
