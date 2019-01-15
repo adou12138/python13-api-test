@@ -87,7 +87,7 @@ print('请求cookies', resp.request._cookies)
 # 前面加下划线AttributeError: 'PreparedRequest' object has no attribute 'cookies'
 print('响应码', resp.status_code)
 print('响应信息', type(resp.text))
-print('响应信息字典', resp.json())
+print('响应信息字典', resp.json())  # 有啥用？
 print('响应信息字典',resp.json()['status'])
 print('响应信息', resp.text)
 print('响应cookies', resp.cookies)
@@ -95,3 +95,5 @@ print('响应headers', resp.headers)
 
 # 完成注册登录，查看request的用法
 # 看前程带接口 数据字典
+# 120.78.128.25数据库的地址写这个
+# 47.107.168.87:8080

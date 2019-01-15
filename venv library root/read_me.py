@@ -30,4 +30,7 @@
 # 项目接口地址：
 # http://47.107.168.87:8080/futureloan/mvc/api/member/login
 
+# 项目需求分析
+# https://pan.baidu.com/s/1dTLgME-KWN5lrVd7BVVV6g
+
 
