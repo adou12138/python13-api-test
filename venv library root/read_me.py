@@ -33,4 +33,6 @@
 # 项目需求分析
 # https://pan.baidu.com/s/1dTLgME-KWN5lrVd7BVVV6g
 
+# 登录的请求是部署在服务器上的一个服务？api？
+
 

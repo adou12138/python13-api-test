@@ -39,17 +39,53 @@ import requests
 
 
 # get请求 登陆获取cookies充值  响应信息 10001
-data = {'mobilephone': '15666666666', 'pwd': '123456'}
-resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login',params=data)
-print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-get_cookies = resp1.cookies
-print(get_cookies)
+# data = {'mobilephone': '15666666666', 'pwd': '123456'}
+# resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
+# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
+# get_cookies = resp1.cookies
+# print(get_cookies)
 
 # 传入cookies值充值
-data = {'mobilephone': '15666666666', 'amount': 123}
-resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies = get_cookies)
-print(resp2.text)
+# data = {'mobilephone': '15666666666', 'amount': 510000}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
 
+# 请输入范围在 0 到 50 万之间的正数金额 响应信息20117
+# data = {'mobilephone': '15666666666', 'amount': 510000}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 请输入数字 响应信息20118
+# data = {'mobilephone': '15666666666', 'amount': '123asd'}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 输入金额的金额小数不能超过两位 响应信息20116
+# data = {'mobilephone': '15666666666', 'amount': 99.999}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 请输入金额 响应信息20115
+# data = {'mobilephone': '15666666666', 'amount': None}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 手机格式不正确 响应信息20109
+# data = {'mobilephone': '156666', 'amount': 99.99}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 此手机号对应的会员不存在 响应信息20104
+# data = {'mobilephone': '15999999999', 'amount': 99.99}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 参数错误：参数不能为空 响应信息20103
+# data = {'mobilephone': None, 'amount': None}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# print(resp2.text)
+
+# 服务器异常 响应信息20102 服务器挂了
 
 
 # post请求 登陆获取cookies充值  响应信息 10001
@@ -66,26 +102,14 @@ print(resp2.text)
 
 
 # post请求 用户登陆 响应信息10001
-# data = {'mobilephone': '15777777777', 'pwd': '123456'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge',data=data)
-# print(resp.request.url)  # 请求url
-# print(resp.request.body)  # 请求参数
-# print(resp.request.headers)  # 请求headers
-# print(resp.request._cookies)  # 请求cookies，cookies前面加下划线
-#
-# print(resp.status_code)  # 响应码 10001
-# print(resp.text)  # 响应信息
-# print(resp.cookies)  # 响应cookies
-# print(resp.headers)  # 响应headers
+data = {'mobilephone': '15666666666', 'pwd': '123456'}
+resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
+print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
+get_cookies = resp1.cookies
+print(get_cookies)
 
-# post请求 响应信息20111
-# data = {'mobilephone': '15777777777', 'pwd': '1234567'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge',data=data)
-# print(resp.text)  # 响应信息
+# 传入cookies值充值
+data = {'mobilephone': '15666666666', 'amount': 250000}
+resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies=get_cookies)
+print(resp2.text)
 
-# post请求 响应信息20103
-# data = {'mobilephone': '157777', 'pwd': ''}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge',data=data)
-# print(resp.text)  # 响应信息
-
-# post请求 响应信息20102 服务器异常 挂了才能测
