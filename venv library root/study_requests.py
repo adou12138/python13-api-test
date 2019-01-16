@@ -3,6 +3,8 @@
 # shen 
 # 2019/1/14 22:03 
 
+
+
 '''
 cn.python-requests.org/zh_CN/latest
 http 协议两大部分(入参/出参)
@@ -97,3 +99,6 @@ print('响应headers', resp.headers)
 # 看前程带接口 数据字典
 # 120.78.128.25数据库的地址写这个
 # 47.107.168.87:8080
+
+# http://cn.python-requests.org/zh_CN/latest/user/quickstart.html  #url
+# https://www.cnblogs.com/ios9/p/9527939.html sql2017

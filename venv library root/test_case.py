@@ -4,13 +4,30 @@
 # shen 
 # 2019/1/15 21:09 
 
+
+# 书签 ctrl+f11
 ''''
+
+用wb的时候，把resp.txt换成resp.content http响应二进制内容
+所有的地址信息：
+http://47.107.168.87:8080/futureloan/mvc/api/member/login
+自己根据接口文档去更新接口名以及参数即可
+数据库的信息：
+ip:47.107.168.87
+端口：3306
+用户名：python
+密码：python666
 
 前台：http://120.78.128.25:8765/
 13825161923 lemon123
 后台：120.78.128.25:8786/Admin/Index/login.html
 lemon7 77q4
 接口地址：http://120.78.128.25:8080/futureloan/mvc/api/member/register
+
+webservice:
+http://120.24.235.105:9010/finance-user_info-war-1.0//ws/financeUserInfoFacade.ws?wsdl
+http:
+http://47.107.168.87:8080/futureloan/mvc/api/member/login?mobilephone=&pwd=123456
 
 借款人-->借款
 项目(标)

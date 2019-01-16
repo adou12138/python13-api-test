@@ -46,7 +46,7 @@ import requests
 # print(get_cookies)
 
 # 传入cookies值充值
-# data = {'mobilephone': '15666666666', 'amount': 510000}
+# data = {'mobilephone': '15666666666', 'amount': 51000}
 # resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
 # print(resp2.text)
 
@@ -88,28 +88,28 @@ import requests
 # 服务器异常 响应信息20102 服务器挂了
 
 
-# post请求 登陆获取cookies充值  响应信息 10001
-# data = {'mobilephone': '15666666666', 'pwd': 123456}
-# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login',data=data)
-# # print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-# print(resp1.text)
-# get_cookies = resp1.request._cookies
-#
-# # 传入cookies值充值
-# data = {'mobilephone': '15666666666', 'amount': 123}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies = get_cookies)
-# print(resp2.text)
-
-
-# post请求 用户登陆 响应信息10001
-data = {'mobilephone': '15666666666', 'pwd': '123456'}
-resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
+# post请求 登陆获取cookies充值  响应信息10001
+data = {'mobilephone': '15666666666', 'pwd': 123456}
+resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login',data=data)
 print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
+print(resp1.text)
 get_cookies = resp1.cookies
-print(get_cookies)
 
 # 传入cookies值充值
-data = {'mobilephone': '15666666666', 'amount': 250000}
-resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies=get_cookies)
+data = {'mobilephone': '15666666666', 'amount': 123}
+resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies = get_cookies)
 print(resp2.text)
+
+
+# post请求 用户登陆 响应信息10001 金额传入字符串
+# data = {'mobilephone': '15666666666', 'pwd': '123456'}
+# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
+# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
+# get_cookies = resp1.cookies
+# print(get_cookies)
+#
+# # 传入cookies值充值
+# data = {'mobilephone': '15666666666', 'amount': 250000}
+# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies=get_cookies)
+# print(resp2.text)
 

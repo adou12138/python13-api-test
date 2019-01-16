@@ -41,12 +41,11 @@ import requests
 # get请求 用户注册
 # data = {'mobilephone': '15666666666', 'pwd': '123456'}
 # resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/register',params=data)
-# # print(resp.url)  # 这个不需要加request也可以正常显示的啊! 老师可以说下为什么
 # print(resp.request.url)  # 请求的url
 # print(resp.request.body)  # 请求参数
 # print(resp.status_code)  # 响应码
 # print(resp.text)  # 响应信息
-# print(resp.headers)  # 头部信息，这个头部信息和post里面的request.headers有区别么？ 是相应的头部信息吧？
+# print(resp.headers)  # 响应头部信息
 
 # get请求添加注册名(regname)
 # data = {'mobilephone': '15555555555', 'pwd': '123456', 'regname': 'luckytest'}
