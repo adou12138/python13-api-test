@@ -32,57 +32,57 @@
 import requests
 
 # get请求 未登陆直接充值  响应信息null
-# data = {'mobilephone': '15666666666', 'amount': 123}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge',params=data)
+# datas = {'mobilephone': '15666666666', 'amount': 123}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge',params=datas)
 # print(resp.status_code)  # 响应码
 # print(resp.text)  # 响应信息
 
 
 # get请求 登陆获取cookies充值  响应信息 10001
-# data = {'mobilephone': '15666666666', 'pwd': '123456'}
-# resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
+# datas = {'mobilephone': '15666666666', 'pwd': '123456'}
+# resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=datas)
 # print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
 # get_cookies = resp1.cookies
 # print(get_cookies)
 
 # 传入cookies值充值
-# data = {'mobilephone': '15666666666', 'amount': 51000}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '15666666666', 'amount': 51000}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 请输入范围在 0 到 50 万之间的正数金额 响应信息20117
-# data = {'mobilephone': '15666666666', 'amount': 510000}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '15666666666', 'amount': 510000}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 请输入数字 响应信息20118
-# data = {'mobilephone': '15666666666', 'amount': '123asd'}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '15666666666', 'amount': '123asd'}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 输入金额的金额小数不能超过两位 响应信息20116
-# data = {'mobilephone': '15666666666', 'amount': 99.999}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '15666666666', 'amount': 99.999}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 请输入金额 响应信息20115
-# data = {'mobilephone': '15666666666', 'amount': None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '15666666666', 'amount': None}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 手机格式不正确 响应信息20109
-# data = {'mobilephone': '156666', 'amount': 99.99}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '156666', 'amount': 99.99}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 此手机号对应的会员不存在 响应信息20104
-# data = {'mobilephone': '15999999999', 'amount': 99.99}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': '15999999999', 'amount': 99.99}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 参数错误：参数不能为空 响应信息20103
-# data = {'mobilephone': None, 'amount': None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
+# datas = {'mobilephone': None, 'amount': None}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=datas, cookies=get_cookies)
 # print(resp2.text)
 
 # 服务器异常 响应信息20102 服务器挂了
@@ -90,26 +90,26 @@ import requests
 
 # post请求 登陆获取cookies充值  响应信息10001
 data = {'mobilephone': '15666666666', 'pwd': 123456}
-resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login',data=data)
+resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
 print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
 print(resp1.text)
 get_cookies = resp1.cookies
 
 # 传入cookies值充值
 data = {'mobilephone': '15666666666', 'amount': 123}
-resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies = get_cookies)
+resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies=get_cookies)
 print(resp2.text)
 
 
 # post请求 用户登陆 响应信息10001 金额传入字符串
-# data = {'mobilephone': '15666666666', 'pwd': '123456'}
-# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
+# datas = {'mobilephone': '15666666666', 'pwd': '123456'}
+# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', datas=datas)
 # print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
 # get_cookies = resp1.cookies
 # print(get_cookies)
 #
 # # 传入cookies值充值
-# data = {'mobilephone': '15666666666', 'amount': 250000}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data, cookies=get_cookies)
+# datas = {'mobilephone': '15666666666', 'amount': 250000}
+# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', datas=datas, cookies=get_cookies)
 # print(resp2.text)
 

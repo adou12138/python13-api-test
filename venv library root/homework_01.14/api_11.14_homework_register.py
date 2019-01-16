@@ -39,8 +39,8 @@
 import requests
 
 # get请求 用户注册
-# data = {'mobilephone': '15666666666', 'pwd': '123456'}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/register',params=data)
+# datas = {'mobilephone': '15666666666', 'pwd': '123456'}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/register',params=datas)
 # print(resp.request.url)  # 请求的url
 # print(resp.request.body)  # 请求参数
 # print(resp.status_code)  # 响应码
@@ -48,8 +48,8 @@ import requests
 # print(resp.headers)  # 响应头部信息
 
 # get请求添加注册名(regname)
-# data = {'mobilephone': '15555555555', 'pwd': '123456', 'regname': 'luckytest'}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/register',params=data)
+# datas = {'mobilephone': '15555555555', 'pwd': '123456', 'regname': 'luckytest'}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/register',params=datas)
 # print(resp.request.url)
 # print(resp.request.body)
 # print(resp.status_code)
@@ -57,8 +57,8 @@ import requests
 # print(resp.headers)
 
 # post请求 用户注册 注册名(regname)是可以重复的？
-# data = {'mobilephone': '15777777777', 'pwd': '123456', 'regname': 'luckytest'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',data=data)
+# datas = {'mobilephone': '15777777777', 'pwd': '123456', 'regname': 'luckytest'}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',datas=datas)
 # print(resp.request.url)  # 请求url
 # print(resp.request.body)  # 请求参数
 # print(resp.request.headers)  # 请求headers
@@ -69,29 +69,29 @@ import requests
 # print(resp.cookies)  # 响应cookies
 # print(resp.headers)  # 响应headers
 
-# post请求 响应信息20110
-# data = {'mobilephone': '15777777777', 'pwd': '123456', 'regname': 'luckytest'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',data=data)
+# post请求 手机号码已被注册 响应信息20110
+# data = {"mobilephone": "15777777777", "pwd": "123456", "regname": "luckytest"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
-# post请求 响应信息20109
-# data = {'mobilephone': '157777', 'pwd': '123456', 'regname': 'luckytest'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',data=data)
+# post请求 手机号码格式不正确 响应信息20109
+# data = {"mobilephone": "157777", "pwd": "123456", "regname": "luckytest"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
-# post请求 响应信息20108
-# data = {'mobilephone': '15777777777', 'pwd': '123', 'regname': 'luckytest'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',data=data)
+# post请求 密码长度必须为6~18 响应信息20108
+# data = {"mobilephone": "15777777777", "pwd": "123", "regname": "luckytest"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
-# post请求 响应信息20103
-# data = {'mobilephone': '15777777777', 'pwd': '', 'regname': 'luckytest'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',data=data)
+# post请求 密码不能为空 响应信息20103
+# data = {"mobilephone": "15777777777", "pwd": "", "regname": "luckytest"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
-# post请求 响应信息20103
-# data = {'mobilephone': '15777777777', 'pwd': '', 'regname': 'luckytest'}
-# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register',data=data)
+# post请求 手机号不能为空 响应信息20103
+# data = {"mobilephone": "", "pwd": "123456", "regname": "luckytest"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
 # post请求 响应信息20102 服务器异常 挂了才能测

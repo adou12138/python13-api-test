@@ -39,7 +39,7 @@ request：函数：method url 位置传参，其他使用关键字传参！
 method：请求方法
 url：请求地址
 params：get url 请求方式-参数 Dictionary
-data：post 请求方式 Dictionary
+datas：post 请求方式 Dictionary
 json：JSON
 headers：
 cookies：
@@ -67,9 +67,9 @@ import requests
 #     file.write(resp.text)
 
 # 登录接口 传参 url
-# data = {'mobilephone': '15810447656', 'pwd': '123456'}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
-# # resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data) 会请求不到参数
+# datas = {'mobilephone': '15810447656', 'pwd': '123456'}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=datas)
+# # resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', datas=datas) 会请求不到参数
 # print('请求url', resp.request.url)
 # print('请求参数', resp.request.body)
 # print('响应码', resp.status_code)
@@ -79,7 +79,7 @@ import requests
 
 
 
-# 登录接口 post---表单传参---data
+# 登录接口 post---表单传参---datas
 data = {'mobilephone': '15810447656', 'pwd': '123456'}
 resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
 print('请求url', resp.request.url)

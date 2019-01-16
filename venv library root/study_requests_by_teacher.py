@@ -52,14 +52,14 @@ import requests
 
 
 # 登录接口 get ---url传参 ---params
-# data = {'mobilephone':'15810447656',"pwd":"123456"}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login',params=data)  # PARAMS url 传参
+# datas = {'mobilephone':'15810447656',"pwd":"123456"}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login',params=datas)  # PARAMS url 传参
 # print('请求url',resp.request.url)
 # print('请求参数',resp.request.body)
 # print('响应码', resp.status_code)
 # print('响应信息', resp.text)
 
-#登录接口 post ---表单传参 ---data
+#登录接口 post ---表单传参 ---datas
 data = {'mobilephone':'15810447656',"pwd":"123456"}
 resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login',data=data)
 print('请求url',resp.request.url)
