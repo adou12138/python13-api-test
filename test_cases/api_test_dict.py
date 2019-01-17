@@ -27,27 +27,28 @@ class TestApiMethod(unittest.TestCase):
 
     @data(*cases)
     def test_login(self, case):  # 测试登陆
-        print("开始执行第{}条用例".format(case.case_id, case.title))
-        print('url:', case.url)
-        print('data:', case.data)
-        print('method:', case.method)
-        print('expected:', case.expected)
-        result = ApiMethod().login(case.url, case.data, case.method)
+        print("开始执行第{}条用例".format(case['case_id'], case['title']))
+        print('url:', case['url'])
+        print('data:', case['data'])
+        print('method:', case['method'])
+        print('expected:', case['expected'])
+        result = ApiMethod().login(case['url'], case['data'], case['method'])
+        print('result:', result)
         try:
-            self.assertEqual(case.expected, result)
+            self.assertEqual(case['expected'], result)
             TestResult = "Pass"
         except AssertionError as e:
             TestResult = "Failed"
             print("断言出错了".format(e))
             raise e
         finally:
-            self.write.write_excel(case.case_id+1, 7, result)  # 写入测试实际结果
-            self.write.write_excel(case.case_id+1, 8, TestResult)  # 写入测试实际结果
+            self.write.write_excel(case['case_id']+1, 7, result)  # 写入测试实际结果
+            self.write.write_excel(case['case_id']+1, 8, TestResult)  # 写入测试实际结果
             print('登陆的结果：{}'.format(result))
 
     # def test_recharge(self):  # 测试充值
     #     pass
 
 
-if __name__=='__main__':  # 会自动的在当前文件里面加载test_文件开头的用例
+if __name__ == '__main__':  # 会自动的在当前文件里面加载test_文件开头的用例
     unittest.main()

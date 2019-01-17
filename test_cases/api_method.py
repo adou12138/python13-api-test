@@ -9,22 +9,20 @@ import requests
 
 class ApiMethod:
     '这是一个接口类'
-    def __init__(self):  # 定义接口地址
-        self.register_url = "http://test.lemonban.com/futureloan/mvc/api/member/register"
-        self.login_url = "http://test.lemonban.com/futureloan/mvc/api/member/login"
-        self.rechager_url = "http://test.lemonban.com/futureloan/mvc/api/member/recharge"
+    # def __init__(self):  # 定义接口地址
+    #     self.register_url = "http://test.lemonban.com/futureloan/mvc/api/member/register"
+    #     self.login_url = "http://test.lemonban.com/futureloan/mvc/api/member/login"
+    #     self.rechager_url = "http://test.lemonban.com/futureloan/mvc/api/member/recharge"
 
-    def login(self, data, method):  # api-sigin
-        # data = {"mobilephone": "15666666666", "pwd": "123456"}
+    def login(self, url, data, method):
         if method == "get":
-            resp = requests.get(self.login_url, params=data)
+            resp = requests.get(url, params=data)
         else:
-            resp = requests.post(self.login_url, data=data)
-        # resp = requests.get(self.login_url, params=data)
+            resp = requests.post(url, data=data)
         return resp.text
 
 if __name__ == "__main__":
-    re = ApiMethod().login({"mobilephone": "15666666666", "pwd": "123456"}, "post")
+    re = ApiMethod().login("http://test.lemonban.com/futureloan/mvc/api/member/login", {"mobilephone": "15666666666", "pwd": "123456"}, "post")
     print(re)
 
     # data = {"mobilephone": "15666666666", "pwd": "123456"}
