@@ -8,11 +8,24 @@
 # 书签 ctrl+f11
 ''''
 
+
+怎么封装get、post请求
 用wb的时候，把resp.txt换成resp.content http响应二进制内容
 所有的地址信息：
 http://47.107.168.87:8080/futureloan/mvc/api/member/login
 自己根据接口文档去更新接口名以及参数即可
-数据库的信息：
+
+数据库的信息二：
+接口地址：http://test.lemonban.com/futureloan/mvc/api/member/login
+ip:test.lemonban.com
+端口：3306
+用户名：test
+密码：test
+
+
+
+数据库的信息一：
+接口地址：http://47.107.168.87:8080/futureloan/mvc/api/member/login
 ip:47.107.168.87
 端口：3306
 用户名：python

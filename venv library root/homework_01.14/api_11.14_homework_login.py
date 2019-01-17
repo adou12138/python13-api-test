@@ -25,13 +25,17 @@
 
 import requests
 
+'''
+充值账户
+datas = {"mobilephone": "15666666666", "pwd": "123456"}
+'''
 # get请求 登陆  响应信息10001
-# datas = {"mobilephone": "15666666666", "pwd": "123456"}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login',params=datas)
+data = {"mobilephone": "15666666666", "pwd": "123456"}
+resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login',params=data, timeout=(0.06, 0.06))
 # print(resp.request.url)  # 请求的url
 # print(resp.request.body)  # 请求参数
-# print(resp.status_code)  # 响应码
-# print(resp.text)  # 响应信息
+print(resp.status_code)  # 响应码
+print(resp.text)  # 响应信息
 # print(resp.headers)  # 头部信息
 
 # post请求 用户登陆 响应信息10001
@@ -65,8 +69,8 @@ import requests
 # print(resp.text)  # 响应信息
 
 # post请求 电话为空 响应信息20103
-data = {"mobilephone": "", "pwd": "123456"}
-resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
-print(resp.text)  # 响应信息
+# data = {"mobilephone": "", "pwd": "123456"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
+# print(resp.text)  # 响应信息
 
 # post请求 响应信息20102 服务器异常 挂了才能测

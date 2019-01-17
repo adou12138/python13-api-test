@@ -126,20 +126,20 @@ import json
 # r.cookies['example_cookie_name']  # 获取指定cookies值：'example_cookie_value'
 
 # 传入制定cookies的值
-url = 'http://httpbin.org/cookies'
-cookies = dict(cookies_are='working')
-
-r = requests.get(url, cookies=cookies)
-print(r.text)  # '{"cookies": {"cookies_are": "working"}}'
-
-
-# Cookie 的返回对象为 RequestsCookieJar，它的行为和字典类似，但接口更为完整，适合跨域名跨路径使用。你还可以把 Cookie Jar 传到 Requests 中：
-jar = requests.cookies.RequestsCookieJar()
-jar.set('tasty_cookie', 'yum', domain='httpbin.org', path='/cookies')
-jar.set('gross_cookie', 'blech', domain='httpbin.org', path='/elsewhere')
-url = 'http://httpbin.org/cookies'
-r = requests.get(url, cookies=jar)
-print(r.text)  # '{"cookies": {"tasty_cookie": "yum"}}'
+# url = 'http://httpbin.org/cookies'
+# cookies = dict(cookies_are='working')
+#
+# r = requests.get(url, cookies=cookies)
+# print(r.text)  # '{"cookies": {"cookies_are": "working"}}'
+#
+#
+# # Cookie 的返回对象为 RequestsCookieJar，它的行为和字典类似，但接口更为完整，适合跨域名跨路径使用。你还可以把 Cookie Jar 传到 Requests 中：
+# jar = requests.cookies.RequestsCookieJar()
+# jar.set('tasty_cookie', 'yum', domain='httpbin.org', path='/cookies')
+# jar.set('gross_cookie', 'blech', domain='httpbin.org', path='/elsewhere')
+# url = 'http://httpbin.org/cookies'
+# r = requests.get(url, cookies=jar)
+# print(r.text)  # '{"cookies": {"tasty_cookie": "yum"}}'
 
 
 '''重定向'''
@@ -154,4 +154,20 @@ print(r.text)  # '{"cookies": {"tasty_cookie": "yum"}}'
 # print(req2.url)
 # print(req2.status_code)
 # print(req2.cookies)
+
+# sandbox payoneer
+url = 'https://pa-f-5-sandbox.azurewebsites.net/api/PARegisterForPayoneer?apuid='
+data = "luckytest18073a_505214b1"
+r = requests.get(url, params=data)
+print(r.text)
+print(r.content)
+print(r.status_code)
+
+
+
+
+
+
+
+
 

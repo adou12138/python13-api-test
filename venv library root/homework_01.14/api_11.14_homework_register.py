@@ -79,8 +79,13 @@ import requests
 # resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
-# post请求 密码长度必须为6~18 响应信息20108
+# post请求 密码长度必须为6~18（小于6位） 响应信息20108
 # data = {"mobilephone": "15777777777", "pwd": "123", "regname": "luckytest"}
+# resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
+# print(resp.text)  # 响应信息
+
+# post请求 密码长度必须为6~18（大于18位） 响应信息20108
+# data = {"mobilephone": "15777777777", "pwd": "1234567890123456789", "regname": "luckytest"}
 # resp = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/register', data=data)
 # print(resp.text)  # 响应信息
 
