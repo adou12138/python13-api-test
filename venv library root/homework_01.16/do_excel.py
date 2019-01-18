@@ -7,11 +7,6 @@
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
-# from week_7.class_unittest_test.test_config import ReadConfig
-# test_button = ReadConfig('test_case.conf').get_value('CASE', 'button')
-'''
-params=datas??
-'''
 
 
 def create_excel(excel_name):  # 创建一个excel
@@ -59,9 +54,9 @@ class DoExcel:
             row_data = {}  # 每一行数据存在这个子列表里面
             row_data['case_id'] = sheet.cell(row=i, column=1).value  # 存的是case_id
             row_data['title'] = sheet.cell(row=i, column=2).value  # 存的是title
-            row_data['url'] = sheet.cell(row=i, column=3).value  # 存的是a
-            row_data['data'] = sheet.cell(row=i, column=4).value  # 存的是b
-            row_data['method'] = sheet.cell(row=i, column=5).value
+            row_data['url'] = sheet.cell(row=i, column=3).value  # 存的是url
+            row_data['data'] = sheet.cell(row=i, column=4).value  # 存的是data
+            row_data['method'] = sheet.cell(row=i, column=5).value  # 存的是method
             row_data['expected'] = sheet.cell(row=i, column=6).value  # 存的是expected
             case.append(row_data)  # 读取完毕之后 把每一行的值存到这个test_data大列表里面去
         return case
@@ -98,69 +93,8 @@ class DoExcel:
         wb.save(self.excel_name)  # 保存数据
 
 
-# sheet.cell(row=3,column=4,value=9)#写入值的方法一
-# # sheet.cell(row=3,column=5).value='7777'#写入值的方法二
-# # wb.save('Python3.xlsx')
-
-
-
-#3. 定位单元格--取值
-# res=sheet.cell(row=3,column=4).value
-# print('获取到的值是：{}'.format(res))
-# print('------')
-# for i in range(1,sheet.max_column+1):
-#     for j in range(1,sheet.max_row+1):
-#         res=sheet.cell(row=i,column=j).value
-#         print('获取到的值是：{}'.format(res))
-#         # print('获取到的值的类型是：{}'.format(type(res)))
-# print('------')
-
-#4. 定位单元格 写值 一定要关闭excel才能写!
-# sheet.cell(row=3,column=4,value=9)#写入值的方法一
-# # sheet.cell(row=3,column=5).value='7777'#写入值的方法二
-# # wb.save('Python3.xlsx')
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-#print('------)
-
-#字符串--str
-# res=eval(sheet.cell(row=1,column=2).value)
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-# print('------')
-#列表--字符串 如果想变成原始的类型 就利用eval函数 进行转换
-# res=sheet.cell(row=1,column=2).value
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-# print('------')
-#字典--字符串
-# res=sheet.cell(row=1,column=4).value
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-# print('------')
-#float--floast
-# res=sheet.cell(row=2,column=4).value
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-# print('------')
-#int--int
-# res=sheet.cell(row=3,column=5).value
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-# print('------')
-
-#5. 获取最大行数和最大列数
-# print('行',sheet.max_row)
-# print('列',sheet.max_column)
-# print('获取到的值是：{}'.format(res))
-# print('获取到的值的类型是：{}'.format(type(res)))
-
 if __name__ == '__main__':
     # create_excel('luckytest.xlsx')
-    # cases = DoExcel('luckytest.xlsx', 'add', test_button).read_excel()
-    # print(cases)
-    # write = DoExcel('luckytest.xlsx', 'sub').write_excel(2, 6, 'pass')
-    # print(write)
     cases = DoExcel('../datas/luckytest.xlsx', 'login').read_excel()
     print(cases)
     print(type(cases))

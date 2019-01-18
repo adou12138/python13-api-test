@@ -7,6 +7,7 @@
 from openpyxl import Workbook
 from openpyxl import load_workbook
 
+
 # from week_7.class_unittest_test.test_config import ReadConfig
 # test_button = ReadConfig('test_case.conf').get_value('CASE', 'button')
 '''
@@ -41,30 +42,32 @@ class DoExcel:
         sheet = wb[self.excel_sheet_name]  # 定为表单
         # res = sheet.cell(row, col).value  # 定位单元格
 
-        # case = []
-        # for i in range(2, sheet.max_row + 1):
-        #     row_case = Cases()
-        #     row_case.case_id = sheet.cell(row=i, column=1).value
-        #     row_case.title = sheet.cell(row=i, column=2).value
-        #     row_case.url = sheet.cell(row=i, column=3).value
-        #     row_case.data = sheet.cell(row=i, column=4).value
-        #     row_case.method = sheet.cell(row=i, column=5).value
-        #     row_case.expected = sheet.cell(row=i, column=6).value
-        #     case.append(row_case)
-        # return case
-
-        case = []  # 所有的数据都存在这个大列表里面 适用于方法一和方法二
-        # 方法二：每一行数据存在一个字典里面
-        for i in range(2, sheet.max_row + 1):  # 行的范围从第二行开始
-            row_data = {}  # 每一行数据存在这个子列表里面
-            row_data['case_id'] = sheet.cell(row=i, column=1).value  # 存的是case_id
-            row_data['title'] = sheet.cell(row=i, column=2).value  # 存的是title
-            row_data['url'] = sheet.cell(row=i, column=3).value  # 存的是a
-            row_data['data'] = sheet.cell(row=i, column=4).value  # 存的是b
-            row_data['method'] = sheet.cell(row=i, column=5).value
-            row_data['expected'] = sheet.cell(row=i, column=6).value  # 存的是expected
-            case.append(row_data)  # 读取完毕之后 把每一行的值存到这个test_data大列表里面去
+        case = []
+        for i in range(2, sheet.max_row + 1):
+            row_case = Cases()
+            row_case.case_id = sheet.cell(row=i, column=1).value
+            row_case.title = sheet.cell(row=i, column=2).value
+            row_case.url = sheet.cell(row=i, column=3).value
+            row_case.data = eval(sheet.cell(row=i, column=4).value)
+            print(row_case.data)
+            print(type(row_case.data))
+            row_case.method = sheet.cell(row=i, column=5).value
+            row_case.expected = sheet.cell(row=i, column=6).value
+            case.append(row_case)
         return case
+
+        # case = []  # 所有的数据都存在这个大列表里面 适用于方法一和方法二
+        # 方法二：每一行数据存在一个字典里面
+        # for i in range(2, sheet.max_row + 1):  # 行的范围从第二行开始
+        #     row_data = {}  # 每一行数据存在这个子列表里面
+        #     row_data['case_id'] = sheet.cell(row=i, column=1).value  # 存的是case_id
+        #     row_data['title'] = sheet.cell(row=i, column=2).value  # 存的是title
+        #     row_data['url'] = sheet.cell(row=i, column=3).value  # 存的是a
+        #     row_data['data'] = sheet.cell(row=i, column=4).value  # 存的是b
+        #     row_data['method'] = sheet.cell(row=i, column=5).value
+        #     row_data['expected'] = sheet.cell(row=i, column=6).value  # 存的是expected
+        #     case.append(row_data)  # 读取完毕之后 把每一行的值存到这个test_data大列表里面去
+        # return case
 
         # if test_button == 'all':
         #     case = []
@@ -161,9 +164,10 @@ if __name__ == '__main__':
     # print(cases)
     # write = DoExcel('luckytest.xlsx', 'sub').write_excel(2, 6, 'pass')
     # print(write)
-    cases = DoExcel('../datas/luckytest.xlsx', 'login').read_excel()
+    cases = DoExcel('../datas/luckytest.xlsx', 'register').read_excel()
     print(cases)
     print(type(cases))
-    # write = DoExcel('../datas/luckytest.xlsx', 'login').write_excel(2, 8, 'pass')
+    # 不需要转json，直接字符串写入就可以了
+    # write = DoExcel('../datas/luckytest.xlsx', 'register').write_excel(2, 7, str({"status":0,"code":"20110","data":null,"msg":"手机号码已被注册"}))
     # print(write)
 

@@ -156,16 +156,18 @@ import json
 # print(req2.cookies)
 
 # sandbox payoneer
-url = 'https://pa-f-5-sandbox.azurewebsites.net/api/PARegisterForPayoneer?apuid='
-data = "luckytest18073a_505214b1"
-r = requests.get(url, params=data)
-print(r.text)
-print(r.content)
-print(r.status_code)
+# url = 'https://pa-f-5-sandbox.azurewebsites.net/api/PARegisterForPayoneer?apuid='
+# data = "luckytest18073a_505214b1"
+# r = requests.get(url, params=data)
+# print(r.text)
+# print(r.content)
+# print(r.status_code)
 
 
 
-
+import os
+with open(r'..\conf\test_api.conf', encoding='utf-8') as file:
+    file.readlines()
 
 
 

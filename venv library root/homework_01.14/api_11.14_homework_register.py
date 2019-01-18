@@ -39,7 +39,7 @@
 import requests
 
 # get请求 用户注册
-data = {"mobilephone": "15666666668", "pwd": "123456"}
+data = {"mobilephone": "15666666688", "pwd": "123456"}
 resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/register', params=data)
 print(resp.request.url)  # 请求的url
 print(resp.request.body)  # 请求参数
