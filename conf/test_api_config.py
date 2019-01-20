@@ -5,7 +5,7 @@
 
 # import configparser  # ConfigParser 配置类 专门来读取配置文件的
 from configparser import ConfigParser
-
+from common import contants
 # 配置文件：结尾 .ini、 .conf、 .config、 .properties、.xml
 
 # 配置文件一般是什么样的
@@ -70,6 +70,6 @@ if __name__ == '__main__':
     # res = eval(ReadConfig('test_api.conf').get_value('CASE', 'button'))
     # print(res)
     # print(type(res))
-    res2 = ReadConfig('test_api.conf').get_value('LOG', 'file_name')
+    res2 = ReadConfig(contants.api_conf_file).get_value('LOG', 'file_name')
     print(res2)
 

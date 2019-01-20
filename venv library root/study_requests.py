@@ -102,3 +102,4 @@ print('响应headers', resp.headers)
 
 # http://cn.python-requests.org/zh_CN/latest/user/quickstart.html  #url
 # https://www.cnblogs.com/ios9/p/9527939.html sql2017
+# www.json.org/json-zh.html

@@ -26,8 +26,6 @@ ip:test.lemonban.com
 用户名：test
 密码：test
 
-
-
 数据库的信息一：
 接口地址：http://47.107.168.87:8080/futureloan/mvc/api/member/login
 ip:47.107.168.87

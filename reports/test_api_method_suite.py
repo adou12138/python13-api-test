@@ -6,17 +6,16 @@
 
 import unittest
 import HTMLTestRunnerNew
-import os
-from test_cases.test_api_method import TestApiMethod
 
-# from week_7.class_unittest_test.do_excel import DoExcel
+from test_cases.test_api_method import TestApiMethod
+from common import contants
 
 suite = unittest.TestSuite()
 
 loader = unittest.TestLoader()
 suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))
 
-with open('../reports/luckytest.html', 'wb') as file:
+with open(contants.report_file, 'wb') as file:  # 引用common中的report地址
     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
                                             verbosity=2,
                                             title='API TEST',

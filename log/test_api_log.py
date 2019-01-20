@@ -5,13 +5,14 @@
 
 import logging
 # 导入配置文件
+from common import contants
 from conf.test_api_config import ReadConfig
-in_level = ReadConfig(r'..\conf\test_api.conf').get_value('LOG', 'in_level')
-out_level = ReadConfig(r'..\conf\test_api.conf').get_value('LOG', 'out_level')
-file_level = ReadConfig(r'..\conf\test_api.conf').get_value('LOG', 'file_level')
-file_name = ReadConfig(r'..\conf\test_api.conf').get_value('LOG', 'file_name')
-file_path = eval(ReadConfig(r'..\conf\test_api.conf').get_value('LOG', 'file_path'))
-data_formatter = ReadConfig(r'..\conf\test_api.conf').get_value('LOG', 'formatter')
+in_level = ReadConfig(contants.api_conf_file).get_value('LOG', 'in_level')
+out_level = ReadConfig(contants.api_conf_file).get_value('LOG', 'out_level')
+file_level = ReadConfig(contants.api_conf_file).get_value('LOG', 'file_level')
+file_name = ReadConfig(contants.api_conf_file).get_value('LOG', 'file_name')
+file_path = eval(ReadConfig(contants.api_conf_file).get_value('LOG', 'file_path'))
+data_formatter = ReadConfig(contants.api_conf_file).get_value('LOG', 'formatter')
 
 import os
 # current_path = os.getcwd()

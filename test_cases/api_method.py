@@ -5,6 +5,9 @@
 # 创建日期：2019/1/17 16:30
 # 文件IDE名称：PyCharm
 
+"""
+暂时不用了！！！
+"""
 import requests
 
 class ApiMethod:
