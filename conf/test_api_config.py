@@ -70,6 +70,9 @@ if __name__ == '__main__':
     # res = eval(ReadConfig('test_api.conf').get_value('CASE', 'button'))
     # print(res)
     # print(type(res))
-    res2 = ReadConfig(contants.api_conf_file).get_value('LOG', 'file_name')
+    res = ReadConfig(contants.api_conf_file)
+    res2 = res.get_value('LOG', 'file_name')
     print(res2)
+    res3 = res.get_value('URL', 'path_url')
+    print(res3)
 

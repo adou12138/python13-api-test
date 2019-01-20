@@ -9,6 +9,8 @@ from openpyxl import load_workbook
 
 from common import contants  # 引用路径地址
 
+from conf.test_api_config import ReadConfig  # 导入url配置
+
 # from week_7.class_unittest_test.test_config import ReadConfig
 # test_button = ReadConfig('test_case.conf').get_value('CASE', 'button')
 '''
@@ -33,7 +35,7 @@ class Cases:
 class DoExcel:
     '这是一个excel测试数据的类'
 
-    excel_file_name = None
+    # excel_file_name = None
 
     def __init__(self, excel_file_name):  #, test_button):  # 定义初始化函数
         try:
@@ -57,14 +59,15 @@ class DoExcel:
             row_case = Cases()
             row_case.case_id = sheet.cell(row=i, column=1).value
             row_case.title = sheet.cell(row=i, column=2).value
-            row_case.url = sheet.cell(row=i, column=3).value
-            row_case.data = eval(sheet.cell(row=i, column=4).value)
-            # print(row_case.data)  # 查看显示的是否是字典格式
-            # print(type(row_case.data))
+            # row_case.url = sheet.cell(row=i, column=3).value  # 没有配置url
+            row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + sheet.cell(row=i, column=3).value
+            # print(row_case.url)
+            # print(type(row_case.url))
+            row_case.data = sheet.cell(row=i, column=4).value
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
-            if type(case.extend) == int:
-                case.extend = str(case.extend)
+            if type(case.expected) == int:
+                case.expected = str(case.expected)
             case.append(row_case)  # 将case放到cases 列表里面
         return case
 
@@ -93,10 +96,10 @@ class DoExcel:
         # return case
 
     def write_excel(self, row, actual, result):  # 写入数据
-        sheet = self.workbook[self.excel_sheet_name]  #获取sheet
+        sheet = self.workbook[self.excel_sheet_name]  # 获取sheet
         sheet.cell(row, 7).value = actual  # 写入实际测试结果
         sheet.cell(row, 8).value = result  # 写入执行结果
-        self.workbook.save(filename=self.excel_file_name)  #保存数据
+        self.workbook.save(filename=self.excel_file_name)  # 保存数据
 
 # sheet.cell(row=3,column=4,value=9)#写入值的方法一
 # # sheet.cell(row=3,column=5).value='7777'#写入值的方法二
@@ -168,11 +171,11 @@ if __name__ == '__main__':
     cases_register = do_excel.read_excel("register")
     print(cases_register)
     # 不需要转json，直接字符串写入就可以了
-    write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "", "regname": "luckytest"}), "True")
-    print(write)
-    print("*"*50)
+    # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "", "regname": "luckytest"}), "True")
+    # print(write)
+    # print("*"*50)
     # do_excel = DoExcel(contants.excel_file)
     # cases_login = do_excel.read_excel("login")
     # print(cases_login)
-    # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}))
+    # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)

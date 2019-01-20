@@ -5,6 +5,8 @@
 # 2019/1/19 18:02
 
 import requests
+from common import contants
+from conf.test_api_config import ReadConfig
 
 class Request:
     "这个是一个request请求的类"

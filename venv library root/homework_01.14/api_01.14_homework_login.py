@@ -87,3 +87,4 @@ res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/m
 print(res1.status_code)
 print(res1.text)
 
+

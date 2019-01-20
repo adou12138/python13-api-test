@@ -16,6 +16,13 @@ from common.request import Request  # 导入api请求
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
+
+"""
+手机号码注册 电话号码数据库取值，名字随机字符
+1.数据库里面查最大的手机号+1
+2.case.data里面的手机号码给替换掉
+3.然后再去请求
+"""
 from log.test_api_log import MyLog
 my_log = MyLog()
 
@@ -23,8 +30,9 @@ my_log = MyLog()
 class TestApiMethod(unittest.TestCase):
     '这是测试接口的类'
     do_excel = DoExcel(contants.excel_file)  # 传入excel
-    cases_register = do_excel.read_excel("register")
     cases_login = do_excel.read_excel("login")
+    cases_register = do_excel.read_excel("register")
+
     request = Request()
     def setUp(self):
         # self.write_register = do_excel.write_excel("register")  # 创建一个对象写入
@@ -44,35 +52,37 @@ class TestApiMethod(unittest.TestCase):
         result = self.request.request(case.method, case.url, case.data)
         try:
             self.assertEqual(case.expected, result.text)
-            TestResult = "Pass"
+            self.do_excel.write_excel(case.case_id+1, result.text, "Pass")  # 写入测试实际结果
+            # TestResult = "Pass"
         except AssertionError as e:
-            TestResult = "Failed"
+            self.do_excel.write_excel(case.case_id+1, result.text, "Failed")  # 写入测试实际结果
+            # TestResult = "Failed"
             my_log.error("断言出错了".format(e))
             raise e
-        finally:
-            self.do_excel.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+        # finally:
+        #     self.do_excel.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+        #     my_log.info('注册的结果：{}'.format(result))
 
-            my_log.info('注册的结果：{}'.format(result))
-
-    # @data(*cases_login)
-    # def test_login(self, case):  # 测试登陆
-    #     my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-    #     my_log.info('url:{}'.format(case.url))
-    #     my_log.info('data:{}'.format(case.data))
-    #     my_log.info('method:{}'.format(case.method))
-    #     my_log.info('expected:{}'.format(case.expected))
-    #     result = self.request.request(case.method, case.url, case.data)
-    #     try:
-    #         self.assertEqual(case.expected, result.text)
-    #         TestResult = "Pass"
-    #     except AssertionError as e:
-    #         TestResult = "Failed"
-    #         my_log.error("断言出错了".format(e))
-    #         raise e
-    #     finally:
-    #         self.do_excel.write_excel(case.case_id+1, result.text)  # 写入测试实际结果
-    #         self.do_excel.write_excel(case.case_id+1, TestResult)  # 写入测试实际结果
-    #         my_log.info('登陆的结果：{}'.format(result))
+    @data(*cases_login)
+    def test_login(self, case):  # 测试登陆
+        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        my_log.info('url:{}'.format(case.url))
+        my_log.info('data:{}'.format(case.data))
+        my_log.info('method:{}'.format(case.method))
+        my_log.info('expected:{}'.format(case.expected))
+        result = self.request.request(case.method, case.url, case.data)
+        try:
+            self.assertEqual(case.expected, result.text)
+            self.do_excel.write_excel(case.case_id+1, result.text, "Pass")  # 写入测试实际结果
+            # TestResult = "Pass"
+        except AssertionError as e:
+            self.do_excel.write_excel(case.case_id+1, result.text, "Failed")  # 写入测试实际结果
+            # TestResult = "Failed"
+            my_log.error("断言出错了".format(e))
+            raise e
+        # finally:
+        #     self.do_excel.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+        #     my_log.info('登陆的结果：{}'.format(result))
 
     # def test_recharge(self):  # 测试充值
     #     pass
