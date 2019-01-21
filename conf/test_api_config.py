@@ -75,4 +75,7 @@ if __name__ == '__main__':
     print(res2)
     res3 = res.get_value('URL', 'path_url')
     print(res3)
+    res4 = eval(res.get_value('MaxMobilePhone','mobilephone'))
+    print(res4)
+    print(type(res4))
 

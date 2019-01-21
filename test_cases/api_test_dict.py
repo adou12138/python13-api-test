@@ -6,7 +6,7 @@
 # 文件IDE名称：PyCharm
 
 import unittest
-from common.do_excel import DoExcel  # 导入excel
+from common.do_excel_study import DoExcel  # 导入excel
 from test_cases.api_method import ApiMethod  # 导入api接口
 
 from ddt import ddt, data

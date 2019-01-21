@@ -10,8 +10,6 @@ from openpyxl import load_workbook
 from common import contants  # 引用路径地址
 
 from conf.test_api_config import ReadConfig  # 导入url配置
-data_max_mobilephone = eval(ReadConfig(contants.api_conf_file).get_value('MaxMobilePhone','mobilephone'))  # 数据库最大电话号码
-import json
 
 # from week_7.class_unittest_test.test_config import ReadConfig
 # test_button = ReadConfig('test_case.conf').get_value('CASE', 'button')
@@ -39,7 +37,7 @@ class DoExcel:
 
     # excel_file_name = None
 
-    def __init__(self, excel_file_name, excel_sheet_name):  #, test_button):  # 定义初始化函数
+    def __init__(self, excel_file_name):  #, test_button):  # 定义初始化函数
         try:
             # 操作的文件
             self.excel_file_name = excel_file_name
@@ -50,38 +48,22 @@ class DoExcel:
             # 文件未找到异常处理
             print('{0} not found,please check file path', format(excel_file_name))
             raise e
-        self.excel_sheet_name = excel_sheet_name
         # self.test_button = test_button
 
-    def read_excel(self):  # 读取数据
-        sheet = self.workbook[self.excel_sheet_name]  # 定为表单
+    def read_excel(self, excel_sheet_name):  # 读取数据
+        self.excel_sheet_name = excel_sheet_name
+        sheet = self.workbook[excel_sheet_name]  # 定为表单
 
         case = []
         for i in range(2, sheet.max_row + 1):
             row_case = Cases()
             row_case.case_id = sheet.cell(row=i, column=1).value
             row_case.title = sheet.cell(row=i, column=2).value
-
             # row_case.url = sheet.cell(row=i, column=3).value  # 没有配置url
             row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + sheet.cell(row=i, column=3).value
             # print(row_case.url)
             # print(type(row_case.url))
-
-            # row_case.data = sheet.cell(row=i, column=4).value  # 没有做电话号码最大化判断
-            # print(type(row_case.data))  # 字符串
-
-            data_old = eval(sheet.cell(row=i, column=4).value)
-            # mobilephone = data_old['mobilephone']
-            # print(mobilephone)
-            # print(type(mobilephone))
-            mobilephone = data_max_mobilephone+1
-            # print(mobilephone)
-            # print(type(mobilephone))
-            data_old['mobilephone'] = str(mobilephone)
-            row_case.data = json.dumps(data_old)
-            # print(row_case.data)
-            # print(type(row_case.data))
-
+            row_case.data = sheet.cell(row=i, column=4).value
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
             # if type(case.expected) == int:
@@ -119,7 +101,60 @@ class DoExcel:
         sheet.cell(row, 8).value = result  # 写入执行结果
         self.workbook.save(filename=self.excel_file_name)  # 保存数据
 
+# sheet.cell(row=3,column=4,value=9)#写入值的方法一
+# # sheet.cell(row=3,column=5).value='7777'#写入值的方法二
+# # wb.save('Python3.xlsx')
 
+#3. 定位单元格--取值
+# res=sheet.cell(row=3,column=4).value
+# print('获取到的值是：{}'.format(res))
+# print('------')
+# for i in range(1,sheet.max_column+1):
+#     for j in range(1,sheet.max_row+1):
+#         res=sheet.cell(row=i,column=j).value
+#         print('获取到的值是：{}'.format(res))
+#         # print('获取到的值的类型是：{}'.format(type(res)))
+# print('------')
+
+#4. 定位单元格 写值 一定要关闭excel才能写!
+# sheet.cell(row=3,column=4,value=9)#写入值的方法一
+# # sheet.cell(row=3,column=5).value='7777'#写入值的方法二
+# # wb.save('Python3.xlsx')
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
+#print('------)
+
+#字符串--str
+# res=eval(sheet.cell(row=1,column=2).value)
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
+# print('------')
+#列表--字符串 如果想变成原始的类型 就利用eval函数 进行转换
+# res=sheet.cell(row=1,column=2).value
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
+# print('------')
+#字典--字符串
+# res=sheet.cell(row=1,column=4).value
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
+# print('------')
+#float--floast
+# res=sheet.cell(row=2,column=4).value
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
+# print('------')
+#int--int
+# res=sheet.cell(row=3,column=5).value
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
+# print('------')
+
+#5. 获取最大行数和最大列数
+# print('行',sheet.max_row)
+# print('列',sheet.max_column)
+# print('获取到的值是：{}'.format(res))
+# print('获取到的值的类型是：{}'.format(type(res)))
 
 if __name__ == '__main__':
     # create_excel('luckytest.xlsx')
@@ -132,7 +167,9 @@ if __name__ == '__main__':
     # cases = DoExcel(contants.excel_file, 'register').read_excel()
     # print(cases)
     # print(type(cases))
-
+    do_excel = DoExcel(contants.excel_file)
+    cases_register = do_excel.read_excel("register")
+    print(cases_register)
     # 不需要转json，直接字符串写入就可以了
     # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "", "regname": "luckytest"}), "True")
     # print(write)
@@ -142,10 +179,3 @@ if __name__ == '__main__':
     # print(cases_login)
     # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
-
-    cases_register = DoExcel(contants.excel_file, "register").read_excel()
-    print(cases_register)
-    # DoExcel(contants.excel_file, "register").write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
-    # print("*"*50)
-    # cases_login = DoExcel(contants.excel_file,"login").read_excel()
-    # print(cases_login)

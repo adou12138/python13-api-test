@@ -166,10 +166,60 @@ import json
 
 
 import os
-with open(r'..\conf\test_api.conf', encoding='utf-8') as file:
-    file.readlines()
+# with open(r'..\conf\test_api.conf', encoding='utf-8') as file:
+#     file.readlines()
+
+# data = {"mobilephone": "15777777777", "pwd": "123456", "regname": "luckytest"}
+# print(data['mobilephone'])
+# data['mobilephone']='158'
+# print(data)
+# mobilephone =data['mobilephone']
+# print(mobilephone)
+# data_max_mobilephone = '15'
 
 
+# if int(mobilephone) < int(data_max_mobilephone):
+#     mobilephone = int(data_max_mobilephone) + 1
+#     print(mobilephone)
+#     data['mobilephone'] = str(mobilephone)
+#     really_data = data
+#     print(really_data)
+# else:
+#     really_data =11
+#     print(really_data)
 
+#     row_case.data_old['mobilephone'] = mobilephone
+#     row_case = row_case.data_old
+#     print(row_case)
+# else:
+#     pass
 
+import pymysql
+"""
+接口地址：http://test.lemonban.com/futureloan/mvc/api/member/login
+ip:test.lemonban.com
+端口：3306
+用户名：test
+密码：test
+"""
 
+# db= pymysql.connect(host="test.lemonban.com",user="test",
+#     password="test",db="test",port=3306)  # 数据库连接参数
+
+db= pymysql.connect(host="47.107.168.87",user="python",
+    password="python666",db="test",port=3306)  # 数据库连接参数
+
+cur = db.cursor()  # 获取操作游标
+sql = "select * from member"
+
+try:
+    cur.execute(sql)  # 执行sq语句
+    # db.commit()  # 改变数据库才需要commit
+    result = cur.fetchall()  # 获取查询所有记录
+    print(result)
+    print("Id", "MobilePhone")
+
+except Exception as e:
+    raise e
+finally:
+    db.close()
