@@ -5,6 +5,12 @@
 # 创建日期：2019/1/21 16:40
 # 文件IDE名称：PyCharm
 
+"""
+mysql
+https://blog.csdn.net/smalltankpy/article/details/76064251
+https://blog.csdn.net/kuaileboy1989/article/details/42969317
+"""
+
 import pymysql
 
 class MSSQL:
