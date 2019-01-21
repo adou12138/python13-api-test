@@ -10,11 +10,10 @@ mysql
 https://blog.csdn.net/smalltankpy/article/details/76064251
 https://blog.csdn.net/kuaileboy1989/article/details/42969317
 """
-
 import pymysql
 
 class MSSQL:
-
+    '这个是操作mysql的类'
     def __init__(self, host, user, password, db, port):
         self.host = host
         self.user = user

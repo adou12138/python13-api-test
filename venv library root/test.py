@@ -1,5 +1,5 @@
 # coding: utf-8
-# 当前项目的名称: python13-api-test 
+# 当前项目的名称: homework_01.19
 # 新文件名称：test 
 # 当前登录名：LuckyLu
 # 创建日期：2019/1/15 13:40
@@ -206,20 +206,46 @@ ip:test.lemonban.com
 # db= pymysql.connect(host="test.lemonban.com",user="test",
 #     password="test",db="test",port=3306)  # 数据库连接参数
 
-db= pymysql.connect(host="47.107.168.87",user="python",
-    password="python666",db="test",port=3306)  # 数据库连接参数
+# db = pymysql.connect(host="47.107.168.87", user="python", password="python666", db="test", port=3306)  # 数据库连接参数
 
-cur = db.cursor()  # 获取操作游标
-sql = "select * from member"
+# cur = db.cursor()  # 获取操作游标
+# sql = "select * from member"
+#
+# try:
+#     cur.execute(sql)  # 执行sq语句
+#     # db.commit()  # 改变数据库才需要commit
+#
+#     # print(cur.rowcount)
+#     # print(cur.fetchall())
+#
+#     result = cur.fetchall()  # 获取查询所有记录
+#     print(result)
+#     print("Id", "MobilePhone")
+#
+# except Exception as e:
+#     raise e
+# finally:
+#     db.close()
+#
+# import pymysql
 
-try:
-    cur.execute(sql)  # 执行sq语句
-    # db.commit()  # 改变数据库才需要commit
-    result = cur.fetchall()  # 获取查询所有记录
-    print(result)
-    print("Id", "MobilePhone")
+# 连接数据库
 
-except Exception as e:
-    raise e
-finally:
-    db.close()
+# 查询数据库版本
+# db = pymysql.connect(host="47.107.168.87", user="python", password="python666", db="test", port=3306)
+# # 使用 cursor() 方法创建一个游标对象 cursor
+# cursor = db.cursor()
+# # 使用 execute()  方法执行 SQL 查询
+# cursor.execute("SELECT VERSION()")
+# # 使用 fetchone() 方法获取单条数据.
+# data = cursor.fetchone()
+# print("Database version : %s " % data)
+# # 关闭数据库连接
+# db.close()
+
+db = pymysql.connect(host="test.lemonban.com", user="test", password="test", db="test", port=3306)  # 数据库连接参数
+cursor = db.cursor()
+cursor.execute("SELECT * FROM future.member")
+data = cursor.fetchall()
+print(data)
+db.close()
