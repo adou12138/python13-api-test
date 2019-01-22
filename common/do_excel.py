@@ -159,3 +159,7 @@ if __name__ == '__main__':
     # print(cases_recharge)
     # DoExcel(contants.excel_file, "recharge").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
+    cases_add = DoExcel(contants.excel_file, "add").read_excel()
+    print(cases_add)
+    # DoExcel(contants.excel_file, "add").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
+    # print("*"*50)

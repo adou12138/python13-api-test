@@ -12,8 +12,6 @@ from ddt import ddt, data
 from common.do_excel import DoExcel  # 导入excel
 from common.request import Request  # 导入api请求
 
-
-
 import json
 from common.mysql import MysqlUtil
 import warnings  # 导入warning库 忽略 ResourceWarning: unclosed file <_io.TextIOWrapper
@@ -40,6 +38,7 @@ class TestApiMethod(unittest.TestCase):
     cases_login = DoExcel(contants.excel_file, "login").read_excel()
     cases_recharge = DoExcel(contants.excel_file, "recharge").read_excel()
     cases_withdraw = DoExcel(contants.excel_file, "withdraw").read_excel()
+    cases_add = DoExcel(contants.excel_file, "add").read_excel()
 
     @classmethod  # 每个测试类里面去运行的操作都放到类方法里面
     def setUpClass(cls):  # 为什么用类方法？ 整个类只执行一次！
@@ -51,7 +50,7 @@ class TestApiMethod(unittest.TestCase):
         self.write_login = DoExcel(contants.excel_file, "login")
         self.write_recharge = DoExcel(contants.excel_file, "recharge")
         self.write_withdraw = DoExcel(contants.excel_file, "withdraw")
-
+        self.write_add = DoExcel(contants.excel_file, "add")
         my_log.info("开始执行用例")
 
     def tearDown(self):
@@ -151,6 +150,25 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
+
+    @data(*cases_add)
+    def test_add(self, case):  # 测试创建标的
+        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        my_log.info('url:{}'.format(case.url))
+        my_log.info('data:{}'.format(case.data))
+        my_log.info('method:{}'.format(case.method))
+        my_log.info('expected:{}'.format(case.expected))
+        result = self.request.request(case.method, case.url, case.data)
+        try:
+            self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
+            TestResult = "Pass"
+        except AssertionError as e:
+            TestResult = "Failed"
+            my_log.error("断言出错了".format(e))
+            raise e
+        finally:
+            self.write_add.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
 

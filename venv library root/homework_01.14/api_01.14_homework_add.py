@@ -36,6 +36,9 @@ loanDateType 只能为 0,2,4
 20109:参数错误：请根据参数类型对应输入， 数值类型只能输入数字
 数据	data	object
 
+
+
+
 '''
 
 import requests
@@ -44,112 +47,277 @@ import requests
 创建标的 借款用户
 datas = {"mobilephone": "15777777777", "pwd": "123456"}
 <RequestsCookieJar[<Cookie JSESSIONID=60B5CACF93F2F7428C8280925DF29038 for test.lemonban.com/futureloan>]>
+data = {"memberId": 1114425, "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+
 '''
 
 # get请求 未登陆直接创建  响应信息null
-data = {"memberId":1114425, "title":"lucyktest1", "amount":10000, "loanRate":10.0, "loanTerm":6, "loanDateType":0, "repaymemtWay":4,
-        "biddingDays":1, "mobilephone": "15777777777", "amount": 123}
-resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data)
-print(resp.status_code)  # 响应码
-print(resp.text)  # 响应信息
+# data = {"memberId": 1114425, "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data)
+# print(resp.status_code)  # 响应码
+# print(resp.text)  # 响应信息
 
 
-# get请求 登陆获取cookies充值  响应信息 10001
-data = {"mobilephone": "15666666666", "pwd": "123456"}
-resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
-print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-get_cookies = resp1.cookies
-print(get_cookies)
+# 加标成功
+session = requests.session()
+session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/member/login', params={"mobilephone": "15777777777", "pwd": "123456"})
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 传入cookies值 取现
-# data = {"mobilephone": "15666666666", "amount": 51}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 memberid为空 响应信息 20103
+# data = {"memberId": "", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 参数错误：手机号不能为空 响应信息20103
-# data = {"mobilephone": None, "amount": None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 title为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 此手机号对应的会员不存在 响应信息20104
-# data = {"mobilephone": "15999999999", "amount": 99.99}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 amount为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": '', "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 手机格式不正确 响应信息20109
-# data = {"mobilephone": "156666", "amount": 99.99}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 loanRate为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": '', "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 请输入金额 响应信息20115
-# data = {"mobilephone": "15666666666", "amount": None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 loanTerm为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": '',
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 输入金额的金额小数不能超过两位 响应信息20116
-# data = {"mobilephone": "15666666666", "amount": 99.999}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 loanDateType为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": '', "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 请输入范围在 0 到 50 万之间的正数金额（510000） 响应信息20117
-# data = {"mobilephone": "15666666666", "amount": 510000}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 repaymemtWay为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": '', "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 请输入范围在 0 到 50 万之间的正数金额（-1） 响应信息20117
-# data = {"mobilephone": "15666666666", "amount": -1}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：参数不能为空 biddingDays为空 响应信息 20103
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": ''}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 请输入数字 响应信息20118
-# data = {"mobilephone": "15666666666", "amount": "123asd"}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：用户ID memberId 不存在该会员
+# data = {"memberId": "563434", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 请输入数字 响应信息20118
-# data = {"mobilephone": "15666666666", "amount": "！@#￥%"}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误：用户ID memberId 必须否正整数 memberId: -1
+# data = {"memberId": "-1", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
-# 余额不足，请修改提现额度 响应信息20119
-data = {"mobilephone": "15666666666", "amount": "500000"}
-resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-print(resp2.text)
+"""
+# !!!! 参数错误：用户ID memberId 必须否正整数 memberId: 0 !!!
+data = {"memberId": "0", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+"""
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 memberId=abc
+# data = {"memberId": "abc", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 memberId=##$@%
+# data = {"memberId": "###@$", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 amount=abc
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": "abc", "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 amount=#$@#%
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": "#$@#%", "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款金额 amount 必须为大于 1000 并能被 100 整除的正整数 amount=-1
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": -1, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款金额 amount 必须为大于 1000 并能被 100 整除的正整数 amount=0
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 0, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+
+# 参数错误：借款金额 amount 必须为大于 1000 并能被 100 整除的正整数 amount=10
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款金额 amount 必须为大于 1000 并能被 100 整除的正整数 amount=99
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 99, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款金额 amount 必须为大于 1000 并能被 100 整除的正整数 amount=101
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 101, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanRat=abc
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 'abc', "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanRat=###%%^
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": '###%%^', "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanRat=-1
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": -1, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanRat=0
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanRat=25
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 25, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 加标成功 loanRat=24
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：loanTerm=999
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 999,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanTerm=dsf
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 'dsf',
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：请根据参数类型对应输入， 数值类型只能输入数字 loanTerm=￥@#%
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": '￥@#%',
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款日期类型 loanDateType=@#%@#%
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": '@#%@#%', "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款日期类型 loanDateType=abc
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 'abc', "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+"""
+# 参数错误：借款日期类型 loanDateType=-1 异常
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": -1, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('got', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+"""
+
+# 参数错误：借款日期类型 loanDateType=1
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 1, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 加标成功 loanDateType=0
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 加标成功 loanDateType=2
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 2, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 加标成功 loanDateType=4
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 4, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：借款日期类型 loanDateType=abc
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+"""
+# 参数错误：借款日期类型 loanDateType=abc
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+ 
+# 参数错误：借款日期类型 loanDateType=abc
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+
+# 参数错误：借款日期类型 loanDateType=abc
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+
+# 参数错误：借款日期类型 loanDateType=abc
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
 
 
 
 
-
-
-
-
-
-
-# 服务器异常 响应信息20102 服务器挂了
-
-
-# post请求 登陆获取cookies充值  响应信息10001
-# data = {'mobilephone': '15666666666', 'pwd': 123456}
-# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
-# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-# print(resp1.text)
-# get_cookies = resp1.cookies
-#
-# # 传入cookies值充值
-# data = {'mobilephone': '15666666666', 'amount': 123}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
-
-
-# post请求 用户登陆 响应信息10001 金额传入字符串
-# datas = {'mobilephone': '15666666666', 'pwd': '123456'}
-# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', datas=datas)
-# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-# get_cookies = resp1.cookies
-# print(get_cookies)
-#
-# # 传入cookies值充值
-# datas = {'mobilephone': '15666666666', 'amount': 250000}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', datas=datas, cookies=get_cookies)
-# print(resp2.text)
-
+"""

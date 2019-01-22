@@ -2,8 +2,27 @@
 # python13-api-test 
 # test_case 
 # shen 
-# 2019/1/15 21:09 
+# 2019/1/15 21:09
 
+"""
+bug 1：
+add 模块 memberid='0' 抛出：
+{"status":0,"code":"20102","data":null,
+"msg":"nested exception is org.apache.ibatis.exceptions.TooManyResultsException: Expected one result (or null) to be returned by selectOne(), but found: 4243"}
+bug 2：
+recharge & withdraw使用不同的账号进行操作，第一条用例测试失败，登录 != 充值成功
+bug 3:
+add 模块 loanTerm=999 抛出：
+{"status":0,"code":"20102","data":null,
+"msg":"\n### Error updating database.  Cause: com.mysql.jdbc.MysqlDataTruncation: Data truncation: Out of range value for column 'LoanTerm' at row 1\n### The error may involve com.lemon.futureloan.dao.LoanMapper.add-Inline\n### The error occurred while setting parameters\n### SQL: insert into loan   ( memberId      ,title      ,amount      ,loanRate       ,loanTerm      ,loanDateType      ,repaymemtWay      ,biddingDays      ,status   )  values   ( ?      ,?      ,?      ,?      ,?      ,?      ,?      ,biddingDays      ,?   )\n### Cause: com.mysql.jdbc.MysqlDataTruncation: Data truncation: Out of range value for column 'LoanTerm' at row 1\n; SQL []; Data truncation: Out of range value for column 'LoanTerm' at row 1; nested exception is com.mysql.jdbc.MysqlDataTruncation: Data truncation: Out of range value for column 'LoanTerm' at row 1"}
+bug 4:
+add 模块 loanDateType=-1 抛出：
+<html><head><title>Apache Tomcat/6.0.53 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 501 - Method GOT is not implemented by this servlet for this URI </h1><HR size="1" noshade="noshade"><p><b>type</b> Status report</p><p><b>message</b> <u>Method GOT is not implemented by this servlet for this URI </u></p><p><b>description</b> <u>The server does not support the functionality needed to fulfill this request.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.53</h3></body></html>
+
+
+
+
+"""
 
 # 书签 ctrl+f11
 ''''
