@@ -11,7 +11,7 @@ from common import contants  # 引用路径地址
 
 from conf.test_api_config import ReadConfig  # 导入url配置
 data_max_mobilephone = eval(ReadConfig(contants.api_conf_file).get_value('MaxMobilePhone','mobilephone'))  # 数据库最大电话号码
-import json
+
 
 # from week_7.class_unittest_test.test_config import ReadConfig
 # test_button = ReadConfig('test_case.conf').get_value('CASE', 'button')
@@ -36,8 +36,7 @@ class Cases:
 
 class DoExcel:
     '这是一个excel测试数据的类'
-
-    # excel_file_name = None
+    excel_file_name = None
 
     def __init__(self, excel_file_name, excel_sheet_name):  #, test_button):  # 定义初始化函数
         try:
@@ -63,13 +62,15 @@ class DoExcel:
             row_case.title = sheet.cell(row=i, column=2).value
 
             # row_case.url = sheet.cell(row=i, column=3).value  # 没有配置url
-            row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + sheet.cell(row=i, column=3).value
+            row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + str(sheet.cell(row=i, column=3).value)
             # print(row_case.url)
             # print(type(row_case.url))
 
-            # row_case.data = sheet.cell(row=i, column=4).value  # 没有做电话号码最大化判断
+            row_case.data = sheet.cell(row=i, column=4).value
             # print(type(row_case.data))  # 字符串
 
+            """配置文件-手机号码最大
+            import json
             data_old = eval(sheet.cell(row=i, column=4).value)
             # mobilephone = data_old['mobilephone']
             # print(mobilephone)
@@ -81,6 +82,7 @@ class DoExcel:
             row_case.data = json.dumps(data_old)
             # print(row_case.data)
             # print(type(row_case.data))
+            """
 
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
@@ -143,9 +145,17 @@ if __name__ == '__main__':
     # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
 
-    cases_register = DoExcel(contants.excel_file, "register").read_excel()
-    print(cases_register)
+    # cases_register = DoExcel(contants.excel_file, "register").read_excel()
+    # print(cases_register)
     # DoExcel(contants.excel_file, "register").write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print("*"*50)
     # cases_login = DoExcel(contants.excel_file,"login").read_excel()
     # print(cases_login)
+    cases_recharge = DoExcel(contants.excel_file, "recharge").read_excel()
+    print(cases_recharge)
+    # DoExcel(contants.excel_file, "recharge").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
+    # print("*"*50)
+    # cases_recharge = DoExcel(contants.excel_file, "withdraw").read_excel()
+    # print(cases_recharge)
+    # DoExcel(contants.excel_file, "recharge").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
+    # print("*"*50)

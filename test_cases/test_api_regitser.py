@@ -63,7 +63,7 @@ class TestApiMethod(unittest.TestCase):
 
     mysql = MysqlUtil()
     sql = "select max(mobilephone) from future.member"
-    max = mysql.fetch_one(sql)
+    max = mysql.fetch_one(sql) [0] # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
     print(max[0])
 
     @data(*cases_register)

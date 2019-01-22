@@ -7,43 +7,51 @@
 
 # requirement
 '''
-接口地址：member/withdraw
-请求方式：GET/POST
+接口地址：/loan/add 请求方式：GET/POST
 
 参数	变量名	类型	说明	是否必填
-手机号	mobilephone	String	取现人的手机号	是
-充值额度	amount	Double	0 到 50 万之间的正数金额，最多精确到到
-小数点后两位。	是
+用户 ID	memberId	int	用户的memberid	是
+标题	title	string		是
+借款金额	amount	double		是
+年利率	loanRate	double	如年化 18.0%，存储为 18.0	是
+借款期限	loanTerm	int	如 6 个月为 6，30 天为 30	是
+借款期限类型	loanDateType	int	借款期限单位	0- 按月 2- 按天
+4-按周	是
+还款方式	repaymemtWay	int	4-一次性	5 按月等额本息 10 按
+月等额本息线下 11 按月付息到期还本	是
+竞标天数	biddingDays	int	1-10 天	是
 
 结果说明
 参数	变量名	类型	说明
 结果	status	string	接口执行状态，1 表示成功 0 表示异常
-返回码	code:msg	string	10001：成功
+返回码	code	string	10001：成功
 20102：服务器异常
 20103：参数错误：参数不能为空
-20104：此手机号对应的会员不存在
-20109：手机格式不正确
-20115：请输入金额
-20116：输入金额的金额小数不能超过两位
-20117：请输入范围在 0 到 50 万之间的正数金额
-20118：请输入数字
-20119: 余额不足，请修改提现额度
+20104：参数错误：用户ID memberId 必须否正整数
+20105：不存在该会员
+20106：参数错误：借款金额 amount 必须为大于 1000 并能被 100 整除的正整数
+20107：参数错误：借款利率 loanRate 值必须大于 0 小于或等于 24
+20108: 参 数 错 误 ： 借 款 日 期 类 型
+loanDateType 只能为 0,2,4
+20109:参数错误：请根据参数类型对应输入， 数值类型只能输入数字
+数据	data	object
 
 '''
 
 import requests
 
 '''
-取现账户
-datas = {"mobilephone": "15666666666", "pwd": "123456"}
+创建标的 借款用户
+datas = {"mobilephone": "15777777777", "pwd": "123456"}
 <RequestsCookieJar[<Cookie JSESSIONID=60B5CACF93F2F7428C8280925DF29038 for test.lemonban.com/futureloan>]>
 '''
 
-# get请求 未登陆直接取现  响应信息null
-# data = {"mobilephone": "15666666666", "amount": 123}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data)
-# print(resp.status_code)  # 响应码
-# print(resp.text)  # 响应信息
+# get请求 未登陆直接创建  响应信息null
+data = {"memberId":1114425, "title":"lucyktest1", "amount":10000, "loanRate":10.0, "loanTerm":6, "loanDateType":0, "repaymemtWay":4,
+        "biddingDays":1, "mobilephone": "15777777777", "amount": 123}
+resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data)
+print(resp.status_code)  # 响应码
+print(resp.text)  # 响应信息
 
 
 # get请求 登陆获取cookies充值  响应信息 10001

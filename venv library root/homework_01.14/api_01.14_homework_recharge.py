@@ -45,16 +45,16 @@ datas = {"mobilephone": "15666666666", "pwd": "123456"}
 
 
 # get请求 登陆获取cookies充值  响应信息 10001
-data = {"mobilephone": "15666666666", "pwd": "123456"}
-resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
-print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-get_cookies = resp1.cookies
-print(get_cookies)
+# data = {"mobilephone": "15666666666", "pwd": "123456"}
+# resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
+# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
+# get_cookies = resp1.cookies
+# print(get_cookies)
 #
 # # 传入cookies值充值
-data = {"mobilephone": "15666666668", "amount": 51}
-resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies, timeout=(0.06, 0.06))
-print(resp2.text)
+# data = {"mobilephone": "15666666668", "amount": 51}
+# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies, timeout=(0.06, 0.06))
+# print(resp2.text)
 
 # 请输入范围在 0 到 50 万之间的正数金额（510000） 响应信息20117
 # data = {"mobilephone": "15666666666", "amount": 510000}
@@ -127,6 +127,15 @@ print(resp2.text)
 #
 # # 传入cookies值充值
 # datas = {'mobilephone': '15666666666', 'amount': 250000}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', datas=datas, cookies=get_cookies)
+# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', datas=datas, cookies=get_cookies),
 # print(resp2.text)
 
+
+data = {"mobilephone": "15666666666", "amount": 123}
+# resp2 = requests.session('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data={"mobilephone": "15666666666", "pwd": "123456"})
+# print(resp2.text)
+
+session = requests.session()
+session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/login', data={"mobilephone": "15666666666", "pwd": "123456"})
+resp2 = session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data)
+print(resp2.text)
