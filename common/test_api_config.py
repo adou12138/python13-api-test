@@ -46,37 +46,47 @@ class ReadConfig:
     '这个是一个读取配置文件的类'
 
     def __init__(self, file):
-        self.cf = ConfigParser()  # 为什么要赋值给self.cf 方便后面的方法调用
-        self.cf.read(file, encoding='utf-8')
+        self.config = ConfigParser()  # 为什么要赋值给self.cf 方便后面的方法调用
+        self.config.read(file, encoding='utf-8')
+        self.config.read(contants.global_api_conf_file, encoding='utf-8')  # 先加载开关
+        open = self.config.getboolean('Switch', 'open')
+
+        if open:
+            self.config.read(contants.test_api_conf_file, encoding='utf-8')  # open是True
+        else:
+            self.config.read(contants.test_api2_conf_file, encoding='utf-8')  # open是False
 
     def get_value(self, section, option):
 
-        return self.cf.get(section, option)
+        return self.config.get(section, option)
 
     def get_int(self, section, option):
 
-        return self.cf.getint(section, option)
+        return self.config.getint(section, option)
 
     def get_float(self, section, option):
 
-        return self.cf.getfloat(section, option)
+        return self.config.getfloat(section, option)
 
     def get_boolean(self, section, option):
 
-        return self.cf.getboolean(section, option)
+        return self.config.getboolean(section, option)
 
 
 if __name__ == '__main__':
     # res = eval(ReadConfig('test_api.conf').get_value('CASE', 'button'))
     # print(res)
     # print(type(res))
-    res = ReadConfig(contants.api_conf_file)
-    res2 = res.get_value('LOG', 'file_name')
+    # res = ReadConfig(contants.test_api_conf_file)
+    # res2 = res.get_value('LOG', 'file_name')
+    # print(res2)
+    # res3 = res.get_value('URL', 'path_url')
+    # print(res3)
+    # print(type(res3))
+    # res4 = eval(res.get_value('MaxMobilePhone', 'mobilephone'))
+    # print(res4)
+    # print(type(res4))
+    res = ReadConfig(contants.global_api_conf_file)
+    res2 = res.get_value('Switch', 'open')
     print(res2)
-    res3 = res.get_value('URL', 'path_url')
-    print(res3)
-    print(type(res3))
-    res4 = eval(res.get_value('MaxMobilePhone','mobilephone'))
-    print(res4)
-    print(type(res4))
 

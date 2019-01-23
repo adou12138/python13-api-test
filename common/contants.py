@@ -12,12 +12,15 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # common 地址
 common_dir = os.path.join(base_dir, "common")
 do_excel_file = os.path.join(common_dir, "do_excel.py")
+mysql_file = os.path.join(common_dir, "mysql.py")
 request_file = os.path.join(common_dir, "request.py")
+test_api_config_file = os.path.join(common_dir, "test_api_config.py")
 
 # conf 目录地址
 conf_dir = os.path.join(base_dir, "conf")
-api_config_file = os.path.join(conf_dir, "test_api_config.py")
-api_conf_file = os.path.join(conf_dir, "test_api.conf")
+global_api_conf_file = os.path.join(conf_dir, "global.conf")
+test_api_conf_file = os.path.join(conf_dir, "test_api.conf")
+test_api2_conf_file = os.path.join(conf_dir, "test_api2.conf")
 
 # datas 目录地址
 data_dir = os.path.join(base_dir, "datas")
@@ -26,14 +29,14 @@ excel_file = os.path.join(data_dir, "luckytest.xlsx")
 # log 目录地址
 log_dir = os.path.join(base_dir, "log")
 log_config_file = os.path.join(log_dir, "test_api_log.py")
-log_log_file = os.path.join(log_dir, "luckytestlog.log")
+test_api_log_file = os.path.join(log_dir, "luckytestlog.log")
 
 # report 目录地址
 reports_dir = os.path.join(base_dir, "reports")
 test_api_method_suite_file = os.path.join(reports_dir, "test_api_method_suite.py")
 # report_file = os.path.join(reports_dir, "luckytest.html")
 report_file = os.path.join(reports_dir, "luckytest")
-print(report_file)
+# print(report_file)
 
 # test_cases 目录地址
 test_cases_dir = os.path.join(base_dir, "test_cases")

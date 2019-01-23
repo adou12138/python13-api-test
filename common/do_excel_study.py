@@ -8,8 +8,7 @@ from openpyxl import Workbook
 from openpyxl import load_workbook
 
 from common import contants  # 引用路径地址
-
-from conf.test_api_config import ReadConfig  # 导入url配置
+from common.test_api_config import ReadConfig  # 导入url配置
 
 # from week_7.class_unittest_test.test_config import ReadConfig
 # test_button = ReadConfig('test_case.conf').get_value('CASE', 'button')

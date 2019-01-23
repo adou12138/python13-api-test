@@ -5,8 +5,10 @@
 # 2019/1/19 18:02
 
 import requests
+
 from common import contants
-from conf.test_api_config import ReadConfig
+from common.test_api_config import ReadConfig
+
 
 class Request:
     "这个是一个request请求的类"
@@ -17,15 +19,19 @@ class Request:
     def request(self, method, url, data=None):
         method = method.upper()  # 将字符全部转成大写
 
-        URL = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + url
+        config = ReadConfig(contants.test_api_conf_file)
+        path_url = config.get_value('URL', 'path_url')  # 拼接
+        url = path_url + url
+
+        # URL = ReadConfig(contants.test_api_conf_file).get_value('URL', 'path_url') + url
 
         if data is not None and type(data) == str:
             data = eval(data)  # 如果是字符串就转成字典
 
         if method == "GET":
-            return self.session.request(method, url=URL, params=data)
+            return self.session.request(method, url=url, params=data)
         elif method == "POST":
-            return self.session.request(method, url=URL, data=data)
+            return self.session.request(method, url=url, data=data)
         else:
             print("Un-support method !!!")
 

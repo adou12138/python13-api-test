@@ -102,7 +102,28 @@ import requests
 # print(res1.text)
 
 # 请根据数值参数的类型对应输入合法的数字 memberid=1.99
-data = {"memberId": 1.99, "password": "123456", "loanId": 10, "amount": 100}
+# data = {"memberId": 1.99, "password": "123456", "loanId": 10, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 不存在该标的 loanId=-1
+# data = {"memberId": 1115697, "password": "123456", "loanId": -1, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 不存在该标的 loanId=0
+# data = {"memberId": 1115697, "password": "123456", "loanId": 0, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 不存在该标的 loanId=
+data = {"memberId": 1115697, "password": "123456", "loanId": -99.9, "amount": 100}
 session = requests.session()
 session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
 res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)

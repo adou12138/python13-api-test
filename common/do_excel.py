@@ -8,9 +8,9 @@ from openpyxl import Workbook
 from openpyxl import load_workbook
 
 from common import contants  # 引用路径地址
+from common.test_api_config import ReadConfig  # 导入url配置
 
-from conf.test_api_config import ReadConfig  # 导入url配置
-data_max_mobilephone = eval(ReadConfig(contants.api_conf_file).get_value('MaxMobilePhone','mobilephone'))  # 数据库最大电话号码
+data_max_mobilephone = eval(ReadConfig(contants.test_api_conf_file).get_value('MaxMobilePhone', 'mobilephone'))  # 数据库最大电话号码
 
 
 # from week_7.class_unittest_test.test_config import ReadConfig
@@ -63,7 +63,7 @@ class DoExcel:
 
             row_case.url = sheet.cell(row=i, column=3).value  # 没有配置url
             # print(row_case.url)
-            # row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + str(sheet.cell(row=i, column=3).value)  # 配置url方式
+            # row_case.url = ReadConfig(contants.test_api_conf_file).get_value('URL', 'path_url') + str(sheet.cell(row=i, column=3).value)  # 配置url方式
             # print(row_case.url)
             # print(type(row_case.url))
 

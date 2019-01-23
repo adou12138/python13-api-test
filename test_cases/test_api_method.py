@@ -152,7 +152,7 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
+            my_log.info('提现的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
     @unittest.skip
     @data(*cases_add)
@@ -172,7 +172,7 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_add.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))
+            my_log.info('新建项目的结果：{}'.format(json.loads(result.text)['msg']))
 
     @unittest.skip
     @data(*cases_audit)
@@ -192,7 +192,7 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_audit.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))
+            my_log.info('审核的结果：{}'.format(json.loads(result.text)['msg']))
 
 
 
