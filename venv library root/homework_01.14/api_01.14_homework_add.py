@@ -287,37 +287,59 @@ print(req1.text)
 # req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
 # print(req1.text)
 
-# 参数错误：借款日期类型 loanDateType=abc
+# 参数错误：还款方式 repaymemtWay=abc
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 'abc', "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：还款方式 repaymemtWay=(*&^%^%
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": '(*&^%^%', "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+"""
+# 参数错误：借款日期类型 repaymemtWay=-1 !!! 不应该加标成功
 data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
-        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+        "loanDateType": 0, "repaymemtWay": -1, "biddingDays": 1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+# print(req1.text)
+"""
+
+#  加标成功 借款日期类型 repaymemtWay=4
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：竞标天数 biddingDays=abc
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 'abc'}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+# 参数错误：竞标天数 biddingDays=&^%%
+# data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": '&^%%'}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
+
+"""
+# 参数错误：竞标天数 biddingDays=-1 !!! 不应该加标成功
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": -1}
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)
+
+# 参数错误：竞标天数 biddingDays=0 !!! 不应该加标成功
+data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 0}
 req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
 print(req1.text)
 """
-# 参数错误：借款日期类型 loanDateType=abc
+
+# 加标成功 竞标天数 biddingDays=1
 data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
-        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": -1}
 req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
 print(req1.text)
- 
-# 参数错误：借款日期类型 loanDateType=abc
-data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
-        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
-req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
-print(req1.text)
-
-# 参数错误：借款日期类型 loanDateType=abc
-data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
-        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
-req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
-print(req1.text)
-
-# 参数错误：借款日期类型 loanDateType=abc
-data = {"memberId": "1114425", "title": "lucyktest1", "amount": 10000, "loanRate": 24, "loanTerm": 6,
-        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
-req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
-print(req1.text)
-
-
-
-
-"""

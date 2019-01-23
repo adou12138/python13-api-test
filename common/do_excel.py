@@ -61,8 +61,9 @@ class DoExcel:
             row_case.case_id = sheet.cell(row=i, column=1).value
             row_case.title = sheet.cell(row=i, column=2).value
 
-            # row_case.url = sheet.cell(row=i, column=3).value  # 没有配置url
-            row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + str(sheet.cell(row=i, column=3).value)
+            row_case.url = sheet.cell(row=i, column=3).value  # 没有配置url
+            # print(row_case.url)
+            # row_case.url = ReadConfig(contants.api_conf_file).get_value('URL', 'path_url') + str(sheet.cell(row=i, column=3).value)  # 配置url方式
             # print(row_case.url)
             # print(type(row_case.url))
 
@@ -159,7 +160,11 @@ if __name__ == '__main__':
     # print(cases_recharge)
     # DoExcel(contants.excel_file, "recharge").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
-    cases_add = DoExcel(contants.excel_file, "add").read_excel()
-    print(cases_add)
+    # cases_add = DoExcel(contants.excel_file, "add").read_excel()
+    # print(cases_add)
     # DoExcel(contants.excel_file, "add").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
+    cases_audit = DoExcel(contants.excel_file, "audit").read_excel()
+    print(cases_audit)
+    DoExcel(contants.excel_file, "audit").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
+    print("*"*50)

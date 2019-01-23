@@ -18,14 +18,26 @@ add 模块 loanTerm=999 抛出：
 bug 4:
 add 模块 loanDateType=-1 抛出：
 <html><head><title>Apache Tomcat/6.0.53 - Error report</title><style><!--H1 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:22px;} H2 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:16px;} H3 {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;font-size:14px;} BODY {font-family:Tahoma,Arial,sans-serif;color:black;background-color:white;} B {font-family:Tahoma,Arial,sans-serif;color:white;background-color:#525D76;} P {font-family:Tahoma,Arial,sans-serif;background:white;color:black;font-size:12px;}A {color : black;}A.name {color : black;}HR {color : #525D76;}--></style> </head><body><h1>HTTP Status 501 - Method GOT is not implemented by this servlet for this URI </h1><HR size="1" noshade="noshade"><p><b>type</b> Status report</p><p><b>message</b> <u>Method GOT is not implemented by this servlet for this URI </u></p><p><b>description</b> <u>The server does not support the functionality needed to fulfill this request.</u></p><HR size="1" noshade="noshade"><h3>Apache Tomcat/6.0.53</h3></body></html>
-
-
-
+bug 5:
+add 模块 repaymemtWay=-1 抛出：
+还款方式 repaymemtWay值应该属于[4,5,10,11]
+不应该加标成功  {"status":1,"code":"10001","data":null,"msg":"加标成功"}
+bug 6:
+add 模块 biddingDays=-1 抛出：
+还款方式 repaymemtWay值应该属于rangeint(1,10)
+不应该加标成功  {"status":1,"code":"10001","data":null,"msg":"加标成功"}
+bug 7:
+add 模块 biddingDays=0 抛出：
+还款方式 repaymemtWay值应该属于rangeint(1,10)
+不应该加标成功  {"status":1,"code":"10001","data":null,"msg":"加标成功"}
+bug8:
+audit 模块 status=10，状态错误
+显示："当前接口暂未开放该状态值更新"，应该是 10. 还款完成 项目所有的还款都已完成
 
 """
 
 # 书签 ctrl+f11
-''''
+"""
 json()["code"] 转成字典取值
 testcase分开写接口类，重新设计下
 
@@ -113,13 +125,16 @@ sql：外键？关联关系？mysql oracle 关系型数据库
 5. 核保审批 担保核查审批，是否接受风险
 6. 平台终审 确定项目正常沐子成功，审核通过则生成回款计划，财务出纳放款
 7. 还款中 项目募资满、并成功放款、生成回款计划成功
+10. 还款完成 项目所有的还款都已完成
+
 
 8. 审核不通过 各阶段审核不通过状态，募资失败
 9. 流标 项目已流标，本次募资无效
-10. 还款完成 项目所有的还款都已完成
+
 11. 申请流标 竞标期限截止而未募满的项目，或其他特殊原因，申请流标状态
 
 
+"""
 
 
 
@@ -133,4 +148,3 @@ sql：外键？关联关系？mysql oracle 关系型数据库
 
 
 
-'''

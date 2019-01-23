@@ -131,11 +131,11 @@ datas = {"mobilephone": "15666666666", "pwd": "123456"}
 # print(resp2.text)
 
 
-data = {"mobilephone": "15666666666", "amount": 123}
+data = {"mobilephone": "15777777777", "amount": 10000}
 # resp2 = requests.session('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data={"mobilephone": "15666666666", "pwd": "123456"})
 # print(resp2.text)
 
 session = requests.session()
-session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/login', data={"mobilephone": "15666666666", "pwd": "123456"})
+session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/login', data={"mobilephone": "15777777777", "pwd": "123456"})
 resp2 = session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data)
 print(resp2.text)

@@ -15,10 +15,24 @@ suite = unittest.TestSuite()
 loader = unittest.TestLoader()
 suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))
 
-with open(contants.report_file, 'wb') as file:  # 引用common中的report地址
+# with open(contants.report_file, 'wb') as file:  # 引用common中的report地址
+#     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
+#                                             verbosity=2,
+#                                             title='API TEST',
+#                                             description='THIS IS A API TEST REPORT',
+#                                             tester='lucky')
+#     runner.run(suite)  # 执行测试集里面的用例  F代表失败 .代表成功 e代表代码错误
+
+
+import time
+now = time.strftime('%Y-%m-%d-%H-%M-%S')  # 获取当前系统的时间，生成字符串
+path = contants.report_file+now+'.html'
+
+# 2) 网页输出
+with open(path, 'wb+') as file:
     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
                                             verbosity=2,
                                             title='API TEST',
-                                            description='THIS IS A API TEST',
+                                            description='THIS IS A API TEST REPORT  ',
                                             tester='lucky')
-    runner.run(suite)  # 执行测试集里面的用例  F代表失败 .代表成功 e代表代码错误
+    runner.run(suite)

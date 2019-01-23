@@ -39,6 +39,7 @@ class TestApiMethod(unittest.TestCase):
     cases_recharge = DoExcel(contants.excel_file, "recharge").read_excel()
     cases_withdraw = DoExcel(contants.excel_file, "withdraw").read_excel()
     cases_add = DoExcel(contants.excel_file, "add").read_excel()
+    cases_audit = DoExcel(contants.excel_file, "audit").read_excel()
 
     @classmethod  # 每个测试类里面去运行的操作都放到类方法里面
     def setUpClass(cls):  # 为什么用类方法？ 整个类只执行一次！
@@ -51,6 +52,7 @@ class TestApiMethod(unittest.TestCase):
         self.write_recharge = DoExcel(contants.excel_file, "recharge")
         self.write_withdraw = DoExcel(contants.excel_file, "withdraw")
         self.write_add = DoExcel(contants.excel_file, "add")
+        self.write_audit = DoExcel(contants.excel_file, "audit")
         my_log.info("开始执行用例")
 
     def tearDown(self):
@@ -66,7 +68,7 @@ class TestApiMethod(unittest.TestCase):
     sql = "select max(mobilephone) from future.member"
     max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
 
-    # @unittest.skip
+    @unittest.skip
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -112,7 +114,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_login.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('登陆的结果：{}'.format(json.loads(result.text)['msg']))
 
-    # @unittest.skip
+    @unittest.skip
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试充值
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -132,7 +134,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_recharge.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    # @unittest.skip
+    @unittest.skip
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试取现
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -152,6 +154,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
+    @unittest.skip
     @data(*cases_add)
     def test_add(self, case):  # 测试创建标的
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -169,7 +172,29 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_add.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
+            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))
+
+    @unittest.skip
+    @data(*cases_audit)
+    def test_audit(self, case):  # 测试创建标的
+        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        my_log.info('url:{}'.format(case.url))
+        my_log.info('data:{}'.format(case.data))
+        my_log.info('method:{}'.format(case.method))
+        my_log.info('expected:{}'.format(case.expected))
+        result = self.request.request(case.method, case.url, case.data)
+        try:
+            self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
+            TestResult = "Pass"
+        except AssertionError as e:
+            TestResult = "Failed"
+            my_log.error("断言出错了".format(e))
+            raise e
+        finally:
+            self.write_audit.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))
+
+
 
 
 if __name__ == '__main__':  # 会自动的在当前文件里面加载test_文件开头的用例

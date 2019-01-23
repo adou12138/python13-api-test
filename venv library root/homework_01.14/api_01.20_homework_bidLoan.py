@@ -40,8 +40,7 @@
 import requests
 
 '''
-取现账户
-datas = {"mobilephone": "15666666666", "pwd": "123456"}
+'投资人'={'mobilephone':15666666678, 'id':1115697}
 <RequestsCookieJar[<Cookie JSESSIONID=60B5CACF93F2F7428C8280925DF29038 for test.lemonban.com/futureloan>]>
 '''
 
@@ -51,113 +50,60 @@ datas = {"mobilephone": "15666666666", "pwd": "123456"}
 # res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params={"Id": 1114421, "pwd": "123456", "loanId": 101, "amount": 100})
 # print(res1.status_code)
 # print(res1.text)
-"""
-后面都不对！！
 
-"""
-# 字符串拼接
-# http://test.lemonban.com/futureloan/mvc/api/
-url ="http://test.lemonban.com/futureloan/mvc/api/"
-address = "member/bidLoan"
-job = url+address
-print(job)
+
 
 # get请求 未登陆直接投标  响应信息null
-# data = {"Id": 1114421, "pwd": "123456", "loanId": 10, "amount": 100}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data)
+# data = {"memberId": 0, "password": "123456", "loanId": 10, "amount": 100}
+# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/bidloan', params=data)
 # print(resp.status_code)  # 响应码
 # print(resp.text)  # 响应信息
 
+# 登陆后，参数错误:所有参数都不能为空 memberId=""
+# data = {"memberId": "", "password": "123456", "loanId": 10, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
 
-# get请求 登陆获取cookies充值  响应信息 10001
-# data = {"mobilephone": "15666666666", "pwd": "123456"}
-# resp1 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/login', params=data)
-# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-# get_cookies = resp1.cookies
-# print(get_cookies)
+# 登陆后，参数错误:所有参数都不能为空 password=""
+# data = {"memberId": 1115697, "password": "", "loanId": 10, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
 
-# 传入cookies值充值
-# data = {"mobilephone": "15666666666", "amount": 51}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies, timeout=(0.06, 0.06))
-# print(resp2.text)
+# 登陆后，参数错误:所有参数都不能为空 loanId=""
+# data = {"memberId": 1115697, "password": "123456", "loanId": "", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
 
-# 参数错误：手机号不能为空 响应信息20103
-# data = {"mobilephone": None, "amount": None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 登陆后，参数错误:所有参数都不能为空 amount=""
+# data = {"memberId": 1115697, "password": "123456", "loanId": 10, "amount":"" }
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
 
-# 此手机号对应的会员不存在 响应信息20104
-# data = {"mobilephone": "15999999999", "amount": 99.99}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误，memberId必须是大于0的正整数 memberid=-1
+# data = {"memberId": -1, "password": "123456", "loanId": 10, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
 
-# 手机格式不正确 响应信息20109
-# data = {"mobilephone": "156666", "amount": 99.99}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
+# 参数错误，memberId必须是大于0的正整数 memberid=0
+# data = {"memberId": 0, "password": "123456", "loanId": 10, "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
 
-# 请输入金额 响应信息20115
-# data = {"mobilephone": "15666666666", "amount": None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
-
-# 输入金额的金额小数不能超过两位 响应信息20116
-# data = {"mobilephone": "15666666666", "amount": 99.999}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
-
-# 请输入范围在 0 到 50 万之间的正数金额（510000） 响应信息20117
-# data = {"mobilephone": "15666666666", "amount": 510000}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
-
-# 请输入范围在 0 到 50 万之间的正数金额（-1） 响应信息20117
-# data = {"mobilephone": "15666666666", "amount": -1}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
-
-# 请输入数字 响应信息20118
-# data = {"mobilephone": "15666666666", "amount": "123asd"}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
-# print(resp2.text)
-
-# 请输入数字 响应信息20118
-# data = {"mobilephone": "15666666666", "amount": "！@#￥%"}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
-
-# 余额不足，请修改提现额度 响应信息20119
-# data = {"mobilephone": "15666666668", "amount": "50"}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
-
-
-
-# 服务器异常 响应信息20102 服务器挂了
-
-
-# post请求 登陆获取cookies充值  响应信息10001
-# data = {'mobilephone': '15666666666', 'pwd': 123456}
-# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', data=data)
-# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-# print(resp1.text)
-# get_cookies = resp1.cookies
-#
-# # 传入cookies值充值
-# data = {'mobilephone': '15666666666', 'amount': 123}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', data=data, cookies=get_cookies)
-# print(resp2.text)
-
-
-# post请求 用户登陆 响应信息10001 金额传入字符串
-# datas = {'mobilephone': '15666666666', 'pwd': '123456'}
-# resp1 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/login', datas=datas)
-# print(resp1.request._cookies)  # 请求cookies，cookies前面加下划线
-# get_cookies = resp1.cookies
-# print(get_cookies)
-#
-# # 传入cookies值充值
-# datas = {'mobilephone': '15666666666', 'amount': 250000}
-# resp2 = requests.post('http://test.lemonban.com/futureloan/mvc/api/member/recharge', datas=datas, cookies=get_cookies)
-# print(resp2.text)
-
+# 请根据数值参数的类型对应输入合法的数字 memberid=1.99
+data = {"memberId": 1.99, "password": "123456", "loanId": 10, "amount": 100}
+session = requests.session()
+session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+print(res1.text)
