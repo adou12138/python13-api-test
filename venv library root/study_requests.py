@@ -40,7 +40,7 @@ method：请求方法
 url：请求地址
 params：get url 请求方式-参数 Dictionary
 datas：post 请求方式 Dictionary
-json：JSON
+try_json.py：JSON
 headers：
 cookies：
 files：实现上传和下载的接口功能
@@ -102,4 +102,4 @@ print('响应headers', resp.headers)
 
 # http://cn.python-requests.org/zh_CN/latest/user/quickstart.html  #url
 # https://www.cnblogs.com/ios9/p/9527939.html sql2017
-# www.json.org/json-zh.html
+# www.try_json.py.org/try_json.py-zh.html

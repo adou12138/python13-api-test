@@ -5,15 +5,24 @@
 # 2019/1/21 22:38 
 
 import pymysql
+from common.test_api_config import ReadConfig
 
 class MysqlUtil:
     '这个是一个操作数据的类'
     def __init__(self):  # 初始化数据库参数
         # 1. 建立连接
-        host = "test.lemonban.com"
-        user = "test"
-        password = "test"
-        self.mysql = pymysql.connect(host=host, user=user, password=password, port=3306)
+        # host = "test.lemonban.com"
+        # user = "test"
+        # password = "test"
+        # port = 3306
+
+        config = ReadConfig()
+        host = eval(config.get_value("DataBase", "host"))
+        user = eval(config.get_value("DataBase", "user"))
+        password = eval(config.get_value("DataBase", "password"))
+        port = config.get_int("DataBase", "port")
+
+        self.mysql = pymysql.connect(host=host, user=user, password=password, port=port)
 
     def fetch_one(self, sql):
         # 2. 新建一个查询页面

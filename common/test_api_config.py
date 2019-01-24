@@ -45,9 +45,9 @@ from configparser import ConfigParser
 class ReadConfig:
     '这个是一个读取配置文件的类'
 
-    def __init__(self, file):
+    def __init__(self):  # , file):
         self.config = ConfigParser()  # 为什么要赋值给self.cf 方便后面的方法调用
-        self.config.read(file, encoding='utf-8')
+        # self.config.read(file, encoding='utf-8')
         self.config.read(contants.global_api_conf_file, encoding='utf-8')  # 先加载开关
         open = self.config.getboolean('Switch', 'open')
 
@@ -86,7 +86,14 @@ if __name__ == '__main__':
     # res4 = eval(res.get_value('MaxMobilePhone', 'mobilephone'))
     # print(res4)
     # print(type(res4))
-    res = ReadConfig(contants.global_api_conf_file)
+    res = ReadConfig()
     res2 = res.get_value('Switch', 'open')
     print(res2)
-
+    res3 = eval(res.config.get("DataBase", "host"))
+    print(res3,type(res3))
+    res4 = eval(res.config.get("DataBase", "user"))
+    print(res4,type(res4))
+    res5 = eval(res.config.get("DataBase", "password"))
+    print(res5,type(res5))
+    res6 = eval(res.config.get("DataBase", "port"))
+    print(res6,type(res6))

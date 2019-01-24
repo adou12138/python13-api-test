@@ -10,7 +10,7 @@ from openpyxl import load_workbook
 from common import contants  # 引用路径地址
 from common.test_api_config import ReadConfig  # 导入url配置
 
-data_max_mobilephone = eval(ReadConfig(contants.test_api_conf_file).get_value('MaxMobilePhone', 'mobilephone'))  # 数据库最大电话号码
+# data_max_mobilephone = eval(ReadConfig(contants.test_api_conf_file).get_value('MaxMobilePhone', 'mobilephone'))  # 数据库最大电话号码
 
 
 # from week_7.class_unittest_test.test_config import ReadConfig
@@ -71,7 +71,7 @@ class DoExcel:
             # print(type(row_case.data))  # 字符串
 
             """配置文件-手机号码最大
-            import json
+            import try_json.py
             data_old = eval(sheet.cell(row=i, column=4).value)
             # mobilephone = data_old['mobilephone']
             # print(mobilephone)
@@ -80,7 +80,7 @@ class DoExcel:
             # print(mobilephone)
             # print(type(mobilephone))
             data_old['mobilephone'] = str(mobilephone)
-            row_case.data = json.dumps(data_old)
+            row_case.data = try_json.py.dumps(data_old)
             # print(row_case.data)
             # print(type(row_case.data))
             """
@@ -164,7 +164,11 @@ if __name__ == '__main__':
     # print(cases_add)
     # DoExcel(contants.excel_file, "add").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
-    cases_audit = DoExcel(contants.excel_file, "audit").read_excel()
-    print(cases_audit)
-    DoExcel(contants.excel_file, "audit").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
-    print("*"*50)
+    # cases_audit = DoExcel(contants.excel_file, "audit").read_excel()
+    # print(cases_audit)
+    # DoExcel(contants.excel_file, "audit").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
+    # print("*"*50)
+    cases_bidLoan = DoExcel(contants.excel_file, "bidLoan").read_excel()
+    print(cases_bidLoan)
+    # DoExcel(contants.excel_file, "bidLoan").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
+    # print("*"*50)

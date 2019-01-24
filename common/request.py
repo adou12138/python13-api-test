@@ -1,5 +1,5 @@
 # coding: utf-8
-# homework_01.19
+# homework_01.23.19
 # request 
 # shen 
 # 2019/1/19 18:02
@@ -19,7 +19,7 @@ class Request:
     def request(self, method, url, data=None):
         method = method.upper()  # 将字符全部转成大写
 
-        config = ReadConfig(contants.test_api_conf_file)
+        config = ReadConfig()
         path_url = config.get_value('URL', 'path_url')  # 拼接
         url = path_url + url
 

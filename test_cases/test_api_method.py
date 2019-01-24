@@ -30,6 +30,7 @@ import warnings  # 导入warning库 忽略 ResourceWarning: unclosed file <_io.T
 from log.test_api_log import MyLog
 my_log = MyLog()
 
+Max = None
 
 @ddt
 class TestApiMethod(unittest.TestCase):
@@ -40,6 +41,7 @@ class TestApiMethod(unittest.TestCase):
     cases_withdraw = DoExcel(contants.excel_file, "withdraw").read_excel()
     cases_add = DoExcel(contants.excel_file, "add").read_excel()
     cases_audit = DoExcel(contants.excel_file, "audit").read_excel()
+    cases_bidLoan = DoExcel(contants.excel_file, "bidLoan").read_excel()
 
     @classmethod  # 每个测试类里面去运行的操作都放到类方法里面
     def setUpClass(cls):  # 为什么用类方法？ 整个类只执行一次！
@@ -53,10 +55,13 @@ class TestApiMethod(unittest.TestCase):
         self.write_withdraw = DoExcel(contants.excel_file, "withdraw")
         self.write_add = DoExcel(contants.excel_file, "add")
         self.write_audit = DoExcel(contants.excel_file, "audit")
+        self.write_bidLoan = DoExcel(contants.excel_file, "bidLoan")
+
         my_log.info("开始执行用例")
 
     def tearDown(self):
         my_log.info("用例执行结束")
+        pass
 
     @classmethod
     def tearDownClass(cls):
@@ -67,8 +72,10 @@ class TestApiMethod(unittest.TestCase):
     mysql = MysqlUtil()
     sql = "select max(mobilephone) from future.member"
     max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
+    global Max
+    Max = int(max)+1
 
-    @unittest.skip
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -78,6 +85,7 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('expected:{}'.format(case.expected))
         dict_data = json.loads(case.data)
         if dict_data['mobilephone'] == '#@mobilephone':
+
             dict_data['mobilephone'] = int(self.max)+1
             # print(dict_data)
             # print(type(dict_data))
@@ -93,7 +101,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_register.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('注册的结果：{}'.format(json.loads(result.text)['msg']))
 
-    # @unittest.skip  # 跳过不执行
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_login)
     def test_login(self, case):  # 测试登陆
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -102,7 +110,6 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
         result = self.request.request(case.method, case.url, case.data)
-
         try:
             self.assertEqual(case.expected, result.text)
             TestResult = "Pass"
@@ -114,7 +121,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_login.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('登陆的结果：{}'.format(json.loads(result.text)['msg']))
 
-    @unittest.skip
+    # @unittest.skip("忽略测试，不要运行")
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试充值
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -122,6 +129,13 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('data:{}'.format(case.data))
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
+
+        # recharge_dict = json.loads(case.data)
+        # if recharge_dict['mobilephone']  == 'sdf&*mobilephone':
+        #     recharge_dict['mobilephone'] = self.max
+        #     # json.loads(case.data)['mobilephone'] = self.dict_data['mobilephone']
+        # result = self.request.request(case.method, case.url, recharge_dict)
+
         result = self.request.request(case.method, case.url, case.data)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
@@ -134,7 +148,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_recharge.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    @unittest.skip
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试取现
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -154,7 +168,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('提现的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    @unittest.skip
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_add)
     def test_add(self, case):  # 测试创建标的
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -174,9 +188,35 @@ class TestApiMethod(unittest.TestCase):
             self.write_add.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('新建项目的结果：{}'.format(json.loads(result.text)['msg']))
 
-    @unittest.skip
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_audit)
     def test_audit(self, case):  # 测试创建标的
+        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        my_log.info('url:{}'.format(case.url))
+        my_log.info('data:{}'.format(case.data))
+        my_log.info('method:{}'.format(case.method))
+        my_log.info('expected:{}'.format(case.expected))
+        result = self.request.request(case.method, case.url, case.data)
+        try:
+            self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
+            TestResult = "Pass"
+
+            if json.loads(case.data)['status'] == 4:  # 如果状态为竞标（4），显示标的
+                global id
+                id = json.loads(case.data)['id']
+                # print('id的值:{}'.format(id))
+
+        except AssertionError as e:
+            TestResult = "Failed"
+            my_log.error("断言出错了".format(e))
+            raise e
+        finally:
+            self.write_audit.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+            my_log.info('审核的结果：{}'.format(json.loads(result.text)['msg']))
+
+    @unittest.skip("忽略测试，不要运行")
+    @data(*cases_bidLoan)
+    def test_bidLoan(self, case):  # 测试创建标的
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
         my_log.info('url:{}'.format(case.url))
         my_log.info('data:{}'.format(case.data))
@@ -191,8 +231,8 @@ class TestApiMethod(unittest.TestCase):
             my_log.error("断言出错了".format(e))
             raise e
         finally:
-            self.write_audit.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('审核的结果：{}'.format(json.loads(result.text)['msg']))
+            self.write_bidLoan.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
+            my_log.info('竞标的结果：{}'.format(json.loads(result.text)['msg']))
 
 
 

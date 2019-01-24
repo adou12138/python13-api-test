@@ -25,6 +25,8 @@ test_api2_conf_file = os.path.join(conf_dir, "test_api2.conf")
 # datas 目录地址
 data_dir = os.path.join(base_dir, "datas")
 excel_file = os.path.join(data_dir, "luckytest.xlsx")
+json_test_file = os.path.join(data_dir, "json_test.json")
+try_json_file = os.path.join(data_dir, "try_json.py")
 
 # log 目录地址
 log_dir = os.path.join(base_dir, "log")

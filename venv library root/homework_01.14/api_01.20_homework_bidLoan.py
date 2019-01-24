@@ -122,9 +122,113 @@ import requests
 # res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
 # print(res1.text)
 
-# 不存在该标的 loanId=
-data = {"memberId": 1115697, "password": "123456", "loanId": -99.9, "amount": 100}
+# loanId 必须否大于 0 的正整数？？ 弄不出来
+# data = {"memberId": 1115697, "password": "123456", "loanId": "df234", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，password 长度必须大于 6 位且小于 18 位 password=123
+# data = {"memberId": 1115697, "password": "123", "loanId": "df234", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，password 长度必须大于 6 位且小于 18 位 password=1234567890123456789
+# data = {"memberId": 1115697, "password": "1234567890123456789", "loanId": "df234", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，password 长度必须大于 6 位且小于 18 位 password=123456789012345678
+# data = {"memberId": 1115697, "password": "123456789012345678", "loanId": "df234", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，投资金额必须能被 100整除的正整数 amount=99
+# data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": 99}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，投资金额必须能被 100整除的正整数 amount=-100
+# data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": -100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，投资金额必须能被 100整除的正整数 amount=0
+# data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": 0}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，不存在该用户 memberId=110
+# data = {"memberId": 110, "password": "123456", "loanId": "11580", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 该标不在竞标中状态，无法完成投标 memberId=110
+# data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+
+# 参数错误，password 长度必须大于 6 位且小于 18 位 memberId=110
+# data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": 100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+"""
+# 该标已经满标,无法进行投资 loanId=??? 重新设计用例
+data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": -100}
 session = requests.session()
 session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
 res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
 print(res1.text)
+
+
+# 该标可投金额不足 loanId=？？？ 重新设计用例
+data = {"memberId": 1115697, "password": "123456", "loanId": "11580", "amount": -100}
+session = requests.session()
+session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+print(res1.text)
+"""
+
+# 参数错误，请根据数值参数的类型对应输入合法的数字 memberId=abc
+# data = {"memberId": "abc", "password": "123456", "loanId": "11580", "amount": -100}
+# session = requests.session()
+# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# print(res1.text)
+
+# 参数错误，请根据数值参数的类型对应输入合法的数字 amount=abc
+# data = {"memberId": "1115697", "password": "123456", "loanId": "11580", "amount": "abc"}
+# # session = requests.session()
+# # session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+# # res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+# # print(res1.text)
+
+"""
+# 竞标成功 loanId=？？？
+data = {"memberId": "1115697", "password": "123456", "loanId": "11580", "amount": "abc"}
+session = requests.session()
+session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+print(res1.text)
+"""

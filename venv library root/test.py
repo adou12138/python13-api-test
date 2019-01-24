@@ -1,5 +1,5 @@
 # coding: utf-8
-# 当前项目的名称: homework_01.19
+# 当前项目的名称: homework_01.23.19
 # 新文件名称：test 
 # 当前登录名：LuckyLu
 # 创建日期：2019/1/15 13:40
@@ -19,7 +19,7 @@ print('*'*50)
 
 
 # req3 = requests.get('https://api.github.com/events')
-# print(req3.json())
+# print(req3.try_json.py())
 # print('*'*50)
 '''
 检查json请求是否成功
@@ -69,16 +69,16 @@ req3.status_code
 ]
 '''
 
-'''json'''
+'''try_json.py'''
 import json
 # url = 'https://api.github.com/some/endpoint'
 # payload = {'some': 'data'}
-# r = requests.post(url, data=json.dumps(payload))  # json.dumps 字典转换成jason格式
+# r = requests.post(url, data=try_json.py.dumps(payload))  # try_json.py.dumps 字典转换成jason格式
 # print(r)
 
 # url = 'https://api.github.com/some/endpoint'
 # payload = {'some': 'data'}
-# r = requests.post(url, json=payload)  # 直接用json传参
+# r = requests.post(url, try_json.py=payload)  # 直接用json传参
 # print(r)
 
 
@@ -116,8 +116,8 @@ import json
 # r = requests.get('http://httpbin.org/get')
 # print(r.headers)  # 获取响应头
 # # 获取响应头Content-Type的详细信息
-# print(r.headers['Content-Type'])  # 'application/json'
-# print(r.headers.get('content-type'))  # 'application/json'
+# print(r.headers['Content-Type'])  # 'application/try_json.py'
+# print(r.headers.get('content-type'))  # 'application/try_json.py'
 
 '''cookies'''
 # url = 'http://httpbin.org/cookies'

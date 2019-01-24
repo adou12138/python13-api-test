@@ -9,12 +9,13 @@ import logging
 from common import contants
 from common.test_api_config import ReadConfig
 
-in_level = ReadConfig(contants.test_api_conf_file).get_value('LOG', 'in_level')
-out_level = ReadConfig(contants.test_api_conf_file).get_value('LOG', 'out_level')
-file_level = ReadConfig(contants.test_api_conf_file).get_value('LOG', 'file_level')
-file_name = ReadConfig(contants.test_api_conf_file).get_value('LOG', 'file_name')
-file_path = eval(ReadConfig(contants.test_api_conf_file).get_value('LOG', 'file_path'))
-data_formatter = ReadConfig(contants.test_api_conf_file).get_value('LOG', 'formatter')
+config = ReadConfig()
+in_level = config.get_value('LOG', 'in_level')
+out_level = config.get_value('LOG', 'out_level')
+file_level = config.get_value('LOG', 'file_level')
+file_name = config.get_value('LOG', 'file_name')
+file_path = eval(config.get_value('LOG', 'file_path'))
+data_formatter = config.get_value('LOG', 'formatter')
 
 import os
 # current_path = os.getcwd()
