@@ -20,6 +20,12 @@ import warnings  # 导入warning库 忽略 ResourceWarning: unclosed file <_io.T
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
+from common.test_api_config import ReadConfig
+config = ReadConfig()
+recharge_member_phone = config.get_int("RechargeMember", "recharge_member1_phone")
+recharge_member_id = config.get_int("RechargeMember", "recharge_member1_id")
+withdraw_member_phone = config.get_int("WithDrawMember", "withdraw_member1_phone")
+withdraw_member_id = config.get_int("WithDrawMember", "withdraw_member1_id")
 
 """
 手机号码注册 电话号码数据库取值，名字随机字符
@@ -121,7 +127,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_login.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('登陆的结果：{}'.format(json.loads(result.text)['msg']))
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试充值
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -130,13 +136,13 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
 
-        # recharge_dict = json.loads(case.data)
-        # if recharge_dict['mobilephone']  == 'sdf&*mobilephone':
-        #     recharge_dict['mobilephone'] = self.max
+        recharge_dict = json.loads(case.data)
+        if recharge_dict['mobilephone'] == '$$mobilephone$$':
+            recharge_dict['mobilephone'] = recharge_member_phone
         #     # json.loads(case.data)['mobilephone'] = self.dict_data['mobilephone']
         # result = self.request.request(case.method, case.url, recharge_dict)
 
-        result = self.request.request(case.method, case.url, case.data)
+        result = self.request.request(case.method, case.url, recharge_dict)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
             TestResult = "Pass"
@@ -148,7 +154,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_recharge.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    @unittest.skip("忽略测试，不要运行")
+    # @unittest.skip("忽略测试，不要运行")
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试取现
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -156,7 +162,12 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('data:{}'.format(case.data))
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
-        result = self.request.request(case.method, case.url, case.data)
+
+        withdraw_dict = json.loads(case.data)
+        if withdraw_dict['mobilephone'] == '**mobilephone**':
+            withdraw_dict['mobilephone'] = withdraw_member_phone
+
+        result = self.request.request(case.method, case.url, withdraw_dict)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
             TestResult = "Pass"
@@ -176,7 +187,12 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('data:{}'.format(case.data))
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
-        result = self.request.request(case.method, case.url, case.data)
+
+        add_dict = json.loads(case.data)
+        if add_dict['memberId'] == '**member1_id**':
+            add_dict['memberId'] = withdraw_member_id
+
+        result = self.request.request(case.method, case.url, add_dict)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
             TestResult = "Pass"
@@ -222,7 +238,12 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('data:{}'.format(case.data))
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
-        result = self.request.request(case.method, case.url, case.data)
+
+        bidLoan_dict = json.loads(case.data)
+        if bidLoan_dict['memberId'] == '$$memberId$$':
+            bidLoan_dict['memberId'] = recharge_member_id
+
+        result = self.request.request(case.method, case.url, bidLoan_dict)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
             TestResult = "Pass"
