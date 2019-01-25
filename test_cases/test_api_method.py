@@ -26,6 +26,9 @@ recharge_member_phone = config.get_int("RechargeMember", "recharge_member1_phone
 recharge_member_id = config.get_int("RechargeMember", "recharge_member1_id")
 withdraw_member_phone = config.get_int("WithDrawMember", "withdraw_member1_phone")
 withdraw_member_id = config.get_int("WithDrawMember", "withdraw_member1_id")
+audit_member_phone = config.get_int("Audit", "audit_member_phone")
+audit_member_id = config.get_int("Audit", "audit_member_id")
+
 
 """
 手机号码注册 电话号码数据库取值，名字随机字符
@@ -130,21 +133,21 @@ class TestApiMethod(unittest.TestCase):
     @unittest.skip("忽略测试，不要运行")
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试充值
-        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        my_log.info('url:{}'.format(case.url))
-        my_log.info('data:{}'.format(case.data))
-        my_log.info('method:{}'.format(case.method))
-        my_log.info('expected:{}'.format(case.expected))
+        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # my_log.info('url:{}'.format(case.url))
+        # my_log.info('data:{}'.format(case.data))
+        # my_log.info('method:{}'.format(case.method))
+        # my_log.info('expected:{}'.format(case.expected))
 
-        recharge_dict = json.loads(case.data)
-        if recharge_dict['mobilephone'] == '$$mobilephone$$':
-            recharge_dict['mobilephone'] = recharge_member_phone
+        recharge_dict = json.loads(case.data)  # 为何执行手机号码为空就直接跳过了，还报错
+        if recharge_dict["mobilephone"] == "$$mobilephone$$":
+            recharge_dict["mobilephone"] = recharge_member_phone
         #     # json.loads(case.data)['mobilephone'] = self.dict_data['mobilephone']
         # result = self.request.request(case.method, case.url, recharge_dict)
 
         result = self.request.request(case.method, case.url, recharge_dict)
         try:
-            self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
+            self.assertEqual(json.loads(case.expected)["msg"], json.loads(result.text)["msg"])
             TestResult = "Pass"
         except AssertionError as e:
             TestResult = "Failed"
@@ -152,9 +155,9 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_recharge.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('充值的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
+            my_log.info('充值的结果：{}'.format(json.loads(result.text)["msg"]))  # 第一条用例登陆失败，写入的对比结果不对
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试取现
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -179,20 +182,21 @@ class TestApiMethod(unittest.TestCase):
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('提现的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    @unittest.skip("忽略测试，不要运行")
+    # @unittest.skip("忽略测试，不要运行")
     @data(*cases_add)
     def test_add(self, case):  # 测试创建标的
-        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        my_log.info('url:{}'.format(case.url))
-        my_log.info('data:{}'.format(case.data))
-        my_log.info('method:{}'.format(case.method))
-        my_log.info('expected:{}'.format(case.expected))
+        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # my_log.info('url:{}'.format(case.url))
+        # my_log.info('data:{}'.format(case.data))
+        # my_log.info('method:{}'.format(case.method))
+        # my_log.info('expected:{}'.format(case.expected))
 
         add_dict = json.loads(case.data)
-        if add_dict['memberId'] == '**member1_id**':
-            add_dict['memberId'] = withdraw_member_id
-
+        if add_dict["memberId"] == "**123456**":
+            add_dict["memberId"] = withdraw_member_id
         result = self.request.request(case.method, case.url, add_dict)
+
+        # result = self.request.request(case.method, case.url, case.data)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
             TestResult = "Pass"
@@ -233,19 +237,20 @@ class TestApiMethod(unittest.TestCase):
     @unittest.skip("忽略测试，不要运行")
     @data(*cases_bidLoan)
     def test_bidLoan(self, case):  # 测试创建标的
-        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        my_log.info('url:{}'.format(case.url))
-        my_log.info('data:{}'.format(case.data))
-        my_log.info('method:{}'.format(case.method))
-        my_log.info('expected:{}'.format(case.expected))
+        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # my_log.info('url:{}'.format(case.url))
+        # my_log.info('data:{}'.format(case.data))
+        # my_log.info('method:{}'.format(case.method))
+        # my_log.info('expected:{}'.format(case.expected))
 
-        bidLoan_dict = json.loads(case.data)
-        if bidLoan_dict['memberId'] == '$$memberId$$':
-            bidLoan_dict['memberId'] = recharge_member_id
+        # bidLoan_dict = json.loads(case.data)
+        # if bidLoan_dict["memberId"] == "$$memberId":
+        #     bidLoan_dict["memberId"] = recharge_member_id
+        # result = self.request.request(case.method, case.url, bidLoan_dict)
 
-        result = self.request.request(case.method, case.url, bidLoan_dict)
+        result = self.request.request(case.method, case.url, case.data)
         try:
-            self.assertEqual(json.loads(case.expected)['msg'], json.loads(result.text)['msg'])
+            self.assertEqual(json.loads(case.expected)["msg"], json.loads(result.text)["msg"])
             TestResult = "Pass"
         except AssertionError as e:
             TestResult = "Failed"
@@ -253,7 +258,7 @@ class TestApiMethod(unittest.TestCase):
             raise e
         finally:
             self.write_bidLoan.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('竞标的结果：{}'.format(json.loads(result.text)['msg']))
+            my_log.info('竞标的结果：{}'.format(json.loads(result.text)["msg"]))
 
 
 

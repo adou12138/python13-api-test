@@ -59,7 +59,7 @@ print(get_cookies)
 # print(resp2.text)
 
 # 参数错误：手机号不能为空 响应信息20103
-# data = {"mobilephone": None, "amount": None}
+# data = {"mobilephone": "", "amount": ""}
 # resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/withdraw', params=data, cookies=get_cookies)
 # print(resp2.text)
 
