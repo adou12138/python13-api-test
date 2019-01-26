@@ -84,7 +84,7 @@ class TestApiMethod(unittest.TestCase):
     global Max
     Max = int(max)+1
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -110,7 +110,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_register.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('注册的结果：{}'.format(json.loads(result.text)['msg']))
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_login)
     def test_login(self, case):  # 测试登陆
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -130,7 +130,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_login.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('登陆的结果：{}'.format(json.loads(result.text)['msg']))
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试充值
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -155,7 +155,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_recharge.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)["msg"]))  # 第一条用例登陆失败，写入的对比结果不对
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试取现
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -180,7 +180,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('提现的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_add)
     def test_add(self, case):  # 测试创建标的
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -207,7 +207,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_add.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('新建项目的结果：{}'.format(json.loads(result.text)['msg']))
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_audit)
     def test_audit(self, case):  # 测试创建标的
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -236,19 +236,21 @@ class TestApiMethod(unittest.TestCase):
     # @unittest.skip("忽略测试，不要运行")
     @data(*cases_bidLoan)
     def test_bidLoan(self, case):  # 测试创建标的
-        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        my_log.info('url:{}'.format(case.url))
-        my_log.info('data:{}'.format(case.data))
-        my_log.info('method:{}'.format(case.method))
-        my_log.info('expected:{}'.format(case.expected))
+        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # my_log.info('url:{}'.format(case.url))
+        # my_log.info('data:{}'.format(case.data))
+        # my_log.info('method:{}'.format(case.method))
+        # my_log.info('expected:{}'.format(case.expected))
 
         # 还有问题 登录后在获取变量执行就会跳过
-        # bidLoan_dict = json.loads(case.data)
-        # if bidLoan_dict["memberId"] == "$$memberId":
+        bidLoan_dict = json.loads(case.data)
+        if bidLoan_dict["mobilephone"] == "@123@":
+            bidLoan_dict["mobilephone"] = recharge_member_phone
+        # if bidLoan_dict["memberId"] == "123":
         #     bidLoan_dict["memberId"] = recharge_member_id
-        # result = self.request.request(case.method, case.url, bidLoan_dict)
+        result = self.request.request(case.method, case.url, bidLoan_dict)
 
-        result = self.request.request(case.method, case.url, case.data)
+        # result = self.request.request(case.method, case.url, case.data)
         try:
             self.assertEqual(json.loads(case.expected)["msg"], json.loads(result.text)["msg"])
             TestResult = "Pass"
