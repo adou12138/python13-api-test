@@ -56,6 +56,8 @@ class ReadConfig:
         else:
             self.config.read(contants.test_api2_conf_file, encoding='utf-8')  # open是False
 
+
+# 代码优化，如果没有就抛出异常，不要报错，配置文件、加载是否正确
     def get_value(self, section, option):
 
         return self.config.get(section, option)

@@ -42,9 +42,6 @@ withdraw_member_id = config.get_int("WithDrawMember", "withdraw_member1_id")
 audit_member_phone = config.get_int("AuditMember", "audit_member_phone")
 audit_member_id = config.get_int("AuditMember", "audit_member_id")
 
-
-
-
 from common.context import replace
 """
 手机号码注册 电话号码数据库取值，名字随机字符
@@ -67,8 +64,6 @@ class TestApiMethod(unittest.TestCase):
     cases_add = DoExcel(contants.excel_file, "add").read_excel()
     cases_audit = DoExcel(contants.excel_file, "audit").read_excel()
     cases_bidLoan = DoExcel(contants.excel_file, "bidLoan").read_excel()
-
-
 
     @classmethod  # 每个测试类里面去运行的操作都放到类方法里面
     def setUpClass(cls):  # 为什么用类方法？ 整个类只执行一次！
@@ -168,11 +163,11 @@ class TestApiMethod(unittest.TestCase):
     @unittest.skip("忽略测试，不要运行")
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试充值
-        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # my_log.info('url:{}'.format(case.url))
-        # my_log.info('data:{}'.format(case.data))
-        # my_log.info('method:{}'.format(case.method))
-        # my_log.info('expected:{}'.format(case.expected))
+        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        my_log.info('url:{}'.format(case.url))
+        my_log.info('data:{}'.format(case.data))
+        my_log.info('method:{}'.format(case.method))
+        my_log.info('expected:{}'.format(case.expected))
 
         recharge_data_new = replace(case.data, recharge_information)
         result = self.request.request(case.method, case.url, recharge_data_new)
@@ -282,11 +277,11 @@ class TestApiMethod(unittest.TestCase):
     @unittest.skip("忽略测试，不要运行")
     @data(*cases_bidLoan)
     def test_bidLoan(self, case):  # 测试创建标的
-        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # my_log.info('url:{}'.format(case.url))
-        # my_log.info('data:{}'.format(case.data))
-        # my_log.info('method:{}'.format(case.method))
-        # my_log.info('expected:{}'.format(case.expected))
+        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        my_log.info('url:{}'.format(case.url))
+        my_log.info('data:{}'.format(case.data))
+        my_log.info('method:{}'.format(case.method))
+        my_log.info('expected:{}'.format(case.expected))
 
         bidLoan_data_new = replace(case.data, bidLoan_information)
         result = self.request.request(case.method, case.url, bidLoan_data_new)

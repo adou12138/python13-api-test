@@ -10,15 +10,38 @@ import re
 # 找到目标字符串里面的标识符KEY，去d字典里面拿到替换的值
 # 替换到s里面去，然后在返回
 
+from common.test_api_config import ReadConfig
+config = ReadConfig()
 
-def replace(s, d):
-    p = "\$\{(.*?)}"  # 有组一定要用()
-    while re.search(p, s):
-        m = re.search(p, s)
-        key = m.group(1)
-        value = d[key]
-        s = re.sub(p, value, s, count=1)
-    return s
+class Context:  # 上下文，数据的准备和记录
+    admin_user = config.get_value('Data', 'admin_user')
+    admin_pwd = config.get_value('Data', 'admin_pwd')
+    loan_member_id = config.get_value('Data', 'loan_member_id')  # loan_id 是创建好才有的，所有不需要定义成类属性
+    normal_user = config.get_value('Data', 'normal_user')
+    normal_pwd = config.get_value('Data', 'normal_pwd')
+    normal_member_id = config.get_value('Data', 'normal_member_id')
+
+    def replace(s, d):
+        p = "\$\{(.*?)}"  # 有组一定要用()
+        while re.search(p, s):
+            m = re.search(p, s)
+            key = m.group(1)
+            value = d[key]
+            s = re.sub(p, value, s, count=1)
+        return s
+
+    def replace_new(s):
+        p = "\$\{(.*?)}"  # 有组一定要用()
+        while re.search(p, s):
+            m = re.search(p, s)
+            key = m.group(1)
+            if hasattr(Context, key):
+                value = getattr(Context, key)  # 利用反射动态的获取属性
+                s = re.sub(p, value, s, count=1)
+            else:
+                print("没有这个属性值")
+                return None  # 或者抛出一个异常，告知没有这个属性
+        return s
 
 if __name__ == '__main__':
     # s = '{"mobilephone": "${admin_user}", "pwd": "${admin_pwd}"}'
@@ -32,12 +55,15 @@ if __name__ == '__main__':
     # s = replace(login_mobile_phone, login_data)
     # print(s)
 
-    add_add = '''{"memberId": "${add_memberId}", "title": "${add_title}", "amount": "${add_amount}",
-               "loanRate": "${add_loanRate}", "loanTerm": "${add_loanTerm}",
-               "loanDateType": "${add_loanDateType}", "repaymemtWay": "${add_repaymemtWay}",
-               "biddingDays": "${add_biddingDays}"}'''
-    add = {"add_memberId": "1116833", "add_title": "lucyktest2", "add_amount": "10000", "add_loanRate": "10.0",
-           "add_loanTerm": "6",
-           "add_loanDateType": "0", "add_repaymemtWay": "4", "add_biddingDays": "1"}
-    s = replace(add_add, add)
+    # add_add = '''{"memberId": "${add_memberId}", "title": "${add_title}", "amount": "${add_amount}",
+    #            "loanRate": "${add_loanRate}", "loanTerm": "${add_loanTerm}",
+    #            "loanDateType": "${add_loanDateType}", "repaymemtWay": "${add_repaymemtWay}",
+    #            "biddingDays": "${add_biddingDays}"}'''
+    # add = {"add_memberId": "1116833", "add_title": "lucyktest2", "add_amount": "10000", "add_loanRate": "10.0",
+    #        "add_loanTerm": "6",
+    #        "add_loanDateType": "0", "add_repaymemtWay": "4", "add_biddingDays": "1"}
+    # s = replace(add_add, add)
+    # print(s)
+    s = '{"mobilephone": "${admin_user}", "pwd": "${admin_pwd}"}'
+    s = replace_new(s)
     print(s)
