@@ -243,9 +243,21 @@ ip:test.lemonban.com
 # # 关闭数据库连接
 # db.close()
 
-db = pymysql.connect(host="test.lemonban.com", user="test", password="test", db="test", port=3306)  # 数据库连接参数
-cursor = db.cursor()
-cursor.execute("SELECT * FROM future.member")
-data = cursor.fetchall()
-print(data)
-db.close()
+# db = pymysql.connect(host="test.lemonban.com", user="test", password="test", db="test", port=3306)  # 数据库连接参数
+# cursor = db.cursor()
+# cursor.execute("SELECT * FROM future.member")
+# data = cursor.fetchall()
+# print(data)
+# db.close()
+
+from common.context import replace
+from common.test_api_config import ReadConfig
+config = ReadConfig()
+
+login_mobile_phone = '{"mobilephone": "${login_mobile_phone}", "pwd": "${login_mobile_pwd}"}'
+login_information = eval(config.get_value("Login", "login"))  # login正则配置
+
+# login_data = {"login_mobile_phone": "15666666678", "login_mobile_pwd": "123456"}
+login_mobile_phone = replace(login_mobile_phone, login_information)
+print(login_mobile_phone)
+print(login_information,type(login_information))

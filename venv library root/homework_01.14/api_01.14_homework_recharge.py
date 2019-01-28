@@ -38,8 +38,8 @@ datas = {"mobilephone": "15666666666", "pwd": "123456"}
 '''
 
 # get请求 未登陆直接充值  响应信息null
-# data = {"mobilephone": "15666666666", "amount": 123}
-# resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge',params=data)
+data = {"mobilephone": "15666666666", "amount": 123}
+resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge',params=data)
 # print(resp.status_code)  # 响应码
 # print(resp.text)  # 响应信息
 
@@ -97,9 +97,13 @@ datas = {"mobilephone": "15666666666", "pwd": "123456"}
 # print(resp2.text)
 
 # 参数错误：手机号不能为空 响应信息20103
-# data = {"mobilephone": None, "amount": None}
-# resp2 = requests.get('http://test.lemonban.com/futureloan/mvc/api/member/recharge', params=data, cookies=get_cookies)
-# print(resp2.text)
+data = {"mobilephone": "15666666666", "pwd": "123456"}
+session = requests.session()
+session.request("get", "http://test.lemonban.com/futureloan/mvc/api/member/login", params=data)
+
+data = {"mobilephone": "", "amount": 123}
+resp2 = session.request("get", "http://test.lemonban.com/futureloan/mvc/api/member/recharge", params=data)
+print(resp2.text)
 
 
 # 服务器异常 响应信息20102 服务器挂了
@@ -131,11 +135,11 @@ datas = {"mobilephone": "15666666666", "pwd": "123456"}
 # print(resp2.text)
 
 
-data = {"mobilephone": "15777777777", "amount": 10000}
-# resp2 = requests.session('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data={"mobilephone": "15666666666", "pwd": "123456"})
+# data = {"mobilephone": "15777777777", "amount": 10000}
+# # resp2 = requests.session('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data={"mobilephone": "15666666666", "pwd": "123456"})
+# # print(resp2.text)
+#
+# session = requests.session()
+# session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/login', data={"mobilephone": "15777777777", "pwd": "123456"})
+# resp2 = session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data)
 # print(resp2.text)
-
-session = requests.session()
-session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/login', data={"mobilephone": "15777777777", "pwd": "123456"})
-resp2 = session.request('post', 'http://test.lemonban.com/futureloan/mvc/api/member/recharge', data=data)
-print(resp2.text)

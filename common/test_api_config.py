@@ -101,3 +101,5 @@ if __name__ == '__main__':
     print(res7, type(res7))
     res8 = eval(res.config.get("WithDrawMember", "withdraw_member1_phone"))
     print(res8, type(res8))
+    res9 = eval(res.config.get("Login", "login"))
+    print(res9, type(res9))

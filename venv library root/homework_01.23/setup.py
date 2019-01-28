@@ -16,6 +16,15 @@
 3》如何在自动化用例中特换这些参数化数据？
 
 4》如何实现投资接口中对于标的ID的依赖？ （温馨提示可以使用global全局变量）
+
+为何recharge执行手机号码为空直接跳过了，显示出错信息：
+
+  File "D:\BaiduNetdiskDownload\python13-api-test\test_cases\test_api_method.py", line 142, in test_recharge
+    recharge_dict = json.loads(case.data)
+    raise ValueError(errmsg("Expecting value", s, err.value)) from None
+ValueError: Expecting value: line 1 column 34 (char 33)
+
+
 """
 
 

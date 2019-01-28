@@ -60,11 +60,11 @@ import requests
 # print(resp.text)  # 响应信息
 
 # 登陆后，参数错误:所有参数都不能为空 memberId=""
-# data = {"memberId": "", "password": "123456", "loanId": 10, "amount": 100}
-# session = requests.session()
-# session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
-# res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
-# print(res1.text)
+data = {"memberId": "", "password": "123456", "loanId": 10, "amount": 100}
+session = requests.session()
+session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666678", "pwd": "123456"})
+res1 = session.request("get", url="http://test.lemonban.com/futureloan/mvc/api/member/bidLoan", params=data)
+print(res1.text)
 
 # 登陆后，参数错误:所有参数都不能为空 password=""
 # data = {"memberId": 1115697, "password": "", "loanId": 10, "amount": 100}
