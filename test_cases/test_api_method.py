@@ -26,6 +26,7 @@ config = ReadConfig()
 login_information = eval(config.get_value("Login", "login"))
 recharge_information = eval(config.get_value("Recharge", "recharge"))
 withdraw_information = eval(config.get_value("WithDraw", "withdraw"))
+add_information = eval(config.get_value("Add", "add"))
 
 """
 config配置参数
@@ -71,6 +72,14 @@ class TestApiMethod(unittest.TestCase):
     def setUpClass(cls):  # 为什么用类方法？ 整个类只执行一次！
         cls.request = Request()
 
+        #测试下，不行还是放 cls.mysql.close() 上面
+        mysql = MysqlUtil()
+        sql = "select max(mobilephone) from future.member"
+        max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
+        global Max
+        Max = int(max) + 1
+
+
     def setUp(self):
         # warnings.simplefilter("ignore", ResourceWarning)
         self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
@@ -93,11 +102,7 @@ class TestApiMethod(unittest.TestCase):
         # cls.cursor.close()
         cls.mysql.close()
 
-    mysql = MysqlUtil()
-    sql = "select max(mobilephone) from future.member"
-    max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
-    global Max
-    Max = int(max)+1
+
 
     @unittest.skip("忽略测试，不要运行")
     @data(*cases_register)
@@ -189,7 +194,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_recharge.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('充值的结果：{}'.format(json.loads(result.text)["msg"]))  # 第一条用例登陆失败，写入的对比结果不对
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试取现
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -218,7 +223,7 @@ class TestApiMethod(unittest.TestCase):
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('提现的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    @unittest.skip("忽略测试，不要运行")
+    # @unittest.skip("忽略测试，不要运行")
     @data(*cases_add)
     def test_add(self, case):  # 测试创建标的
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -226,6 +231,9 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('data:{}'.format(case.data))
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
+
+        add_data_new = replace(case.data, add_information)
+        result = self.request.request(case.method, case.url, add_data_new)
 
         # 还有问题 登录后在获取变量执行就会跳过
         # add_dict = json.loads(case.data)
