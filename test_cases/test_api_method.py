@@ -26,17 +26,19 @@ config = ReadConfig()
 login_information = eval(config.get_value("Login", "login"))
 recharge_information = eval(config.get_value("Recharge", "recharge"))
 withdraw_information = eval(config.get_value("WithDraw", "withdraw"))
-add_information = eval(config.get_value("Add", "add"))
+add_information = eval(config.get_value("Add", "add"))  # 还没有添加好正则
+bidLoan_information = eval(config.get_value("BidLoan", "bidloan"))
 
 """
-config配置参数
-"""
+config 配置参数
 recharge_member_phone = config.get_int("RechargeMember", "recharge_member1_phone")
 recharge_member_id = config.get_int("RechargeMember", "recharge_member1_id")
 recharge_member_pwd = config.get_int("RechargeMember", "recharge_member_pwd")  # login登录配置
 
 withdraw_member_phone = config.get_int("WithDrawMember", "withdraw_member1_phone")
 withdraw_member_id = config.get_int("WithDrawMember", "withdraw_member1_id")
+"""
+
 audit_member_phone = config.get_int("AuditMember", "audit_member_phone")
 audit_member_id = config.get_int("AuditMember", "audit_member_id")
 
@@ -72,13 +74,7 @@ class TestApiMethod(unittest.TestCase):
     def setUpClass(cls):  # 为什么用类方法？ 整个类只执行一次！
         cls.request = Request()
 
-        #测试下，不行还是放 cls.mysql.close() 上面
-        mysql = MysqlUtil()
-        sql = "select max(mobilephone) from future.member"
-        max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
-        global Max
-        Max = int(max) + 1
-
+        # sql不能放这里，会报错：AttributeError: 'TestApiMethod' object has no attribute 'max'
 
     def setUp(self):
         # warnings.simplefilter("ignore", ResourceWarning)
@@ -102,7 +98,11 @@ class TestApiMethod(unittest.TestCase):
         # cls.cursor.close()
         cls.mysql.close()
 
-
+    mysql = MysqlUtil()
+    sql = "select max(mobilephone) from future.member"
+    max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
+    global Max
+    Max = int(max) + 1
 
     @unittest.skip("忽略测试，不要运行")
     @data(*cases_register)
@@ -288,15 +288,17 @@ class TestApiMethod(unittest.TestCase):
         # my_log.info('method:{}'.format(case.method))
         # my_log.info('expected:{}'.format(case.expected))
 
+        bidLoan_data_new = replace(case.data, bidLoan_information)
+        result = self.request.request(case.method, case.url, bidLoan_data_new)
+
         # 还有问题 登录后在获取变量执行就会跳过
-        bidLoan_dict = json.loads(case.data)
-        if bidLoan_dict["mobilephone"] == "@123@":
-            bidLoan_dict["mobilephone"] = recharge_member_phone
+        # bidLoan_dict = json.loads(case.data)
+        # if bidLoan_dict["mobilephone"] == "@123@":
+        #     bidLoan_dict["mobilephone"] = recharge_member_phone
         # if bidLoan_dict["memberId"] == "123":
         #     bidLoan_dict["memberId"] = recharge_member_id
-        result = self.request.request(case.method, case.url, bidLoan_dict)
+        # result = self.request.request(case.method, case.url, bidLoan_dict)
 
-        # result = self.request.request(case.method, case.url, case.data)
         try:
             self.assertEqual(json.loads(case.expected)["msg"], json.loads(result.text)["msg"])
             TestResult = "Pass"

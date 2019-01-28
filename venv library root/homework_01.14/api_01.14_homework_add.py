@@ -67,10 +67,10 @@ session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/member/l
 # print(req1.text)
 
 # 参数错误：参数不能为空 memberid为空 响应信息 20103
-data = {"memberId": "", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
-        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
-req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
-print(req1.text)
+# data = {"memberId": "", "title": "lucyktest1", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
+#         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": 1}
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
+# print(req1.text)
 
 # 参数错误：参数不能为空 title为空 响应信息 20103
 # data = {"memberId": "1114425", "title": "", "amount": 10000, "loanRate": 10.0, "loanTerm": 6,
@@ -343,3 +343,11 @@ print(req1.text)
 #         "loanDateType": 0, "repaymemtWay": 4, "biddingDays": -1}
 # req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/add', params=data)
 # print(req1.text)
+
+session = requests.session()
+session.request('get', url='http://47.107.168.87/futureloan/mvc/api/member/login', params={"mobilephone": "13816001234", "pwd": "123456"})
+
+data = {"memberId": "1116833", "title": "lucyktest2", "amount": 10000, "loanRate": 24, "loanTerm": 6,
+        "loanDateType": 0, "repaymemtWay": 4, "biddingDays": -1}
+req1 = session.request('get', url='http://47.107.168.87/futureloan/mvc/api/loan/add', params=data)
+print(req1.text)

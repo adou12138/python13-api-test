@@ -250,14 +250,23 @@ ip:test.lemonban.com
 # print(data)
 # db.close()
 
-from common.context import replace
-from common.test_api_config import ReadConfig
-config = ReadConfig()
+# from common.context import replace
+# # from common.test_api_config import ReadConfig
+# # config = ReadConfig()
+# #
+# # login_mobile_phone = '{"mobilephone": "${login_mobile_phone}", "pwd": "${login_mobile_pwd}"}'
+# # login_information = eval(config.get_value("Login", "login"))  # login正则配置
+# #
+# # # login_data = {"login_mobile_phone": "15666666678", "login_mobile_pwd": "123456"}
+# # login_mobile_phone = replace(login_mobile_phone, login_information)
+# # print(login_mobile_phone)
+# # print(login_information,type(login_information))
 
-login_mobile_phone = '{"mobilephone": "${login_mobile_phone}", "pwd": "${login_mobile_pwd}"}'
-login_information = eval(config.get_value("Login", "login"))  # login正则配置
 
-# login_data = {"login_mobile_phone": "15666666678", "login_mobile_pwd": "123456"}
-login_mobile_phone = replace(login_mobile_phone, login_information)
-print(login_mobile_phone)
-print(login_information,type(login_information))
+data1 = {"mobilephone": "13816001234", "pwd": "123456"}
+session = requests.session()
+session.request("get", "http://47.107.168.87/futureloan/mvc/api/member/login", params=data1)
+
+data = {"mobilephone": "13816001234", "amount": 10000}
+resp2 = session.request("get", "http://47.107.168.87/futureloan/mvc/api/member/recharge", params=data)
+print(resp2.text)

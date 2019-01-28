@@ -27,8 +27,17 @@ if __name__ == '__main__':
     # register_mobile_phone = {"mobilephone": "${register_mobilephone}", "pwd": "${register_pwd}"}
     # register_data = {"mobilephone": "15666666678", "pwd": "123456"}
 
-    login_mobile_phone = '{"mobilephone": "${login_mobile_phone}", "pwd": "${login_mobile_pwd}"}'
-    login_data = {"login_mobile_phone": "15666666678", "login_mobile_pwd": "123456"}
+    # login_mobile_phone = '{"mobilephone": "${login_mobile_phone}", "pwd": "${login_mobile_pwd}"}'
+    # login_data = {"login_mobile_phone": "15666666678", "login_mobile_pwd": "123456"}
+    # s = replace(login_mobile_phone, login_data)
+    # print(s)
 
-    s = replace(login_mobile_phone, login_data)
+    add_add = '''{"memberId": "${add_memberId}", "title": "${add_title}", "amount": "${add_amount}",
+               "loanRate": "${add_loanRate}", "loanTerm": "${add_loanTerm}",
+               "loanDateType": "${add_loanDateType}", "repaymemtWay": "${add_repaymemtWay}",
+               "biddingDays": "${add_biddingDays}"}'''
+    add = {"add_memberId": "1116833", "add_title": "lucyktest2", "add_amount": "10000", "add_loanRate": "10.0",
+           "add_loanTerm": "6",
+           "add_loanDateType": "0", "add_repaymemtWay": "4", "add_biddingDays": "1"}
+    s = replace(add_add, add)
     print(s)
