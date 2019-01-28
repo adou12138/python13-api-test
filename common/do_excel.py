@@ -68,6 +68,7 @@ class DoExcel:
             # print(type(row_case.url))
 
             row_case.data = sheet.cell(row=i, column=4).value
+            # print(row_case.data)
             # print(type(row_case.data))  # 字符串
 
             """配置文件-手机号码最大
@@ -168,7 +169,7 @@ if __name__ == '__main__':
     # print(cases_audit)
     # DoExcel(contants.excel_file, "audit").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
-    cases_bidLoan = DoExcel(contants.excel_file, "bidLoan").read_excel()
-    print(cases_bidLoan)
+    # cases_bidLoan = DoExcel(contants.excel_file, "bidLoan").read_excel()
+    # print(cases_bidLoan)
     # DoExcel(contants.excel_file, "bidLoan").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
