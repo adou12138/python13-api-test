@@ -12,6 +12,7 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # common 地址
 common_dir = os.path.join(base_dir, "common")
 do_excel_file = os.path.join(common_dir, "do_excel.py")
+do_excel_study_file = os.path.join(common_dir, "do_excel_study.py")
 mysql_file = os.path.join(common_dir, "mysql.py")
 request_file = os.path.join(common_dir, "request.py")
 test_api_config_file = os.path.join(common_dir, "test_api_config.py")
@@ -44,6 +45,7 @@ report_file = os.path.join(reports_dir, "luckytest")
 test_cases_dir = os.path.join(base_dir, "test_cases")
 api_method_file = os.path.join(test_cases_dir, "api_method.py")
 test_api_method_file = os.path.join(test_cases_dir, "test_api_method.py")
+test_api_register_file = os.path.join(test_cases_dir, "test_api_register.py")
 
 
 

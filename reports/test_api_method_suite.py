@@ -7,13 +7,29 @@
 import unittest
 import HTMLTestRunnerNew
 
-from test_cases.test_api_method import TestApiMethod
-from common import contants
+from test_cases.test_api_method import TestApiMethod  # 导入所有的测试用例
+
+# from test_cases.test_api_regitser import RegisterTest  # 导入注册
+from test_cases.test_api_login import LogInTest  # 导入登陆
+from test_cases.test_api_recharge import RechargeTest  # 导入充值
+from test_cases.test_api_withdraw import WithDrawTest  # 导入提现
+from test_cases.test_api_add import AddTest  # 导入add
+from test_cases.test_api_bidloan import BidLoanTest  # 导入bidloan
+from test_cases.test_api_audit import AuditTest  # 导入audit
+
 
 suite = unittest.TestSuite()
-
 loader = unittest.TestLoader()
-suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))
+
+# suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))  # 执行所有的测试用例
+
+# suite.addTest(loader.loadTestsFromTestCase(RegisterTest))  # 执注册
+suite.addTest(loader.loadTestsFromTestCase(LogInTest))  # 执行登陆
+suite.addTest(loader.loadTestsFromTestCase(RechargeTest))  # 执行充值
+suite.addTest(loader.loadTestsFromTestCase(WithDrawTest))  # 执行提现
+suite.addTest(loader.loadTestsFromTestCase(AddTest))  # 执行add
+suite.addTest(loader.loadTestsFromTestCase(BidLoanTest))  # 执行bidloan
+suite.addTest(loader.loadTestsFromTestCase(AuditTest))  # 执行bidloan
 
 # with open(contants.report_file, 'wb') as file:  # 引用common中的report地址
 #     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
@@ -23,7 +39,7 @@ suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))
 #                                             tester='lucky')
 #     runner.run(suite)  # 执行测试集里面的用例  F代表失败 .代表成功 e代表代码错误
 
-
+from common import contants
 import time
 now = time.strftime('%Y-%m-%d-%H-%M-%S')  # 获取当前系统的时间，生成字符串
 path = contants.report_file+now+'.html'

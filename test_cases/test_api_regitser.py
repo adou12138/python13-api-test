@@ -8,12 +8,11 @@ import unittest
 from common import contants
 from ddt import ddt, data
 
-from common.do_excel import DoExcel  # 导入excel
+from common.do_excel_study import DoExcel  # 导入excel
 from common.request import Request  # 导入api请求
 
-# 重新使用doexcel_study中的方法调用
-cases_register = DoExcel(contants.excel_file, "register").read_excel()
-cases_login = DoExcel(contants.excel_file, "login").read_excel()
+from common.test_api_config import ReadConfig
+config = ReadConfig()
 
 from common.mysql import MysqlUtil
 import json
@@ -29,7 +28,6 @@ import json
 2.case.data里面的手机号码给替换掉
 3.然后再去请求
 
-
 投资必须先有标的，loan，自己创建一个标的
 提bug到禅道
 
@@ -39,53 +37,57 @@ my_log = MyLog()
 
 
 @ddt
-class TestApiMethod(unittest.TestCase):
+class RegisterTest(unittest.TestCase):
     '这是测试接口的类'
-
-    #do_excel = DoExcel(contans.case_file)  # 传入excel
-    cases_recharge = DoExcel(contants.excel_file, "recharge").read_excel()
+    # 使用doexcel_study中的方法调用
+    do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
+    cases_register = do_excel.read_excel("register")  # 读取register_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
         cls.request = Request()  # 实例化对象
 
     def setUp(self):
-        self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
-        self.write_login = DoExcel(contants.excel_file, "login")
-        my_log.info("开始执行用例")
+        # self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
+        print("开始执行用例")
 
     def tearDown(self):
-        my_log.info("用例执行结束")
+        print("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
         cls.request.session.close()  # 关闭session请求
+        cls.mysql.close()  # 关闭数据库连接
 
     mysql = MysqlUtil()
     sql = "select max(mobilephone) from future.member"
-    max = mysql.fetch_one(sql) [0] # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
-    print(max[0])
+    max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
+    # print(max)
 
+    # @unittest.skip("忽略")
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
-        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # my_log.info('url:{}'.format(case.url))
-        # my_log.info('data:{}'.format(case.data))
-        # my_log.info('method:{}'.format(case.method))
-        # my_log.info('expected:{}'.format(case.expected))
+        # print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # print('url:{}'.format(case.url))
+        # print('data:{}'.format(case.data))
+        # print('method:{}'.format(case.method))
+        # print('expected:{}'.format(case.expected))
         data_dict = json.loads(case.data)
         if data_dict['mobilephone'] == '#@mobilephone':
-            data_dict['mobilephone'] == int(self.max)+1
-        result = self.request.request(case.method, case.url, data_dict)
+            # 取最大电话号码+1
+            data_dict['mobilephone'] = int(self.max)+1
+
+        resp = self.request.request(case.method, case.url, data_dict)
+
         try:
-            self.assertEqual(case.expected, result.text)
-            TestResult = "Pass"
+            self.assertEqual(case.expected, resp.text)
+            self.do_excel.write_excel('register', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
+            print("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
-            TestResult = "Failed"
-            my_log.error("断言出错了".format(e))
+            self.do_excel.write_excel('register', case.case_id + 1, resp.text, 'FAIL')
+            print("第{0}用例执行结果：FAIL".format(case.case_id))
+            print("断言出错了".format(e))
             raise e
-        finally:
-            self.write_register.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
-            my_log.info('注册的结果：{}'.format(result.status_code))
+
 
 

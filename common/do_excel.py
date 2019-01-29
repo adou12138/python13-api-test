@@ -33,6 +33,11 @@ class Cases:
         self.data = None
         self.method = None
         self.expected = None
+        """
+        需要封装？
+        self.actual = None
+        self.result = None
+        """
 
 class DoExcel:
     '这是一个excel测试数据的类'
@@ -147,14 +152,14 @@ if __name__ == '__main__':
     # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
 
-    # cases_register = DoExcel(contants.excel_file, "register").read_excel()
-    # print(cases_register)
+    cases_register = DoExcel(contants.excel_file, "register").read_excel()
+    print(cases_register)
     # DoExcel(contants.excel_file, "register").write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print("*"*50)
     # cases_login = DoExcel(contants.excel_file,"login").read_excel()
     # print(cases_login)
-    cases_recharge = DoExcel(contants.excel_file, "recharge").read_excel()
-    print(cases_recharge)
+    # cases_recharge = DoExcel(contants.excel_file, "recharge").read_excel()
+    # print(cases_recharge)
     # DoExcel(contants.excel_file, "recharge").write_excel(2, str({"status":1,"code":"10001","data":{"id":1114421,"regname":"小蜜蜂","pwd":"E10ADC3949BA59ABBE56E057F20F883E","mobilephone":"15666666666","leaveamount":"806838.00","type":"1","regtime":"2019-01-15 13:59:38.0"},"msg":"充值成功"}),"False")
     # print("*"*50)
     # cases_recharge = DoExcel(contants.excel_file, "withdraw").read_excel()

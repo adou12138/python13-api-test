@@ -42,7 +42,7 @@ withdraw_member_id = config.get_int("WithDrawMember", "withdraw_member1_id")
 audit_member_phone = config.get_int("AuditMember", "audit_member_phone")
 audit_member_id = config.get_int("AuditMember", "audit_member_id")
 
-from common.context import replace
+from common.context import Context
 """
 手机号码注册 电话号码数据库取值，名字随机字符
 1.数据库里面查最大的手机号+1
@@ -91,7 +91,7 @@ class TestApiMethod(unittest.TestCase):
     def tearDownClass(cls):
         cls.request.session.close()  # 关闭session会话
         # cls.cursor.close()
-        cls.mysql.close()
+        cls.mysql.close()  # 关闭数据库连接
 
     mysql = MysqlUtil()
     sql = "select max(mobilephone) from future.member"
@@ -99,7 +99,7 @@ class TestApiMethod(unittest.TestCase):
     global Max
     Max = int(max) + 1
 
-    @unittest.skip("忽略测试，不要运行")
+    # @unittest.skip("忽略测试，不要运行")
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
         my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
@@ -135,7 +135,7 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
 
-        login_data_new = replace(case.data, login_information)
+        login_data_new = Context.replace(case.data, login_information)
         result = self.request.request(case.method, case.url, login_data_new)
 
         """
@@ -169,7 +169,7 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
 
-        recharge_data_new = replace(case.data, recharge_information)
+        recharge_data_new = Context.replace(case.data, recharge_information)
         result = self.request.request(case.method, case.url, recharge_data_new)
 
         """
@@ -198,7 +198,7 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
 
-        withdraw_data_new = replace(case.data, withdraw_information)
+        withdraw_data_new = Context.replace(case.data, withdraw_information)
         result = self.request.request(case.method, case.url, withdraw_data_new)
 
         """
@@ -218,16 +218,16 @@ class TestApiMethod(unittest.TestCase):
             self.write_withdraw.write_excel(case.case_id+1, result.text, TestResult)  # 写入测试实际结果
             my_log.info('提现的结果：{}'.format(json.loads(result.text)['msg']))  # 第一条用例登陆失败，写入的对比结果不对
 
-    # @unittest.skip("忽略测试，不要运行")
+    @unittest.skip("忽略测试，不要运行")
     @data(*cases_add)
     def test_add(self, case):  # 测试创建标的
-        my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        my_log.info('url:{}'.format(case.url))
-        my_log.info('data:{}'.format(case.data))
-        my_log.info('method:{}'.format(case.method))
-        my_log.info('expected:{}'.format(case.expected))
+        # my_log.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # my_log.info('url:{}'.format(case.url))
+        # my_log.info('data:{}'.format(case.data))
+        # my_log.info('method:{}'.format(case.method))
+        # my_log.info('expected:{}'.format(case.expected))
 
-        add_data_new = replace(case.data, add_information)
+        add_data_new = Context.replace(case.data, add_information)
         result = self.request.request(case.method, case.url, add_data_new)
 
         # 还有问题 登录后在获取变量执行就会跳过
@@ -283,7 +283,7 @@ class TestApiMethod(unittest.TestCase):
         my_log.info('method:{}'.format(case.method))
         my_log.info('expected:{}'.format(case.expected))
 
-        bidLoan_data_new = replace(case.data, bidLoan_information)
+        bidLoan_data_new = Context.replace(case.data, bidLoan_information)
         result = self.request.request(case.method, case.url, bidLoan_data_new)
 
         # 还有问题 登录后在获取变量执行就会跳过
