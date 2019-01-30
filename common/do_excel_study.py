@@ -68,8 +68,11 @@ class DoExcel:
             row_case.data = sheet.cell(row=i, column=4).value
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
+            # print(row_case.expected,type(row_case.expected))
+
             # if type(case.expected) == int:
             #     case.expected = str(case.expected)
+
             case.append(row_case)  # 将case放到cases 列表里面
         return case
 
@@ -77,6 +80,7 @@ class DoExcel:
         sheet = self.workbook[excel_sheet_name]  # 获取sheet
         sheet.cell(row, 7).value = actual  # 写入实际测试结果
         sheet.cell(row, 8).value = result  # 写入执行结果
+        print("写入结果{}".format(excel_sheet_name))
         self.workbook.save(filename=self.excel_file_name)  # 保存数据
 
 # sheet.cell(row=3,column=4,value=9)#写入值的方法一
@@ -148,15 +152,16 @@ if __name__ == '__main__':
     do_excel = DoExcel(contants.excel_file)
     cases_register = do_excel.read_excel("register")
     print(cases_register)
-    write = do_excel.write_excel("register", 2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
-    print(write)
+    # write = do_excel.write_excel("register", 2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
+    # print(write)
 
     # 不需要转json，直接字符串写入就可以了
     # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "", "regname": "luckytest"}), "True")
     # print(write)
     # print("*"*50)
     # do_excel = DoExcel(contants.excel_file)
-    # cases_login = do_excel.read_excel("login")
+    cases_login = do_excel.read_excel("login")
     # print(cases_login)
-    # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
+    # write = do_excel.write_excel("login", 2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
+    cases_invest = do_excel.read_excel("invest")

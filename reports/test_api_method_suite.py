@@ -24,12 +24,12 @@ loader = unittest.TestLoader()
 # suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))  # 执行所有的测试用例
 
 # suite.addTest(loader.loadTestsFromTestCase(RegisterTest))  # 执注册
-suite.addTest(loader.loadTestsFromTestCase(LogInTest))  # 执行登陆
+# suite.addTest(loader.loadTestsFromTestCase(LogInTest))  # 执行登陆
 suite.addTest(loader.loadTestsFromTestCase(RechargeTest))  # 执行充值
 suite.addTest(loader.loadTestsFromTestCase(WithDrawTest))  # 执行提现
-suite.addTest(loader.loadTestsFromTestCase(AddTest))  # 执行add
-suite.addTest(loader.loadTestsFromTestCase(BidLoanTest))  # 执行bidloan
-suite.addTest(loader.loadTestsFromTestCase(AuditTest))  # 执行bidloan
+# suite.addTest(loader.loadTestsFromTestCase(AddTest))  # 执行add
+# suite.addTest(loader.loadTestsFromTestCase(BidLoanTest))  # 执行bidloan
+# suite.addTest(loader.loadTestsFromTestCase(AuditTest))  # 执行bidloan
 
 # with open(contants.report_file, 'wb') as file:  # 引用common中的report地址
 #     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,

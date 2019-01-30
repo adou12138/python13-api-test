@@ -57,7 +57,7 @@ import requests
 # print(resp.headers)  # 响应头部信息
 
 # post请求 用户注册
-data = {"mobilephone": "13816001234", "pwd": "123456"}
+data = {"mobilephone": "13816006666", "pwd": "123456"}
 resp = requests.get('http://47.107.168.87/futureloan/mvc/api/member/register', params=data)
 print(resp.request.url)  # 请求的url
 print(resp.request.body)  # 请求参数

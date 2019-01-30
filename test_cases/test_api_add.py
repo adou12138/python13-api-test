@@ -14,7 +14,7 @@ from common.request import Request  # 导入api请求
 from common.test_api_config import ReadConfig
 config = ReadConfig()
 # 正则配置
-add_information = eval(config.get_value("BidLoan", "add"))
+add_information = eval(config.get_value("Add", "add"))
 
 from common.context import Context
 import json
@@ -33,7 +33,7 @@ my_log = MyLog()
 
 @ddt
 class AddTest(unittest.TestCase):
-    '这是测试接口的类'
+    '这是测试管理员新增项目接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
     cases_add = do_excel.read_excel("add")  # 读取register_sheet

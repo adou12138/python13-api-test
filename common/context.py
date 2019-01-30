@@ -21,6 +21,12 @@ class Context:  # 上下文，数据的准备和记录
     normal_pwd = config.get_value('Data', 'normal_pwd')
     normal_member_id = config.get_value('Data', 'normal_member_id')
 
+    recharge_login_mobile_phone = config.get_value('Data', 'recharge_login_mobile_phone')
+    recharge_login_mobile_pwd = config.get_value('Data', 'recharge_login_mobile_pwd')
+    recharge_mobile_phone = config.get_value('Data', 'recharge_mobile_phone')
+    recharge_amount = config.get_value('Data', 'recharge_amount')
+
+
     def replace(s, d):
         p = "\$\{(.*?)}"  # 有组一定要用()
         while re.search(p, s):
@@ -65,5 +71,9 @@ if __name__ == '__main__':
     # s = replace(add_add, add)
     # print(s)
     s = '{"mobilephone": "${admin_user}", "pwd": "${admin_pwd}"}'
-    s = replace_new(s)
+    s = Context.replace_new(s)
     print(s)
+
+    s2 = '{"mobilephone": "${recharge_login_mobile_phone}", "pwd": "${recharge_login_mobile_pwd}", "mobilephone": "${recharge_mobile_phone}", "amount": "${recharge_amount}"}'
+    s2 = Context.replace_new(s2)
+    print(s2)

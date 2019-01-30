@@ -33,7 +33,7 @@ my_log = MyLog()
 
 @ddt
 class WithDrawTest(unittest.TestCase):
-    '这是测试接口的类'
+    '这是测试提现接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
     cases_withdraw = do_excel.read_excel("withdraw")  # 读取register_sheet
@@ -56,11 +56,11 @@ class WithDrawTest(unittest.TestCase):
 
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        # print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # print('url:{}'.format(case.url))
+        # print('data:{}'.format(case.data))
+        # print('method:{}'.format(case.method))
+        # print('expected:{}'.format(case.expected))
 
         withdraw_data_new = Context.replace(case.data, withdraw_information)
         resp = self.request.request(case.method, case.url, withdraw_data_new)

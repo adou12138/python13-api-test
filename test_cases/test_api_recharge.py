@@ -35,7 +35,7 @@ my_log = MyLog()
 
 @ddt
 class RechargeTest(unittest.TestCase):
-    '这是测试接口的类'
+    '这是测试充值接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
     cases_recharge = do_excel.read_excel("recharge")  # 读取register_sheet
@@ -46,10 +46,10 @@ class RechargeTest(unittest.TestCase):
 
     def setUp(self):
         # self.write_recharge = DoExcel(contants.excel_file, "recharge") # 创建一个对象写入
-        my_log.info("开始执行用例")
+        print("开始执行用例")
 
     def tearDown(self):
-        my_log.info("用例执行结束")
+        print("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -57,13 +57,14 @@ class RechargeTest(unittest.TestCase):
 
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        # print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        # print('url:{}'.format(case.url))
+        # print('data:{}'.format(case.data))
+        # print('method:{}'.format(case.method))
+        # print('expected:{}'.format(case.expected))
 
-        recharge_data_new = Context.replace(case.data, recharge_information)
+        # recharge_data_new = Context.replace(case.data, recharge_information)
+        recharge_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
         resp = self.request.request(case.method, case.url, recharge_data_new)
 
         try:

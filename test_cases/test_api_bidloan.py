@@ -33,7 +33,7 @@ my_log = MyLog()
 
 @ddt
 class BidLoanTest(unittest.TestCase):
-    '这是测试接口的类'
+    '这是测试投资、竞标接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
     cases_bidloan = do_excel.read_excel("bidLoan")  # 读取register_sheet

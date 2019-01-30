@@ -23,14 +23,16 @@ class Girls:
         print(self.name + "会唱歌")
 
 if __name__ == '__main__':
-    # g = Girls('mongo', 18)
+    g = Girls('mongo', 18)
     # print(g.name)
     # g.singe()
 
     # setattr(g, 'hub', 'swimming')  # 给类或者实例对象，动态的去添加属性或者方法
     # 如果是用实例添加的，作用域仅仅限于当前实例的作用域，下面的g2就会报错：AttributeError: 'Girls' object has no attribute 'hub'
     setattr(Girls, 'hub', 'swimming')  # 传类名进去
-    # print(g.hub)  # 编辑器是静态的时候才会去检查语法错误
+    print(g.hub)  # 编辑器是静态的时候才会去检查语法错误
+    setattr(Girls, 'love', 'me')
+    print(g.love)
 
     # g2 = Girls('lucy', 20)
     # print(g2.hub)
@@ -41,14 +43,16 @@ if __name__ == '__main__':
     print(hasattr(Girls, 'male'))  # 判断当前这个类有没有这个属性，有就返回True，没有就返回False
     print(hasattr(Girls, 'name'))
     print(hasattr(Girls, 'single'))  # 判断类是否有这个类属性
+    print(hasattr(g, 'name'))  # 判断对象是否有这个类数学
 
     g = Girls('mongo', 18)
     print(g.name)
     g.singe()
     print(hasattr(g, 'name'))  # 判断对象是否有这个实例属性
-
-    # delattr(g, 'name')  # 删除对象属性
-    # print(g.name)
+    """
+    delattr(g, 'name')  # 删除对象属性
+    print(g.name)
 
     delattr(Girls, 'single')  # 删除类属性
     print(getattr(Girls, 'single'))  # AttributeError: type object 'Girls' has no attribute 'single'
+"""

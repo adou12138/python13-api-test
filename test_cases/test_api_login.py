@@ -33,7 +33,7 @@ my_log = MyLog()
 
 @ddt
 class LogInTest(unittest.TestCase):
-    '这是测试接口的类'
+    '这是测试登陆接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
     cases_login = do_excel.read_excel("login")  # 读取register_sheet
