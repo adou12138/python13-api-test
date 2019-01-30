@@ -12,15 +12,11 @@ from common.do_excel_study import DoExcel  # 导入excel
 from common.request import Request  # 导入api请求
 
 from common.mysql import MysqlUtil
-
 from common.context import Context
 
-"""
 
-"""
 from log.test_api_log import MyLog
 my_log = MyLog()
-
 
 @ddt
 class TestInvest(unittest.TestCase):
@@ -74,8 +70,7 @@ class TestInvest(unittest.TestCase):
                 sql = "select id from future.loan where memberid='{0}' " \
                       "order by createTime desc limit 1".format(loan_member_id)
                 loan_id = self.mysql.fetch_one(sql)[0]
-                # 记得转成字符串，后续要通过正则替换
-                setattr(Context, 'loan_id', str(loan_id))  # 和excel中的名字保持一致, 记得专程str，后续要通过正则替换
+                setattr(Context, 'loan_id', str(loan_id))  # 和excel中的名字保持一致, 记得转成字符串str，后续要通过正则替换
 
         except AssertionError as e:
             self.do_excel.write_excel('invest', case.case_id+1, resp.text, "Failed")  # 写入测试实际结果

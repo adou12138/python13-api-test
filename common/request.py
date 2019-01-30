@@ -28,7 +28,7 @@ class Request:
         if data is not None and type(data) == str:
             data = eval(data)  # 如果是字符串就转成字典
 
-        print('method:{0} url:{1}'.format(method, url))  # 输出确认内容
+        print('method: {0} url:{1}'.format(method, url))  # 输出确认内容
         print('data:{0} '.format(data))
 
         if method == "GET":
