@@ -23,13 +23,10 @@ import json
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
-
 """
-
 """
 from log.test_api_log import MyLog  # 导入日志文件
 my_log = MyLog()
-
 
 @ddt
 class AuditTest(unittest.TestCase):
@@ -62,10 +59,10 @@ class AuditTest(unittest.TestCase):
         print('method:{}'.format(case.method))
         print('expected:{}'.format(case.expected))
 
-        # audit_data_new = Context.replace(case.data, audit_information)
-        # resp = self.request.request(case.method, case.url, audit_data_new)
+        audit_data_new = Context.replace_new(case.data)
+        resp = self.request.request(case.method, case.url, audit_data_new)
 
-        resp = self.request.request(case.method, case.url, case.data)
+        # resp = self.request.request(case.method, case.url, case.data)
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
             self.do_excel.write_excel('audit', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
@@ -75,6 +72,3 @@ class AuditTest(unittest.TestCase):
             print("第{0}用例执行结果：FAIL".format(case.case_id))
             print("断言出错了".format(e))
             raise e
-
-
-

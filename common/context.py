@@ -26,6 +26,13 @@ class Context:  # 上下文，数据的准备和记录
     recharge_mobile_phone = config.get_value('Data', 'recharge_mobile_phone')
     recharge_amount = config.get_value('Data', 'recharge_amount')
 
+    register_member_pwd = config.get_value('Data', 'register_member_pwd')
+    register_member_regname = config.get_value('Data', 'register_member_regname')
+
+    audit_loan_id = config.get_value('Data', 'audit_loan_id')
+
+    generateRepayments_loan_id = config.get_value('Data', 'generateRepayments_loan_id')
+    generateRepayments_loan_id_repayments = config.get_value('Data', 'generateRepayments_loan_id_repayments')
 
     def replace(s, d):
         p = "\$\{(.*?)}"  # 有组一定要用()

@@ -2,7 +2,7 @@
 # python13-api-test 
 # test_api_regitser 
 # shen 
-# 2019/1/21 23:00 
+# 2019/1/21 23:00
 
 import unittest
 from common import contants
@@ -23,13 +23,10 @@ import json
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
-
 """
-
 """
 from log.test_api_log import MyLog  # 导入日志文件
 my_log = MyLog()
-
 
 @ddt
 class LogInTest(unittest.TestCase):

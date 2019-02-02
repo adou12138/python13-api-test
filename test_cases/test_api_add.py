@@ -23,13 +23,10 @@ import json
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
-
 """
-
 """
 from log.test_api_log import MyLog  # 导入日志文件
 my_log = MyLog()
-
 
 @ddt
 class AddTest(unittest.TestCase):
@@ -74,6 +71,3 @@ class AddTest(unittest.TestCase):
             print("第{0}用例执行结果：FAIL".format(case.case_id))
             print("断言出错了".format(e))
             raise e
-
-
-

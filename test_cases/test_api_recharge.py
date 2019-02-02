@@ -24,14 +24,12 @@ import json
 另一种，调用sessions的方法老师会给代码
 """
 
-
 # 一个接口一个类，一个类一个方法
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
 from log.test_api_log import MyLog
 my_log = MyLog()
-
 
 @ddt
 class RechargeTest(unittest.TestCase):
@@ -57,11 +55,11 @@ class RechargeTest(unittest.TestCase):
 
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试注册
-        # print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # print('url:{}'.format(case.url))
-        # print('data:{}'.format(case.data))
-        # print('method:{}'.format(case.method))
-        # print('expected:{}'.format(case.expected))
+        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        print('url:{}'.format(case.url))
+        print('data:{}'.format(case.data))
+        print('method:{}'.format(case.method))
+        print('expected:{}'.format(case.expected))
 
         # recharge_data_new = Context.replace(case.data, recharge_information)
         recharge_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
@@ -76,5 +74,3 @@ class RechargeTest(unittest.TestCase):
             print("第{0}用例执行结果：FAIL".format(case.case_id))
             print("断言出错了".format(e))
             raise e
-
-

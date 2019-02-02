@@ -17,10 +17,10 @@ config = ReadConfig()
 from common.mysql import MysqlUtil
 import json
 
+from common.context import Context
 # 一个接口一个类，一个类一个方法
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
-
 
 """
 手机号码注册 电话号码数据库取值，名字随机字符
@@ -30,11 +30,9 @@ import json
 
 投资必须先有标的，loan，自己创建一个标的
 提bug到禅道
-
 """
 from log.test_api_log import MyLog
 my_log = MyLog()
-
 
 @ddt
 class RegisterTest(unittest.TestCase):
@@ -67,17 +65,21 @@ class RegisterTest(unittest.TestCase):
     # @unittest.skip("忽略")
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
-        # print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # print('url:{}'.format(case.url))
-        # print('data:{}'.format(case.data))
-        # print('method:{}'.format(case.method))
-        # print('expected:{}'.format(case.expected))
+        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        print('url:{}'.format(case.url))
+        print('data:{}'.format(case.data))
+        print('method:{}'.format(case.method))
+        print('expected:{}'.format(case.expected))
         data_dict = json.loads(case.data)
         if data_dict['mobilephone'] == '#@mobilephone':
             # 取最大电话号码+1
             data_dict['mobilephone'] = int(self.max)+1
+        # resp = self.request.request(case.method, case.url, data_dict)
 
-        resp = self.request.request(case.method, case.url, data_dict)
+        data_dict = json.dumps(data_dict)  # 把字典转换成字符串传入context进行转换
+        # print(data_dict, type(data_dict))
+        register_data_new = Context.replace_new(data_dict)
+        resp = self.request.request(case.method, case.url, register_data_new)
 
         try:
             self.assertEqual(case.expected, resp.text)

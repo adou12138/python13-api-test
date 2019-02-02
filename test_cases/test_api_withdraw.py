@@ -23,13 +23,10 @@ import json
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
-
 """
-
 """
 from log.test_api_log import MyLog  # 导入日志文件
 my_log = MyLog()
-
 
 @ddt
 class WithDrawTest(unittest.TestCase):
@@ -56,11 +53,11 @@ class WithDrawTest(unittest.TestCase):
 
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试注册
-        # print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # print('url:{}'.format(case.url))
-        # print('data:{}'.format(case.data))
-        # print('method:{}'.format(case.method))
-        # print('expected:{}'.format(case.expected))
+        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        print('url:{}'.format(case.url))
+        print('data:{}'.format(case.data))
+        print('method:{}'.format(case.method))
+        print('expected:{}'.format(case.expected))
 
         withdraw_data_new = Context.replace(case.data, withdraw_information)
         resp = self.request.request(case.method, case.url, withdraw_data_new)
@@ -74,6 +71,3 @@ class WithDrawTest(unittest.TestCase):
             print("第{0}用例执行结果：FAIL".format(case.case_id))
             print("断言出错了".format(e))
             raise e
-
-
-
