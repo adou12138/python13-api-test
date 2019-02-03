@@ -30,18 +30,18 @@ from log.test_api_log import MyLog
 my_log = MyLog()
 
 @ddt
-class GenerateRepaymentsTest(unittest.TestCase):
+class GetInvestsByMemberIdTest(unittest.TestCase):
     '这是测试获取用户投资接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_getInvestsByMemberId = do_excel.read_excel("getInvestsByMemberId")  # 读取register_sheet
+    cases_getInvestsByMemberId = do_excel.read_excel("getInvestsByMemberId")  # 读取getInvestsByMemberId
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
         cls.request = Request()  # 实例化对象
 
     def setUp(self):
-        # self.write_recharge = DoExcel(contants.excel_file, "generateRepayments") # 创建一个对象写入
+        # self.write_recharge = DoExcel(contants.excel_file, "getInvestsByMemberId") # 创建一个对象写入
         print("开始执行用例")
 
     def tearDown(self):

@@ -2,7 +2,7 @@
 # python13-api-test 
 # test_api_regitser 
 # shen 
-# 2019/1/21 23:00
+# 2019/1/21 23:00+
 
 import unittest
 from common import contants
@@ -33,7 +33,7 @@ class LogInTest(unittest.TestCase):
     '这是测试登陆接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_login = do_excel.read_excel("login")  # 读取register_sheet
+    cases_login = do_excel.read_excel("login")  # 读取login_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
