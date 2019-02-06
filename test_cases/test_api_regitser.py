@@ -62,7 +62,6 @@ class RegisterTest(unittest.TestCase):
     max = mysql.fetch_one(sql)[0]  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
     # print(max)
 
-    # @unittest.skip("忽略")
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
         print("开始执行第{}条用例: {}".format(case.case_id, case.title))

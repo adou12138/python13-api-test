@@ -24,10 +24,6 @@ import json
 另一种，调用sessions的方法老师会给代码
 """
 
-# 一个接口一个类，一个类一个方法
-# 一个类，多个方法，多个接接口
-# 一个类，一个方法，全部接口
-
 from log.test_api_log import MyLog
 my_log = MyLog()
 
