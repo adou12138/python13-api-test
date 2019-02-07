@@ -16,7 +16,11 @@ config = ReadConfig()
 class Context:  # 上下文，数据的准备和记录
     admin_user = config.get_value('Data', 'admin_user')
     admin_pwd = config.get_value('Data', 'admin_pwd')
+
     loan_member_id = config.get_value('Data', 'loan_member_id')  # loan_id 是创建好才有的，所有不需要定义成类属性
+    loan_member = config.get_value('Data', 'loan_member')
+    loan_member_pwd = config.get_value('Data', 'loan_member_pwd')
+
     normal_user = config.get_value('Data', 'normal_user')
     normal_pwd = config.get_value('Data', 'normal_pwd')
     normal_member_id = config.get_value('Data', 'normal_member_id')

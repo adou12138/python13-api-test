@@ -20,9 +20,8 @@ my_log = MyLog()
 
 @ddt
 class TestInvest(unittest.TestCase):
-    '这是测试竞标流程接口的类'
+    '这是测试投资流程接口的类'
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_recharge = do_excel.read_excel("recharge")  # 读取register_sheet
     cases_invest = do_excel.read_excel("invest")  # 读取invest_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
@@ -33,8 +32,6 @@ class TestInvest(unittest.TestCase):
 
     def setUp(self):  # 每个测试方法里面去运行的操作都放到类方法里面
         print("这是一个setUp")
-        # self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
-        # self.write_login = DoExcel(contants.excel_file, "login")
         print("开始执行用例")
 
     def tearDown(self):
@@ -48,10 +45,10 @@ class TestInvest(unittest.TestCase):
     @data(*cases_invest)
     def test_invest(self, case):  # 测试注册
         print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # print('url:{}'.format(case.url))
-        # print('data:{}'.format(case.data))
-        # print('method:{}'.format(case.method))
-        # print('expected:{}'.format(case.expected)
+        print('url:{}'.format(case.url))
+        print('data:{}'.format(case.data))
+        print('method:{}'.format(case.method))
+        print('expected:{}'.format(case.expected))
 
         # 查找参数化的测试数据，动态替换
         data_new = Context.replace_new(case.data)  # Str测试数据
