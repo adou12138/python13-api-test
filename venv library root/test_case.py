@@ -5,6 +5,9 @@
 # 2019/1/15 21:09
 
 """
+cmd 命令行执行，为何test case执行不行，没有显示调用结果，但是执行test report调用test_suite是ok的，是因为参数的关系么？
+
+
 bug 1：
 add 模块 memberid='0' 抛出：
 {"status":0,"code":"20102","data":null,
