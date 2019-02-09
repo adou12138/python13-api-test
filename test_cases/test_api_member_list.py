@@ -51,19 +51,23 @@ class MemberListTest(unittest.TestCase):
 
 
     @data(*cases_member_list)
-    def test_login(self, case):  # 测试注册
+    def test_member_list(self, case):  # 测试注册
         print("开始执行第{}条用例: {}".format(case.case_id, case.title))
         print('url:{}'.format(case.url))
         print('data:{}'.format(case.data))
         print('method:{}'.format(case.method))
         print('expected:{}'.format(case.expected))
 
+        member_list_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
+        resp = self.request.request(case.method, case.url, member_list_data_new)
+
         try:
-            self.assertEqual(str(case.expected), json.loads(case.data['code']), "member_list error")
-            self.do_excel.write_excel('member_list', case.case_id + 1, case.text, 'PASS')  # 读取sheet，写入结果
+            # self.assertEqual(str(case.expected), resp.json()['code'], "member_list error")
+            self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "member_list error")
+            self.do_excel.write_excel('member_list', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             print("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
-            self.do_excel.write_excel('member_list', case.case_id + 1, case.text, 'FAIL')
+            self.do_excel.write_excel('member_list', case.case_id + 1, resp.text, 'FAIL')
             print("第{0}用例执行结果：FAIL".format(case.case_id))
             print("断言出错了".format(e))
             raise e
