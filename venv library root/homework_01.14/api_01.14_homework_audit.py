@@ -190,11 +190,11 @@ print(req1.text)
 # print(req1.text)
 
 # 更新状态成功：审核通过，当前标为核保审批状态，状态值1-11 status=5
-data = {"id": 11881,  "status": 5}
-session = requests.session()
-session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/member/login', params={"mobilephone": "15555555555", "pwd": "123456"})
-req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/audit', params=data)
-print(req1.text)
+# data = {"id": 11881,  "status": 5}
+# session = requests.session()
+# session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/member/login', params={"mobilephone": "15555555555", "pwd": "123456"})
+# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/audit', params=data)
+# print(req1.text)
 
 # 更新状态成功：审核通过，当前标为平台终审状态，状态值1-11 status=6
 # data = {"id": 11581,  "status": 6}
@@ -214,11 +214,11 @@ print(req1.text)
 
 """
 # 更新状态成功：审核通过，当前标为二审(初审中)状态，状态值1-11 status=1
-# data = {"id": 11581,  "status": 1}
-# session = requests.session()
-# session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/member/login', params={"mobilephone": "15777777777", "pwd": "123456"})
-# req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/audit', params=data)
-# print(req1.text)
+data = {"id": 12056,  "status": 6}
+session = requests.session()
+session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/member/login', params={"mobilephone": "15777777777", "pwd": "123456"})
+req1 = session.request('get', url='http://test.lemonban.com/futureloan/mvc/api/loan/audit', params=data)
+print(req1.text)
 
 
 """

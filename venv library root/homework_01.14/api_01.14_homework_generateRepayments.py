@@ -41,7 +41,7 @@ datas = {"mobilephone": "15555555555", "pwd": "123456"}
 # data = {"id": "-1"}
 # data = {"id": "1999"}
 # data = {"id": "asd"}
-data = {"id": "11881"}
+data = {"id": "12056"}
 
 # resp = requests.get('http://test.lemonban.com/futureloan/mvc/api/loan/generateRepayments', params=data)
 # print(resp.status_code)  # 响应码

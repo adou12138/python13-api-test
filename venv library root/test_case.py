@@ -36,7 +36,10 @@ add 模块 biddingDays=0 抛出：
 bug8:
 audit 模块 status=10，状态错误
 显示："当前接口暂未开放该状态值更新"，应该是 10. 还款完成 项目所有的还款都已完成
-
+bug9:
+generateRepayments 模块 状态错误
+执行后显示：{"status":1,"code":"20403","data":null,"msg":"不存在该项目，生成回款计划失败"}
+需求文档显示code：20404
 """
 
 # 书签 ctrl+f11
