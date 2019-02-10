@@ -18,10 +18,6 @@ config = ReadConfig()
 from common.context import Context
 import json
 
-# 一个接口一个类，一个类一个方法
-# 一个类，多个方法，多个接接口
-# 一个类，一个方法，全部接口
-
 """
 """
 from log.test_api_log import MyLog  # 导入日志文件
@@ -48,7 +44,6 @@ class MemberListTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.request.session.close()  # 关闭session请求
-
 
     @data(*cases_member_list)
     def test_member_list(self, case):  # 测试注册
