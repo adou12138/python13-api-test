@@ -14,6 +14,7 @@ from common.request import Request  # 导入api请求
 from common.mysql import MysqlUtil
 from common.context import Context
 
+import json
 
 from log.test_api_log import MyLog
 my_log = MyLog()
@@ -55,7 +56,8 @@ class TestInvest(unittest.TestCase):
         # 使用封装好的request 来完成请求
         resp = self.request.request(case.method, case.url, data_new)
         try:
-            self.assertEqual(str(case.expected), resp.json()['code'], "invest error")
+            # self.assertEqual(str(case.expected), resp.json()['code'], "invest error")
+            self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "invest error")
             # self.assertEqual(case.expected, json.loads(resp.text)['code'], "invest error")
             # 一致就写入Excel的结果为PASS，并且
             self.do_excel.write_excel('invest', case.case_id+1, resp.text, "Pass")  # 写入测试实际结果
