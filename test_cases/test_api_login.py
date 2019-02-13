@@ -28,6 +28,11 @@ import json
 from log.test_api_log import MyLog  # 导入日志文件
 my_log = MyLog()
 
+
+
+import logger
+logger = logger.get_logger(logger_name='LoginTest')
+
 @ddt
 class LogInTest(unittest.TestCase):
     '这是测试登陆接口的类'
@@ -41,7 +46,7 @@ class LogInTest(unittest.TestCase):
 
     def setUp(self):
         # self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
-        print("开始执行用例")
+        logger.info("开始执行用例")
 
     def tearDown(self):
         print("用例执行结束")
@@ -53,7 +58,7 @@ class LogInTest(unittest.TestCase):
 
     @data(*cases_login)
     def test_login(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
         print('url:{}'.format(case.url))
         print('data:{}'.format(case.data))
         print('method:{}'.format(case.method))
@@ -68,7 +73,7 @@ class LogInTest(unittest.TestCase):
             print("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
             self.do_excel.write_excel('login', case.case_id + 1, resp.text, 'FAIL')
-            print("第{0}用例执行结果：FAIL".format(case.case_id))
+            logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
             print("断言出错了".format(e))
             raise e
 
