@@ -4,15 +4,27 @@
 # 创建日期：2019/1/11 16:29
 # 文件IDE名称：PyCharm
 
+"""
+配置jenkins？
+# import sys
+# import os
+#
+# project = 'python13-api-test'  # 工作项目根目录
+# sys.path.append(os.getcwd().split(project)[0] + project)
+"""
+
 import unittest
 import HTMLTestRunnerNew
 
+import sys
+sys.path.append('../')
+
 from test_cases.test_api_method import TestApiMethod  # 导入所有的测试用例
 
-# from test_cases.test_api_regitser import RegisterTest  # 导入注册
-# from test_cases.test_api_login import LogInTest  # 导入登陆
-from test_cases import test_api_regitser  # 模块方式导入注册
-from test_cases import test_api_login  # 模块导入登陆
+from test_cases.test_api_regitser import RegisterTest  # 导入注册
+from test_cases.test_api_login import LogInTest  # 导入登陆
+# from test_cases import test_api_regitser  # 模块方式导入注册
+# from test_cases import test_api_login  # 模块导入登陆
 
 
 # from test_cases.test_api_recharge import RechargeTest  # 导入充值
@@ -26,10 +38,10 @@ loader = unittest.TestLoader()
 
 # suite.addTest(loader.loadTestsFromTestCase(TestApiMethod))  # 执行所有的测试用例
 
-# suite.addTest(loader.loadTestsFromTestCase(RegisterTest))  # 执行注册
-# suite.addTest(loader.loadTestsFromTestCase(LogInTest))  # 执行登陆
-suite.addTest(loader.loadTestsFromModule(test_api_regitser))  # 模块方式执行注册
-suite.addTest(loader.loadTestsFromModule(test_api_login))  # 模块方式执行登陆
+suite.addTest(loader.loadTestsFromTestCase(RegisterTest))  # 执行注册
+suite.addTest(loader.loadTestsFromTestCase(LogInTest))  # 执行登陆
+# suite.addTest(loader.loadTestsFromModule(test_api_regitser))  # 模块方式执行注册
+# suite.addTest(loader.loadTestsFromModule(test_api_login))  # 模块方式执行登陆
 
 # suite.addTest(loader.loadTestsFromTestCase(RechargeTest))  # 执行充值
 # suite.addTest(loader.loadTestsFromTestCase(WithDrawTest))  # 执行提现
