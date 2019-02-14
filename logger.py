@@ -9,6 +9,10 @@ import logging.handlers
 from common import contants
 import os
 
+# 输出到文件，文件路径请使用绝对路径 logs
+# 输出到控制台，定义输出级别debug
+# 不同的输出级别可配置
+
 def get_logger(logger_name):
     logger = logging.getLogger(logger_name)
     logger.setLevel('INFO')
