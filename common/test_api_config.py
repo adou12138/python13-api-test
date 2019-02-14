@@ -50,12 +50,10 @@ class ReadConfig:
         # self.config.read(file, encoding='utf-8')
         self.config.read(contants.global_api_conf_file, encoding='utf-8')  # 先加载开关
         open = self.config.getboolean('Switch', 'open')
-
         if open:
             self.config.read(contants.test_api_conf_file, encoding='utf-8')  # open是True
         else:
             self.config.read(contants.test_api2_conf_file, encoding='utf-8')  # open是False
-
 
 # 代码优化，如果没有就抛出异常，不要报错，配置文件、加载是否正确
     def get_value(self, section, option):
