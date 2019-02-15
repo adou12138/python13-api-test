@@ -50,22 +50,24 @@ suite.addTest(loader.loadTestsFromTestCase(LogInTest))  # 执行登陆
 # suite.addTest(loader.loadTestsFromTestCase(AuditTest))  # 执行bidloan
 
 from common import contants
-import time
-now = time.strftime('%Y-%m-%d-%H-%M-%S')  # 获取当前系统的时间，生成字符串
-path = contants.report_file+now+'.html'
-
-with open(path, 'wb+') as file:
-    runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
-                                            verbosity=2,
-                                            title='API TEST',
-                                            description='THIS IS A API TEST REPORT  ',
-                                            tester='lucky')
-    runner.run(suite)
-
-# with open(contants.report_file, 'wb') as file:  # 引用common中的report地址
+# import time
+# now = time.strftime('%Y-%m-%d-%H-%M-%S')  # 获取当前系统的时间，生成字符串
+# path = contants.report_file+now+'.html'
+#
+# with open(path, 'wb+') as file:
 #     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
 #                                             verbosity=2,
 #                                             title='API TEST',
-#                                             description='THIS IS A API TEST REPORT',
+#                                             description='THIS IS A API TEST REPORT  ',
 #                                             tester='lucky')
-#     runner.run(suite)  # 执行测试集里面的用例  F代表失败 .代表成功 e代表代码错误
+#     runner.run(suite)
+
+
+# 执行jenkins，不能添加时间戳，不然只会显示最久的
+with open(contants.report_file, 'wb') as file:  # 引用common中的report地址 与时间戳互换
+    runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
+                                            verbosity=2,
+                                            title='API TEST',
+                                            description='THIS IS A API TEST REPORT',
+                                            tester='lucky')
+    runner.run(suite)  # 执行测试集里面的用例  F代表失败 .代表成功 e代表代码错误

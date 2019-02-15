@@ -38,8 +38,8 @@ api_log_file = os.path.join(log_dir, "case.log")
 # report 目录地址
 reports_dir = os.path.join(base_dir, "reports")
 test_api_method_suite_file = os.path.join(reports_dir, "test_api_method_suite.py")
-# report_file = os.path.join(reports_dir, "luckytest.html")
-report_file = os.path.join(reports_dir, "luckytest")
+report_file = os.path.join(reports_dir, "luckytest.html")
+# report_file = os.path.join(reports_dir, "luckytest")
 # print(report_file)
 
 # test_cases 目录地址
