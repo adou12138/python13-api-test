@@ -18,17 +18,19 @@ config = ReadConfig()
 from common.context import Context
 import json
 
-"""
-"""
-from log.test_api_log import MyLog  # 导入日志文件
+# 导入日志文件
+from log.test_api_log import MyLog
 my_log = MyLog()
+
+import logger
+logger = logger.get_logger(logger_name='GetLoanListTest')
 
 @ddt
 class GetLoanListTest(unittest.TestCase):
     '这是测试获取标列表接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_getLoanList = do_excel.read_excel("getLoanList")  # 读取login_sheet
+    cases_getLoanList = do_excel.read_excel("getLoanList")  # 读取getLoanList_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
@@ -36,10 +38,10 @@ class GetLoanListTest(unittest.TestCase):
 
     def setUp(self):
         # self.write_register = DoExcel(contants.excel_file, "getLoanList") # 创建一个对象写入
-        print("开始执行用例")
+        logger.info("开始执行用例")
 
     def tearDown(self):
-        print("用例执行结束")
+        logger.info("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -47,11 +49,11 @@ class GetLoanListTest(unittest.TestCase):
 
     @data(*cases_getLoanList)
     def test_getLoanList(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         getLoanList_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
         resp = self.request.request(case.method, case.url, getLoanList_data_new)
@@ -60,9 +62,9 @@ class GetLoanListTest(unittest.TestCase):
             # self.assertEqual(str(case.expected), resp.json()['code'], "member_list error")
             self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "getLoanList error")
             self.do_excel.write_excel('getLoanList', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
-            print("第{0}用例执行结果：PASS".format(case.case_id))
+            logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
             self.do_excel.write_excel('getLoanList', case.case_id + 1, resp.text, 'FAIL')
-            print("第{0}用例执行结果：FAIL".format(case.case_id))
-            print("断言出错了".format(e))
+            logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
+            logger.error("断言出错了".format(e))
             raise e

@@ -16,8 +16,12 @@ from common.context import Context
 
 import json
 
+# 导入日志文件
 from log.test_api_log import MyLog
 my_log = MyLog()
+
+import logger
+logger = logger.get_logger(logger_name='TestInvest')
 
 @ddt
 class TestInvest(unittest.TestCase):
@@ -32,11 +36,11 @@ class TestInvest(unittest.TestCase):
         cls.mysql = MysqlUtil()
 
     def setUp(self):  # 每个测试方法里面去运行的操作都放到类方法里面
-        print("这是一个setUp")
-        print("开始执行用例")
+        logger.debug("这是一个setUp")
+        logger.info("开始执行用例")
 
     def tearDown(self):
-        print("用例执行结束")
+        logger.info("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -45,11 +49,11 @@ class TestInvest(unittest.TestCase):
 
     @data(*cases_invest)
     def test_invest(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         # 查找参数化的测试数据，动态替换
         data_new = Context.replace_new(case.data)  # Str测试数据
@@ -61,7 +65,7 @@ class TestInvest(unittest.TestCase):
             # self.assertEqual(case.expected, json.loads(resp.text)['code'], "invest error")
             # 一致就写入Excel的结果为PASS，并且
             self.do_excel.write_excel('invest', case.case_id+1, resp.text, "Pass")  # 写入测试实际结果
-            print('第{}条用例执行结果：PASS'.format(case.case_id))
+            logger.info('第{}条用例执行结果：PASS'.format(case.case_id))
 
             # 判断是否加标成功，如果成功就按照借款人ID去数据库查询最新的加标的记录
             if resp.json()['msg'] == '加标成功':
@@ -73,8 +77,8 @@ class TestInvest(unittest.TestCase):
 
         except AssertionError as e:
             self.do_excel.write_excel('invest', case.case_id+1, resp.text, "Failed")  # 写入测试实际结果
-            print('第{}条用例执行结果：FAIL'.format(case.case_id))
-            print("断言出错了".format(e))
+            logger.error('第{}条用例执行结果：FAIL'.format(case.case_id))
+            logger.error("断言出错了".format(e))
             raise e
 
 if __name__ == '__main__':

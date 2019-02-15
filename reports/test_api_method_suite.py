@@ -1,4 +1,5 @@
-# 当前项目的名称: python_13 
+# -*- coding: UTF-8 -*-
+# 当前项目的名称: python_13
 # 新文件名称：test_math_suite 
 # 当前登录名：LuckyLu
 # 创建日期：2019/1/11 16:29
@@ -12,14 +13,13 @@
 # project = 'python13-api-test'  # 工作项目根目录
 # sys.path.append(os.getcwd().split(project)[0] + project)
 """
+import sys
+sys.path.append('../')
 
 import unittest
 import HTMLTestRunnerNew
 
-import sys
-sys.path.append('../')
-
-from test_cases.test_api_method import TestApiMethod  # 导入所有的测试用例
+# from test_cases.test_api_method import TestApiMethod  # 导入所有的测试用例
 
 from test_cases.test_api_regitser import RegisterTest  # 导入注册
 from test_cases.test_api_login import LogInTest  # 导入登陆
@@ -29,9 +29,9 @@ from test_cases.test_api_login import LogInTest  # 导入登陆
 
 # from test_cases.test_api_recharge import RechargeTest  # 导入充值
 # from test_cases.test_api_withdraw import WithDrawTest  # 导入提现
-from test_cases.test_api_add import AddTest  # 导入add
-from test_cases.test_api_bidloan import BidLoanTest  # 导入bidloan
-from test_cases.test_api_audit import AuditTest  # 导入audit
+# from test_cases.test_api_add import AddTest  # 导入add
+# from test_cases.test_api_bidloan import BidLoanTest  # 导入bidloan
+# from test_cases.test_api_audit import AuditTest  # 导入audit
 
 suite = unittest.TestSuite()  # 创建对象
 loader = unittest.TestLoader()

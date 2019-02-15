@@ -18,10 +18,12 @@ config = ReadConfig()
 from common.context import Context
 import json
 
-"""
-"""
-from log.test_api_log import MyLog  # 导入日志文件
+# 导入日志文件
+from log.test_api_log import MyLog
 my_log = MyLog()
+
+import logger
+logger = logger.get_logger(logger_name='MemberListTest')
 
 @ddt
 class MemberListTest(unittest.TestCase):
@@ -35,11 +37,11 @@ class MemberListTest(unittest.TestCase):
         cls.request = Request()  # 实例化对象
 
     def setUp(self):
-        # self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
-        print("开始执行用例")
+        # self.write_register = DoExcel(contants.excel_file, "member_list") # 创建一个对象写入
+        logger.info("开始执行用例")
 
     def tearDown(self):
-        print("用例执行结束")
+        logger.info("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -47,11 +49,11 @@ class MemberListTest(unittest.TestCase):
 
     @data(*cases_member_list)
     def test_member_list(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         member_list_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
         resp = self.request.request(case.method, case.url, member_list_data_new)
@@ -60,9 +62,9 @@ class MemberListTest(unittest.TestCase):
             # self.assertEqual(str(case.expected), resp.json()['code'], "member_list error")
             self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "member_list error")
             self.do_excel.write_excel('member_list', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
-            print("第{0}用例执行结果：PASS".format(case.case_id))
+            logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
             self.do_excel.write_excel('member_list', case.case_id + 1, resp.text, 'FAIL')
-            print("第{0}用例执行结果：FAIL".format(case.case_id))
-            print("断言出错了".format(e))
+            logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
+            logger.error("断言出错了".format(e))
             raise e

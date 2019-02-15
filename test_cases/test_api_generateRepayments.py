@@ -28,9 +28,12 @@ import json
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
+# 导入日志文件
 from log.test_api_log import MyLog
 my_log = MyLog()
 
+import logger
+logger = logger.get_logger(logger_name='GenerateRepaymentsTest')
 from common.mysql import MysqlUtil
 
 @ddt
@@ -47,10 +50,10 @@ class GenerateRepaymentsTest(unittest.TestCase):
 
     def setUp(self):
         # self.write_recharge = DoExcel(contants.excel_file, "generateRepayments") # 创建一个对象写入
-        print("开始执行用例")
+        logger.info("开始执行用例")
 
     def tearDown(self):
-        print("用例执行结束")
+        logger.info("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -59,11 +62,11 @@ class GenerateRepaymentsTest(unittest.TestCase):
 
     @data(*cases_generateRepayments)
     def test_generateRepayments(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         generateRepayments_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
         resp = self.request.request(case.method, case.url, generateRepayments_data_new)
@@ -72,7 +75,7 @@ class GenerateRepaymentsTest(unittest.TestCase):
             self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "member_list error")
             # self.assertEqual(str(case.expected), resp.json()['code'], "generateRepayments error")
             self.do_excel.write_excel('generateRepayments', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
-            print("第{0}用例执行结果：PASS".format(case.case_id))
+            logger.info("第{0}用例执行结果：PASS".format(case.case_id))
 
             # 判断是否加标成功，如果成功就按照借款人ID去数据库查询最新的加标的记录
             if resp.json()['msg'] == '加标成功':
@@ -84,6 +87,6 @@ class GenerateRepaymentsTest(unittest.TestCase):
 
         except AssertionError as e:
             self.do_excel.write_excel('generateRepayments', case.case_id + 1, resp.text, 'FAIL')
-            print("第{0}用例执行结果：FAIL".format(case.case_id))
-            print("断言出错了".format(e))
+            logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
+            logger.error("断言出错了".format(e))
             raise e

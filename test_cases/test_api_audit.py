@@ -23,10 +23,12 @@ import json
 # 一个类，多个方法，多个接接口
 # 一个类，一个方法，全部接口
 
-"""
-"""
-from log.test_api_log import MyLog  # 导入日志文件
+# 导入日志文件
+from log.test_api_log import MyLog
 my_log = MyLog()
+
+import logger
+logger = logger.get_logger(logger_name='AuditTest')
 
 from common.mysql import MysqlUtil
 
@@ -35,7 +37,7 @@ class AuditTest(unittest.TestCase):
     '这是测试审核接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_audit = do_excel.read_excel("audit")  # 读取register_sheet
+    cases_audit = do_excel.read_excel("audit")  # 读取audit_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
@@ -44,10 +46,10 @@ class AuditTest(unittest.TestCase):
 
     def setUp(self):
         # self.write_register = DoExcel(contants.excel_file, "audit") # 创建一个对象写入
-        print("开始执行用例")
+        logger.info("开始执行用例")
 
     def tearDown(self):
-        print("用例执行结束")
+        logger.info("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -56,11 +58,11 @@ class AuditTest(unittest.TestCase):
 
     @data(*cases_audit)
     def test_audit(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         audit_data_new = Context.replace_new(case.data)
         resp = self.request.request(case.method, case.url, audit_data_new)
@@ -70,7 +72,7 @@ class AuditTest(unittest.TestCase):
             # self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
             self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "member_list error")
             self.do_excel.write_excel('audit', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
-            print("第{0}用例执行结果：PASS".format(case.case_id))
+            logger.info("第{0}用例执行结果：PASS".format(case.case_id))
 
             # 判断是否加标成功，如果成功就按照借款人ID去数据库查询最新的加标的记录
             if resp.json()['msg'] == '加标成功':
@@ -82,6 +84,6 @@ class AuditTest(unittest.TestCase):
 
         except AssertionError as e:
             self.do_excel.write_excel('audit', case.case_id + 1, resp.text, 'FAIL')
-            print("第{0}用例执行结果：FAIL".format(case.case_id))
-            print("断言出错了".format(e))
+            logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
+            logger.error("断言出错了".format(e))
             raise e

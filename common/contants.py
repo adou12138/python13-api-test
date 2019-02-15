@@ -33,6 +33,7 @@ try_json_file = os.path.join(data_dir, "try_json.py")
 log_dir = os.path.join(base_dir, "log")
 log_config_file = os.path.join(log_dir, "test_api_log.py")
 test_api_log_file = os.path.join(log_dir, "luckytestlog.log")
+api_log_file = os.path.join(log_dir, "case.log")
 
 # report 目录地址
 reports_dir = os.path.join(base_dir, "reports")

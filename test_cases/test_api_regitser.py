@@ -31,8 +31,12 @@ from common.context import Context
 投资必须先有标的，loan，自己创建一个标的
 提bug到禅道
 """
+# 导入日志文件
 from log.test_api_log import MyLog
 my_log = MyLog()
+
+import logger
+logger = logger.get_logger(logger_name='RegisterTest')
 
 @ddt
 class RegisterTest(unittest.TestCase):
@@ -47,10 +51,10 @@ class RegisterTest(unittest.TestCase):
 
     def setUp(self):
         # self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
-        print("开始执行用例")
+        logger.info("开始执行用例")
 
     def tearDown(self):
-        print("用例执行结束")
+        logger.info("用例执行结束")
 
     @classmethod
     def tearDownClass(cls):
@@ -64,11 +68,11 @@ class RegisterTest(unittest.TestCase):
 
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
-        print("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        print('url:{}'.format(case.url))
-        print('data:{}'.format(case.data))
-        print('method:{}'.format(case.method))
-        print('expected:{}'.format(case.expected))
+        logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
         data_dict = json.loads(case.data)
         if data_dict['mobilephone'] == '#@mobilephone':
             # 取最大电话号码+1
@@ -83,12 +87,9 @@ class RegisterTest(unittest.TestCase):
         try:
             self.assertEqual(case.expected, resp.text)
             self.do_excel.write_excel('register', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
-            print("第{0}用例执行结果：PASS".format(case.case_id))
+            logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
             self.do_excel.write_excel('register', case.case_id + 1, resp.text, 'FAIL')
-            print("第{0}用例执行结果：FAIL".format(case.case_id))
-            print("断言出错了".format(e))
+            logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
+            logger.error("断言出错了".format(e))
             raise e
-
-
-
