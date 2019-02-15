@@ -35,7 +35,7 @@ from common.context import Context
 from log.test_api_log import MyLog
 my_log = MyLog()
 
-import logger
+from log import logger
 logger = logger.get_logger(logger_name='RegisterTest')
 
 @ddt

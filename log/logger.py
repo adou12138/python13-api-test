@@ -35,7 +35,7 @@ def get_logger(logger_name):
     formate = logging.Formatter(fmt)
 
     file_name = contants.api_log_file
-    file_handler = logging.handlers.RotatingFileHandler(file_name, maxBytes=20*1024*1024, backupCount=10)
+    file_handler = logging.handlers.RotatingFileHandler(file_name, maxBytes=20*1024*1024, backupCount=10, encoding='utf-8')
     file_handler.setLevel(file_out_level)
     file_handler.setFormatter(formate)
 

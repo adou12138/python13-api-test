@@ -69,7 +69,7 @@ class DoExcel:
             row_case.data = sheet.cell(row=i, column=4).value
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
-            # print(row_case.expected,type(row_case.expected))
+            # print(row_case.expected, type(row_case.expected))
 
             # if type(case.expected) == int:
             #     case.expected = str(case.expected)
@@ -161,8 +161,8 @@ if __name__ == '__main__':
     # print(write)
     # print("*"*50)
     # do_excel = DoExcel(contants.excel_file)
-    cases_login = do_excel.read_excel("login")
+    # cases_login = do_excel.read_excel("login")
     # print(cases_login)
     # write = do_excel.write_excel("login", 2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
-    cases_invest = do_excel.read_excel("invest")
+    # cases_invest = do_excel.read_excel("invest")
