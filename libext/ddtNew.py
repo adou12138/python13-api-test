@@ -128,8 +128,8 @@ def mk_test_name(name, value, index=0):
         """"""
         """"""
         from common.do_excel_study import Cases
-        if isinstance(value, Cases):
-            value = value.title
+        if isinstance(value, Cases):  # 这里判断是否是case的实例
+            value = value.title  # 如果是，就把value替换成title
             return "{0}_{1}_{2}".format(name, index, value)
         else:
             return "{0}_{1}".format(name, index)
@@ -272,7 +272,7 @@ def ddt(cls):
     from the ``data`` key.
 
     """
-    for name, func in list(cls.__dict__.items()):
+    for name, func in list(cls.__dict__.items()):  # __dict__获取所有属性
         if hasattr(func, DATA_ATTR):
             for i, v in enumerate(getattr(func, DATA_ATTR)):
                 test_name = mk_test_name(name, getattr(v, "__name__", v), i)

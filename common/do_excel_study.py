@@ -50,7 +50,7 @@ class DoExcel:
             raise e
 
     def read_excel(self, excel_sheet_name):  # 读取数据
-        self.excel_sheet_name = excel_sheet_name
+        # self.excel_sheet_name = excel_sheet_name
         sheet = self.workbook[excel_sheet_name]  # 定为表单
 
         case = []

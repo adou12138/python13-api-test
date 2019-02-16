@@ -16,6 +16,7 @@ do_excel_study_file = os.path.join(common_dir, "do_excel_study.py")
 mysql_file = os.path.join(common_dir, "mysql.py")
 request_file = os.path.join(common_dir, "request.py")
 test_api_config_file = os.path.join(common_dir, "test_api_config.py")
+log_config_file = os.path.join(common_dir, "logger.py")
 
 # conf 目录地址
 conf_dir = os.path.join(base_dir, "conf")

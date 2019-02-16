@@ -4,23 +4,21 @@
 # shen 
 # 2019/1/28 23:13 
 
-import unittest
-from common import contants
-from ddt import ddt, data
-
-from common.do_excel_study import DoExcel  # 导入excel
-from common.request import Request  # 导入api请求
-
-from common.mysql import MysqlUtil
-from common.context import Context
-
 import json
+import unittest
+
+from common import contants, logger
+from common.context import Context
+from common.do_excel_study import DoExcel  # 导入excel
+from common.mysql import MysqlUtil
+from common.request import Request  # 导入api请求
+from libext.ddtNew import ddt, data
 
 # 导入日志文件
 from log.test_api_log import MyLog
+
 my_log = MyLog()
 
-from log import logger
 logger = logger.get_logger(logger_name='TestInvest')
 
 @ddt

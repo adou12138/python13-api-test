@@ -5,13 +5,13 @@
 # 2019/1/21 22:07 
 
 import unittest
-from common import contants
-from ddt import ddt, data
 
+from common import contants, logger
 from common.do_excel_study import DoExcel  # 导入excel
 from common.request import Request  # 导入api请求
-
 from common.test_api_config import ReadConfig
+from libext.ddtNew import ddt, data
+
 config = ReadConfig()
 
 from common.context import Context
@@ -30,7 +30,6 @@ import json
 from log.test_api_log import MyLog
 my_log = MyLog()
 
-from log import logger
 logger = logger.get_logger(logger_name='GetFinanceLogListTest')
 
 @ddt

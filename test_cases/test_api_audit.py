@@ -5,13 +5,12 @@
 # 2019/1/21 23:00 
 
 import unittest
-from common import contants
-from ddt import ddt, data
-
+from common import contants, logger
 from common.do_excel_study import DoExcel  # 导入excel
 from common.request import Request  # 导入api请求
-
 from common.test_api_config import ReadConfig
+from libext.ddtNew import ddt, data
+
 config = ReadConfig()
 # 正则配置
 # audit_information = eval(config.get_value("Audit", "audit"))  # ? 还没有设置
@@ -27,7 +26,6 @@ import json
 from log.test_api_log import MyLog
 my_log = MyLog()
 
-from log import logger
 logger = logger.get_logger(logger_name='AuditTest')
 
 from common.mysql import MysqlUtil

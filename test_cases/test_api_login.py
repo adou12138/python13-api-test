@@ -5,13 +5,13 @@
 # 2019/1/21 23:00+
 
 import unittest
-from common import contants
-from ddt import ddt, data
 
+from common import contants, logger
 from common.do_excel_study import DoExcel  # 导入excel
 from common.request import Request  # 导入api请求
-
 from common.test_api_config import ReadConfig
+from libext.ddtNew import ddt, data
+
 config = ReadConfig()
 # 正则配置
 login_information = eval(config.get_value("Login", "login"))
@@ -27,8 +27,8 @@ import json
 from log.test_api_log import MyLog
 my_log = MyLog()
 
-from log import logger
 logger = logger.get_logger(logger_name='LoginTest')
+# 如果logger_name='case'，就是一个单例模式，添加控制台的文本输出样式
 
 @ddt
 class LogInTest(unittest.TestCase):

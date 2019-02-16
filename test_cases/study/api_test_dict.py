@@ -6,10 +6,11 @@
 # 文件IDE名称：PyCharm
 
 import unittest
-from common.do_excel_study import DoExcel  # 导入excel
-from test_cases.api_method import ApiMethod  # 导入api接口
 
+from common.do_excel_study import DoExcel  # 导入excel
 from ddt import ddt, data
+from test_cases.study.api_method import ApiMethod  # 导入api接口
+
 cases = DoExcel('../datas/luckytest.xlsx', 'login').read_excel()
 
 @ddt

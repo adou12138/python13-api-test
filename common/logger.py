@@ -42,6 +42,7 @@ def get_logger(logger_name):
     # 输出到控制台
     ch = logging.StreamHandler()
     ch.setLevel(out_level)
+    ch.setFormatter(formate)  # 控制台格式化输出
 
     logger.addHandler(file_handler)
     logger.addHandler(ch)
