@@ -17,8 +17,8 @@ from common import contants
 
 # 怎么用呢？
 # # cf = configparser.ConfigParser() #import使用
-cf = ConfigParser()  # 创建对象
-cf.read('case.conf', encoding='utf-8')  # open()
+# cf = ConfigParser()  # 创建对象
+# cf.read('case.conf', encoding='utf-8')  # open()
 # #方法一 读值：
 # # value = cf.get('StudentInfo','class_name')
 # # value = cf.get('TeacherInfo','t2')
@@ -43,6 +43,9 @@ cf.read('case.conf', encoding='utf-8')  # open()
 # 写一个类 缺点：如果是列表类型或者是字典类型 或者是字符串类型，怎么做呢？下周二再讲解
 from configparser import ConfigParser
 
+class OperationalError(Exception):
+    'operation error.'
+
 class ReadConfig:
     '这个是一个读取配置文件的类'
 
@@ -58,8 +61,13 @@ class ReadConfig:
 
 # 代码优化，如果没有就抛出异常，不要报错，配置文件、加载是否正确
     def get_value(self, section, option):
-
-        return self.config.get(section, option)
+        try:
+            return self.config.get(section, option)
+        except SyntaxError as e:
+            raise OperationalError("Option %s is not found in "
+                                   "configuration, error: %s" %
+                                   (section, e))
+        # return self.config.get(section, option)
 
     def get_int(self, section, option):
 
@@ -104,5 +112,7 @@ if __name__ == '__main__':
     # print(res8, type(res8))
     # res9 = eval(res.config.get("Login", "login"))
     # print(res9, type(res9))
+    res11 = eval(res.config.get("LogNew", "fff"))
+    print(res11, type(res11))
     res10 = eval(res.config.get("LogNew", "in_level"))
     print(res10, type(res10))

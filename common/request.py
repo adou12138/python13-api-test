@@ -9,7 +9,6 @@ import requests
 from common import contants
 from common.test_api_config import ReadConfig
 
-
 class Request:
     "这个是一个request请求的类"
 
