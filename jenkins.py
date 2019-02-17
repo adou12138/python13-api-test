@@ -72,6 +72,8 @@ Charset: UTF-8
 5. Project Recipient List
 收件人邮件地址用英文状态的逗号隔开
 
+邮件附件中的html文件需要下载看才显示正常，不然会缺少样式
+
 tomcat里面放了两个war包 要是改了端口号 那我另外的war能正常执行吗? server.xml可以配置服务
 如果没有配置git/SVN,可以先把代码拷贝到workspace里面
 
