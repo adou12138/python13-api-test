@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" addBOMForNewFiles="with NO BOM">
-    <file url="file://$PROJECT_DIR$/venv library root/homework_01.14/api_11.14_homework_login.py" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/venv library root/homework_01.14/api_11.14_homework_recharge.py" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/venv library root/homework_01.14/api_11.14_homework_recharge.py" charset="GBK" />
-    <file url="file://$PROJECT_DIR$/venv library root/homework_01.14/api_11.14_homework_register.py" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/log/case.log" charset="GBK" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
