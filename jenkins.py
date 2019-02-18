@@ -77,6 +77,11 @@ Charset: UTF-8
 tomcat里面放了两个war包 要是改了端口号 那我另外的war能正常执行吗? server.xml可以配置服务
 如果没有配置git/SVN,可以先把代码拷贝到workspace里面
 
+jenkins工作空间的路径直接在workspace里面看
+查看相关日志文件查看报错信息E:\Program Files (x86)\Jenkins\logs\tasks
+
+设计定时执行： H代表任意合理的数 H/10 * * * * 每隔10分钟
+
 
 
 
