@@ -69,7 +69,7 @@ discover = unittest.defaultTestLoader.discover(contants.test_cases_dir, pattern=
 
 
 # 执行jenkins，不能添加时间戳，不然只会显示最久的
-with open(contants.html_report_file, 'wb+') as file:  # 引用common中的report地址 与时间戳互换
+with open(contants.report_file, 'wb+') as file:  # 引用common中的report地址 与时间戳互换
     runner = HTMLTestRunnerNew.HTMLTestRunner(stream=file,
                                             verbosity=2,
                                             title='API TEST',
