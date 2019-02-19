@@ -84,7 +84,8 @@ class RegisterTest(unittest.TestCase):
         resp = self.request.request(case.method, case.url, register_data_new)
 
         try:
-            self.assertEqual(case.expected, resp.text)
+            # self.assertEqual(case.expected, resp.text)
+            self.assertEqual(case.expected,json.loads(resp.text)['code'])
             self.do_excel.write_excel('register', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:

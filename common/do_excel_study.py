@@ -69,12 +69,13 @@ class DoExcel:
             row_case.data = sheet.cell(row=i, column=4).value
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
-            # print(row_case.expected, type(row_case.expected))
+            print(row_case.expected, type(row_case.expected))
 
-            # if type(case.expected) == int:
-            #     case.expected = str(case.expected)
-
+            if type(row_case.expected) == int:
+                row_case.expected = str(row_case.expected)
+            #
             case.append(row_case)  # 将case放到cases 列表里面
+
         return case
 
     def write_excel(self, excel_sheet_name, row, actual, result):  # 写入数据
@@ -150,9 +151,9 @@ if __name__ == '__main__':
     # cases = DoExcel(contants.excel_file, 'register').read_excel()
     # print(cases)
     # print(type(cases))
-    do_excel = DoExcel(contants.excel_file)
-    cases_register = do_excel.read_excel("register")
-    print(cases_register)
+    # do_excel = DoExcel(contants.excel_file)
+    # cases_register = do_excel.read_excel("register")
+    # print(cases_register)
     # write = do_excel.write_excel("register", 2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
 
@@ -160,9 +161,9 @@ if __name__ == '__main__':
     # write = do_excel.write_excel(2, str({"mobilephone": "15777777777", "pwd": "", "regname": "luckytest"}), "True")
     # print(write)
     # print("*"*50)
-    # do_excel = DoExcel(contants.excel_file)
-    # cases_login = do_excel.read_excel("login")
-    # print(cases_login)
+    do_excel = DoExcel(contants.excel_file)
+    cases_login = do_excel.read_excel("login")
+    print(cases_login)
     # write = do_excel.write_excel("login", 2, str({"mobilephone": "15777777777", "pwd": "234", "regname": "luckytest"}),"False")
     # print(write)
     # cases_invest = do_excel.read_excel("invest")

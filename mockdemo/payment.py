@@ -22,7 +22,7 @@ class Payment:
         return response.status_code  # 返回状态码
 
     def doPay(self, user_id, card_num, amount):
-        """"
+        """
         支付
         :param user_id: 用户ID
         :param card_num: 卡号
@@ -43,3 +43,14 @@ class Payment:
         elif resp == 500:  # 返回第三方支付失败，则不进行扣款
             print("{0}支付{1}失败!!不进行扣款".format(user_id, amount))
             return 'fail'
+
+if __name__ == '__main__':
+    import json
+    from unittest import mock
+    a = '{"status":1,"code":"10001","data":null,"msg":"登录成功"}'
+    b = 1
+    if b:
+        json.loads(a)['code'] = mock.Mock(return_value=20102)
+        print(json.loads(a)['code'])
+    else:
+        print(b)
