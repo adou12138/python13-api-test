@@ -69,7 +69,7 @@ class DoExcel:
             row_case.data = sheet.cell(row=i, column=4).value
             row_case.method = sheet.cell(row=i, column=5).value
             row_case.expected = sheet.cell(row=i, column=6).value
-            print(row_case.expected, type(row_case.expected))
+            # print(row_case.expected, type(row_case.expected))
 
             if type(row_case.expected) == int:
                 row_case.expected = str(row_case.expected)
