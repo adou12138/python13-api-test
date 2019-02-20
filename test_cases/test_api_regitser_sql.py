@@ -60,7 +60,7 @@ class RegisterTest(unittest.TestCase):
         cls.request.session.close()  # 关闭session请求
         cls.mysql.close()  # 关闭数据库连接
 
-    # 测试一下放在setup里面效果
+    # 测试一下放在setup里面效果 是不行的
     mysql = MysqlUtil_double(return_dict=True)
     sql = "select max(mobilephone) as max_phone from future.member"
     max = mysql.fetch_one(sql)['max_phone']  # 执行SQL，并且返回最近的一条数据，是元祖，使用下标取第一个值
@@ -69,16 +69,15 @@ class RegisterTest(unittest.TestCase):
     @data(*cases_register)
     def test_register(self, case):  # 测试注册
         logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # logger.debug('url:{}'.format(case.url))
-        # logger.debug('data:{}'.format(case.data))
-        # logger.debug('method:{}'.format(case.method))
-        # logger.debug('expected:{}'.format(case.expected))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
         data_dict = json.loads(case.data)
         if data_dict['mobilephone'] == '#@mobilephone':
             # 取最大电话号码+1
             data_dict['mobilephone'] = int(self.max)+1
         # resp = self.request.request(case.method, case.url, data_dict)
-        print(data_dict)
 
         data_dict = json.dumps(data_dict)  # 把字典转换成字符串传入context进行转换
         # print(data_dict, type(data_dict))
@@ -96,10 +95,10 @@ class RegisterTest(unittest.TestCase):
                 member = results[0]  # 获取到这一条数据，是一个字典
                 self.assertEqual(0, member['LeaveAmount'])  # 判断注册成功余额应该是0
                 self.assertEqual(1, member['Type'])  # 判断注册用户类型是1
-                if json.loads(register_data_new)['regname'] not in json.loads(register_data_new):
-                    self.assertEqual('小蜜蜂', member['RegName'])
-                else:
+                if 'regname' in json.loads(register_data_new).keys():
                     self.assertEqual(json.loads(register_data_new)['regname'], member['RegName'])
+                else:
+                    self.assertEqual('小蜜蜂', member['RegName'])
             # 一致就写入Excel的结果为PASS，并且
             self.do_excel.write_excel('register', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
