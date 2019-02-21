@@ -32,6 +32,8 @@ logger = logger.get_logger(logger_name='LoginTest')
 
 from unittest import mock
 
+from common.mysql import MysqlUtil_double
+
 @ddt
 class LogInTest(unittest.TestCase):
     '这是测试登陆接口的类'
@@ -53,7 +55,7 @@ class LogInTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.request.session.close()  # 关闭session请求
-        # cls.mysql.close()  # 关闭数据库连接
+        cls.mysql.close()  # 关闭数据库连接
 
     @data(*cases_login)
     def test_login(self, case):  # 测试注册
@@ -72,6 +74,7 @@ class LogInTest(unittest.TestCase):
             #     self.assertEqual(case.expected, self.request.request)
             # else:
             # self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
+
             self.assertEqual(case.expected, json.loads(resp.text)['code'])
             self.do_excel.write_excel('login', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
