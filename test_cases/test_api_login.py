@@ -38,8 +38,8 @@ from common.mysql import MysqlUtil_double
 class LogInTest(unittest.TestCase):
     '这是测试登陆接口的类'
     # 使用doexcel_study中的方法调用
-    do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_login = do_excel.read_excel("login")  # 读取login_sheet
+    do_excel_login = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
+    cases_login = do_excel_login.read_excel("login")  # 读取login_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
@@ -76,10 +76,10 @@ class LogInTest(unittest.TestCase):
             # self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
 
             self.assertEqual(case.expected, json.loads(resp.text)['code'])
-            self.do_excel.write_excel('login', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
+            self.do_excel_login.write_excel('login', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
-            self.do_excel.write_excel('login', case.case_id + 1, resp.text, 'FAIL')
+            self.do_excel_login.write_excel('login', case.case_id + 1, resp.text, 'FAIL')
             logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
             logger.error("断言出错了".format(e))
             raise e

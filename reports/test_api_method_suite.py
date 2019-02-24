@@ -23,10 +23,10 @@ from common import contants
 
 # from test_cases.test_api_method import TestApiMethod  # 导入所有的测试用例
 
-# from test_cases.test_api_regitser import RegisterTest  # 导入注册
-# from test_cases.test_api_login import LogInTest  # 导入登陆
-# from test_cases import test_api_regitser  # 模块方式导入注册
-# from test_cases import test_api_login  # 模块导入登陆
+from test_cases.test_api_regitser import RegisterTest  # 导入注册
+from test_cases.test_api_login import LogInTest  # 导入登陆
+from test_cases import test_api_regitser  # 模块方式导入注册
+from test_cases import test_api_login  # 模块导入登陆
 
 
 # from test_cases.test_api_recharge import RechargeTest  # 导入充值

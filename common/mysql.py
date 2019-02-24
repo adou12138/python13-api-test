@@ -85,17 +85,18 @@ class MysqlUtil_double:
         self.mysql.close()
 
 if __name__ == '__main__':
-    # mysql = MysqlUtil()
-    # # 3. 编写SQL
-    # sql = "select max(mobilephone) from future.member"
-    # result = mysql.fetch_one(sql)
-    # print(result[0])  # 使用下标去获取值
-    # mysql.close()
-
-    mysql = MysqlUtil_double(return_dict=True)
-    sql = "select * from future.member limit 10"
-    results = mysql.fetch_all(sql)  # 返回列表里面放字典
-    for result in results:
-        # print(result)
-        print(result['Id'])
+    mysql = MysqlUtil()
+    # 3. 编写SQL
+    sql = "select max(mobilephone) from future.member"
+    result = mysql.fetch_one(sql)
+    print(result)  # 使用下标去获取值
+    print(result[0])  # 使用下标去获取值
     mysql.close()
+
+    # mysql = MysqlUtil_double(return_dict=True)
+    # sql = "select * from future.member limit 10"
+    # results = mysql.fetch_all(sql)  # 返回列表里面放字典
+    # for result in results:
+    #     print(result)
+    #     # print(result['Id'])
+    # mysql.close()

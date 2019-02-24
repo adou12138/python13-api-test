@@ -84,6 +84,7 @@ class DoExcel:
         sheet.cell(row, 8).value = result  # 写入执行结果
         print("写入结果{}".format(excel_sheet_name))
         self.workbook.save(filename=self.excel_file_name)  # 保存数据
+        self.workbook.close()
 
 # sheet.cell(row=3,column=4,value=9)#写入值的方法一
 # # sheet.cell(row=3,column=5).value='7777'#写入值的方法二
