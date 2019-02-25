@@ -31,19 +31,24 @@ my_log = MyLog()
 
 logger = logger.get_logger(logger_name='WithDrawTest')
 
+from common.mysql import MysqlUtil_double
+
+# global origin_withdraw
+# origin_withdraw=None
+
 @ddt
 class WithDrawTest(unittest.TestCase):
     '这是测试提现接口的类'
     # 使用doexcel_study中的方法调用
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
-    cases_withdraw = do_excel.read_excel("withdraw")  # 读取register_sheet
+    cases_withdraw = do_excel.read_excel("withdraw")  # 读取withdraw_sheet
 
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
         cls.request = Request()  # 实例化对象
 
     def setUp(self):
-        # self.write_register = DoExcel(contants.excel_file, "withdraw") # 创建一个对象写入
+        # self.write_withdraw = DoExcel(contants.excel_file, "withdraw") # 创建一个对象写入
         logger.info("开始执行用例")
 
     def tearDown(self):
@@ -52,21 +57,46 @@ class WithDrawTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.request.session.close()  # 关闭session请求
-        # cls.mysql.close()  # 关闭数据库连接
+        cls.mysql.close()  # 关闭数据库连接
+
+    mysql = MysqlUtil_double(return_dict=True)
 
     @data(*cases_withdraw)
     def test_withdraw(self, case):  # 测试注册
         logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        logger.debug('url:{}'.format(case.url))
-        logger.debug('data:{}'.format(case.data))
-        logger.debug('method:{}'.format(case.method))
-        logger.debug('expected:{}'.format(case.expected))
+        # logger.debug('url:{}'.format(case.url))
+        # logger.debug('data:{}'.format(case.data))
+        # logger.debug('method:{}'.format(case.method))
+        # logger.debug('expected:{}'.format(case.expected))
 
-        withdraw_data_new = Context.replace(case.data, withdraw_information)
+        withdraw_data_new = Context.replace_new(case.data)
         resp = self.request.request(case.method, case.url, withdraw_data_new)
 
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
+            if resp.json()['msg'] == '登录成功':
+                sql = 'select * from future.member where mobilephone = {0}'\
+                    .format(json.loads(withdraw_data_new)['mobilephone'])
+                results = self.mysql.fetch_all(sql)
+                # # 首先判断是否有成功插入数据
+                # self.assertEqual(1, len(results))
+                member = results[0]  # 获取到这一条数据，是一个字典
+                # global origin_withdraw
+                origin_withdraw = member['LeaveAmount']
+                print(origin_withdraw)
+
+                # setattr(Context, 'origin_withdraw', origin_withdraw)
+            if resp.json()['msg'] == '取现成功':
+                # origin_withdraw = getattr(Context, 'origin_withdraw')
+                sql2 = 'select * from future.member where mobilephone = {0}' \
+                    .format(json.loads(withdraw_data_new)['mobilephone'])
+                results2 = self.mysql.fetch_all(sql2)
+                member2 = results2[0]  # 获取到这一条数据，是一个字典
+                updated_withdraw = member2['LeaveAmount']
+                # abs = updated_withdraw-int(json.loads(withdraw_data_new)['amount'])
+                # print('abs', abs)
+                print('updated_withdraw', updated_withdraw)
+            self.assertEqual(origin_withdraw,updated_withdraw)
             self.do_excel.write_excel('withdraw', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:

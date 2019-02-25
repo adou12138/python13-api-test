@@ -31,7 +31,6 @@ logger = logger.get_logger(logger_name='LoginTest')
 # 如果logger_name='case'，就是一个单例模式，添加控制台的文本输出样式
 
 from unittest import mock
-
 from common.mysql import MysqlUtil_double
 
 @ddt
@@ -55,15 +54,15 @@ class LogInTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.request.session.close()  # 关闭session请求
-        cls.mysql.close()  # 关闭数据库连接
+        # cls.mysql.close()  # 关闭数据库连接
 
     @data(*cases_login)
     def test_login(self, case):  # 测试注册
         logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # logger.debug('url:{}'.format(case.url))
-        # logger.debug('data:{}'.format(case.data))
-        # logger.debug('method:{}'.format(case.method))
-        # logger.debug('expected:{}'.format(case.expected))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         login_data_new = Context.replace(case.data, login_information)
         resp = self.request.request(case.method, case.url, login_data_new)
@@ -75,7 +74,7 @@ class LogInTest(unittest.TestCase):
             # else:
             # self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
 
-            self.assertEqual(case.expected, json.loads(resp.text)['code'])
+            self.assertEqual(json.loads(case.expected), json.loads(resp.text))
             self.do_excel_login.write_excel('login', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:
@@ -83,6 +82,3 @@ class LogInTest(unittest.TestCase):
             logger.error("第{0}用例执行结果：FAIL".format(case.case_id))
             logger.error("断言出错了".format(e))
             raise e
-
-
-

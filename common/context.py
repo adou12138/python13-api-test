@@ -30,6 +30,10 @@ class Context:  # 上下文，数据的准备和记录
     recharge_mobile_phone = config.get_value('Data', 'recharge_mobile_phone')
     recharge_amount = config.get_value('Data', 'recharge_amount')
 
+    withdraw_mobile_phone = config.get_value('Data', 'withdraw_mobile_phone')
+    withdraw_login_mobile_pwd = config.get_value('Data', 'withdraw_login_mobile_pwd')
+    withdraw_amount = config.get_value('Data', 'withdraw_amount')
+
     register_member_pwd = config.get_value('Data', 'register_member_pwd')
     register_member_regname = config.get_value('Data', 'register_member_regname')
 

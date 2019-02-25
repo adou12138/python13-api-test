@@ -44,12 +44,13 @@ class RegisterTest(unittest.TestCase):
     do_excel = DoExcel(contants.excel_file)  # 传入do_excel_study.xlsx
     cases_register = do_excel.read_excel("register")  # 读取register_sheet
 
+
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
         cls.request = Request()  # 实例化对象
 
     def setUp(self):
-        # self.write_register = DoExcel(contants.excel_file, "register") # 创建一个对象写入
+        # write_register = self.do_excel.write_excel("register")  # 创建一个对象写入
         logger.info("开始执行用例")
 
     def tearDown(self):
@@ -94,7 +95,10 @@ class RegisterTest(unittest.TestCase):
                 self.assertEqual(1, len(results))
                 member = results[0]  # 获取到这一条数据，是一个字典
                 self.assertEqual(0, member['LeaveAmount'])  # 判断注册成功余额应该是0
+                # print(member['LeaveAmount'],type(member['LeaveAmount']))
                 self.assertEqual(1, member['Type'])  # 判断注册用户类型是1
+                # print(member['Type'])
+                self.assertNotEqual(json.loads(register_data_new)['pwd'],member['Pwd'])  # 判断密码是否加密
                 if 'regname' in json.loads(register_data_new).keys():
                     self.assertEqual(json.loads(register_data_new)['regname'], member['RegName'])
                 else:
