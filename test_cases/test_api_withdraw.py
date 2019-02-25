@@ -34,7 +34,7 @@ logger = logger.get_logger(logger_name='WithDrawTest')
 from common.mysql import MysqlUtil_double
 
 # global origin_withdraw
-# origin_withdraw=None
+# origin_withdraw = None
 
 @ddt
 class WithDrawTest(unittest.TestCase):
@@ -46,6 +46,8 @@ class WithDrawTest(unittest.TestCase):
     @classmethod  # 为什么用类方法？ 整个类只执行一次！
     def setUpClass(cls):  # 每个测试类里面去运行的操作都放到类方法里面
         cls.request = Request()  # 实例化对象
+        # cls.origin_withdraw = None
+        # cls.updated_withdraw = None
 
     def setUp(self):
         # self.write_withdraw = DoExcel(contants.excel_file, "withdraw") # 创建一个对象写入
@@ -83,20 +85,31 @@ class WithDrawTest(unittest.TestCase):
                 member = results[0]  # 获取到这一条数据，是一个字典
                 # global origin_withdraw
                 origin_withdraw = member['LeaveAmount']
-                print(origin_withdraw)
-
+                print('origin_withdraw', origin_withdraw)
+                with open(contants.text_test_file, 'w+') as f:
+                    f.write(str(member['LeaveAmount']))
                 # setattr(Context, 'origin_withdraw', origin_withdraw)
             if resp.json()['msg'] == '取现成功':
+                global origin_withdraw
                 # origin_withdraw = getattr(Context, 'origin_withdraw')
                 sql2 = 'select * from future.member where mobilephone = {0}' \
                     .format(json.loads(withdraw_data_new)['mobilephone'])
                 results2 = self.mysql.fetch_all(sql2)
                 member2 = results2[0]  # 获取到这一条数据，是一个字典
                 updated_withdraw = member2['LeaveAmount']
-                # abs = updated_withdraw-int(json.loads(withdraw_data_new)['amount'])
-                # print('abs', abs)
-                print('updated_withdraw', updated_withdraw)
-            self.assertEqual(origin_withdraw,updated_withdraw)
+                with open(contants.text_test_file, 'r') as r:
+                    origin_withdraw1 = r.read()
+                print('origin_withdraw1', origin_withdraw1, type(origin_withdraw1))
+                import decimal
+                origin_withdraw11 = decimal.Decimal(origin_withdraw1)
+                print('origin_withdraw11', origin_withdraw11, type(origin_withdraw11))
+                abs = (origin_withdraw11 - updated_withdraw)
+                print('abs', abs)
+                print('updated_withdraw', updated_withdraw, type(updated_withdraw))
+                self.assertEqual(10.00, abs)
+                print('withdraw_data_new', withdraw_data_new, type(withdraw_data_new))
+                first = decimal.Decimal(withdraw_data_new)  # 有问题
+                print('first', first, type(first))
             self.do_excel.write_excel('withdraw', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:

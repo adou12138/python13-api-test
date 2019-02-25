@@ -140,7 +140,12 @@ sql：外键？关联关系？mysql oracle 关系型数据库
 9. 流标 项目已流标，本次募资无效
 11. 申请流标 竞标期限截止而未募满的项目，或其他特殊原因，申请流标状态
 """
-
+""""
+SELECT * FROM future.loan where Id='15908';
+select * from future.loan where memberid='1117370' order by createTime desc limit 1;
+#select * from future.loan where memberid='1117370';
+SELECT * FROM future.member WHERE MobilePhone='15999999999';
+"""
 
 
 

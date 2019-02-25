@@ -11,9 +11,9 @@ from common.request import Request  # 导入api请求
 from common.test_api_config import ReadConfig
 from libext.ddtNew import ddt, data
 
-config = ReadConfig()
-# 正则配置
-# audit_information = eval(config.get_value("Audit", "audit"))  # ? 还没有设置
+# config = ReadConfig()
+# # 正则配置
+# # audit_information = eval(config.get_value("Audit", "audit"))  # ? 还没有设置
 
 from common.context import Context
 import json

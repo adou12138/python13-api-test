@@ -6,5 +6,10 @@
 # 文件IDE名称：PyCharm
 
 import os
+# print('hello word')
 
-print('hello word')
+import json
+from common import contants
+ajson = {'amount':'10'}
+with open(contants.json_test_file, 'w+') as f:
+    f.write(json.dumps(ajson['amount']))
