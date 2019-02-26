@@ -146,7 +146,24 @@ select * from future.loan where memberid='1117370' order by createTime desc limi
 #select * from future.loan where memberid='1117370';
 SELECT * FROM future.member WHERE MobilePhone='15999999999';
 """
+"""
+1.common-test_api_config.py这个文件的异常抛出帮我看下，哪里有问题
+    def get_value(self, section, option):
+        try:
+            return self.config.get(section, option)
+        except SyntaxError as e:
+            raise OperationalError("Option %s is not found in "
+                                   "configuration, error: %s" %
+                                   (section, e))
 
+2.测试接口的服务器异常，mock没用，只能通过改服务器的状态么
+3.执行test_suite,注册和登录模块，最后只写入了登录模块，report报告都是执行ok的，找不到原因，老师帮忙看下有的数据还是没有写进去
+4.在执行withdraw的时候，testcase2，正常登陆，出现警告信息：
+C:\Python34\lib\site-packages\pymysql\cursors.py:329: Warning: (1292, "Truncated incorrect DOUBLE value: '${mobilephone}'")
+  self._do_get_result()
+
+
+"""
 
 
 

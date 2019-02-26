@@ -58,7 +58,6 @@ class MemberListTest(unittest.TestCase):
         resp = self.request.request(case.method, case.url, member_list_data_new)
 
         try:
-            # self.assertEqual(str(case.expected), resp.json()['code'], "member_list error")
             self.assertEqual(json.loads(case.expected)['code'], resp.json()['code'], "member_list error")
             self.do_excel.write_excel('member_list', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))

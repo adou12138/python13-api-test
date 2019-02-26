@@ -33,8 +33,8 @@ logger = logger.get_logger(logger_name='WithDrawTest')
 
 from common.mysql import MysqlUtil_double
 
-# global origin_withdraw
-# origin_withdraw = None
+global origin_withdraw
+origin_withdraw = None
 
 @ddt
 class WithDrawTest(unittest.TestCase):
@@ -83,12 +83,9 @@ class WithDrawTest(unittest.TestCase):
                 # # 首先判断是否有成功插入数据
                 # self.assertEqual(1, len(results))
                 member = results[0]  # 获取到这一条数据，是一个字典
-                # global origin_withdraw
-                # origin_withdraw = member['LeaveAmount']
-                # print('origin_withdraw', origin_withdraw)
-                with open(contants.withdraw_test_file, 'w') as r:  # 登陆成功后，写入member初始leaveamount的值
-                    r.write(str(member['LeaveAmount']))
-                # setattr(Context, 'origin_withdraw', origin_withdraw)  # 设置反射不行
+                global origin_withdraw
+                origin_withdraw = member['LeaveAmount']
+
             if resp.json()['msg'] == '取现成功':
                 # global origin_withdraw
                 # origin_withdraw = getattr(Context, 'origin_withdraw')
@@ -97,25 +94,12 @@ class WithDrawTest(unittest.TestCase):
                 results2 = self.mysql.fetch_all(sql2)
                 member2 = results2[0]  # 获取到这一条数据，是一个字典
                 updated_withdraw = member2['LeaveAmount']  # 提现成功后获取最新的leaveamount值
-                with open(contants.withdraw_test_file, 'r') as r:
-                    origin_withdraw = r.read()
-                # print('origin_withdraw1', origin_withdraw, type(origin_withdraw))
+                abs = origin_withdraw - updated_withdraw
+                # print('abs', abs, type(abs))
                 import decimal
-                origin_withdraw_decimal = decimal.Decimal(origin_withdraw)
-                # print('origin_withdraw11', origin_withdraw11, type(origin_withdraw11))
-                abs = (origin_withdraw_decimal - updated_withdraw)
-                # print('abs', abs)
-                # print('updated_withdraw', updated_withdraw, type(updated_withdraw))
-                # self.assertEqual(10.00, abs)
-                setup_amount = json.loads(withdraw_data_new)['amount']  # 取出设置的金额转成十进制数字
-                # print(setup_amount,type(setup_amount))
-                setup_amount_decimal = decimal.Decimal(setup_amount)
-                # print(setup_amount_decimal)
-                self.assertEqual(setup_amount_decimal, abs)  # 与设置的提现金额进行比对
+                set_amount = decimal.Decimal(json.loads(withdraw_data_new)['amount'])  # 设置的金额转化成十进制数字
+                self.assertEqual(set_amount, abs)  # 与设置的提现金额进行比对
 
-                # print('withdraw_data_new', withdraw_data_new, type(withdraw_data_new))
-                # first = decimal.Decimal(withdraw_data_new)  # 有问题
-                # print('first', first, type(first))
             self.do_excel.write_excel('withdraw', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:

@@ -56,14 +56,13 @@ class RechargeTest(unittest.TestCase):
 
     mysql = MysqlUtil_double(return_dict=True)
 
-
     @data(*cases_recharge)
     def test_recharge(self, case):  # 测试注册
         logger.info("开始执行第{}条用例: {}".format(case.case_id, case.title))
-        # logger.debug('url:{}'.format(case.url))
-        # logger.debug('data:{}'.format(case.data))
-        # logger.debug('method:{}'.format(case.method))
-        # logger.debug('expected:{}'.format(case.expected))
+        logger.debug('url:{}'.format(case.url))
+        logger.debug('data:{}'.format(case.data))
+        logger.debug('method:{}'.format(case.method))
+        logger.debug('expected:{}'.format(case.expected))
 
         # recharge_data_new = Context.replace(case.data, recharge_information)
         recharge_data_new = Context.replace_new(case.data)  # 调用类的方法替换参数
@@ -71,24 +70,31 @@ class RechargeTest(unittest.TestCase):
 
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
-            if json.loads(resp.text)['msg'] == '登陆成功':
+            if json.loads(resp.text)['msg'] == '登录成功':
                 sql = 'select * from future.member where mobilephone = {0}' \
                     .format(json.loads(recharge_data_new)['mobilephone'])
                 results = self.mysql.fetch_all(sql)
                 member = results[0]  # 获取到这一条数据，是一个字典
                 # 首先判断是否有成功插入数据
                 # self.assertEqual(1, len(results))
-                old_recharge = member['LeaveAmount']
-                print(old_recharge)
+                # old_recharge = member['LeaveAmount']
+                # print(old_recharge)
+                with open(contants.recharge_test_file, 'w') as r:  # 登陆成功后，写入member初始leaveamount的值
+                    r.write(str(member['LeaveAmount']))
             if resp.json()['msg'] == '充值成功':
                 sql2 = 'select * from future.member where mobilephone = {0}' \
                     .format(json.loads(recharge_data_new)['mobilephone'])
                 results2 = self.mysql.fetch_all(sql2)
                 member2 = results2[0]
-                new_recharge = member2['LeaveAmount']
-                print(new_recharge)
-            # count = new_recharge-old_recharge
-            # self.assertEqual(1000, count)  # 判断注册成功余额应该是0
+                updated_recharge = member2['LeaveAmount']  # 充值成功后获取最新的leaveamount值
+                with open(contants.recharge_test_file, 'r') as r:
+                    origin_recharge = r.read()
+                import decimal
+                origin_recharge_decimal = decimal.Decimal(origin_recharge)
+                add = (updated_recharge - origin_recharge_decimal)
+                setup_amount = json.loads(recharge_data_new)['amount']  # 取出设置的金额转成十进制数字
+                setup_amount_decimal = decimal.Decimal(setup_amount)
+                self.assertEqual(setup_amount_decimal, add)  # 与设置的提现金额进行比对
             self.do_excel.write_excel('recharge', case.case_id + 1, resp.text, 'PASS')  # 读取sheet，写入结果
             logger.info("第{0}用例执行结果：PASS".format(case.case_id))
         except AssertionError as e:

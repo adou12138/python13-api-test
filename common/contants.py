@@ -29,7 +29,7 @@ data_dir = os.path.join(base_dir, "datas")
 excel_file = os.path.join(data_dir, "luckytest.xlsx")
 json_test_file = os.path.join(data_dir, "json_test.json")
 try_json_file = os.path.join(data_dir, "try_json.py")
-text_test_file = os.path.join(data_dir, "test.text")
+
 
 # log 目录地址
 log_dir = os.path.join(base_dir, "log")
@@ -53,4 +53,22 @@ test_api_register_file = os.path.join(test_cases_dir, "test_api_register.py")
 # htmlreport 目录地址 废弃不用
 # html_reports_dir = os.path.join(base_dir, "htmlreports")
 # html_report_file = os.path.join(html_reports_dir, "luckytest.html")
+
+# sqlconfirm目录地址
+sql_data_check_dir = os.path.join(base_dir, "sql_data_check")
+withdraw_test_file = os.path.join(sql_data_check_dir, "withdraw.text")
+recharge_test_file = os.path.join(sql_data_check_dir, "recharge.text")
+
+
+
+
+
+
+
+
+
+
+
+
+
 
