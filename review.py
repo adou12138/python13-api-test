@@ -65,7 +65,7 @@ json:字符串用loads，文件用load
 接口项目请求：response cookies
 request cookies
 其他项目：response tokenID
-request headers tokeni
+request headers token
 逻辑层都在common里面，都是常量的封装
 调用方式：
 类属性通过类名就可以调用（只有一个工作区间）,保证同一个值，需要定义类属性
@@ -78,6 +78,8 @@ request headers tokeni
 2. 测试框架 unittest（单元测试框架） ---pytest
 用xml直接换成xml类？ 替换一个do_xml类就可以
 unittest分层：testcase,testsuite,testload,testrun,mock
+原理: 整个流程就是首先要写好TestCase，然后由TestLoader加载TestCase到TestSuite，
+然后由TextTestRunner来运行TestSuite，运行的结果保存在TextTestResult中，整个过程集成在unittest.main模块中。
 
 3. 接口调用 request ---是最简洁的，底层就是urlib2，唯一一个转基因http库
 urlib 也可以完成http请求

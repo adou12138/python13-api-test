@@ -5,7 +5,7 @@
 # 2019/1/19 18:02
 
 import requests
-
+import json
 from common import contants
 from common.test_api_config import ReadConfig
 
@@ -25,7 +25,8 @@ class Request:
         # URL = ReadConfig(contants.test_api_conf_file).get_value('URL', 'path_url') + url
 
         if data is not None and type(data) == str:
-            data = eval(data)  # 如果是字符串就转成字典
+            # data = eval(data)  # 如果是字符串就转成字典
+            data = json.loads(data)  # 如果是字符串就转成字典
 
         print('method: {0} url:{1}'.format(method, url))  # 输出确认内容
         print('data:{0} '.format(data))

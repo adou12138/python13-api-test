@@ -71,8 +71,7 @@ class RechargeTest(unittest.TestCase):
         try:
             self.assertEqual(json.loads(case.expected)['msg'], json.loads(resp.text)['msg'])
             if json.loads(resp.text)['msg'] == '登录成功':
-                sql = 'select * from future.member where mobilephone = {0}' \
-                    .format(json.loads(recharge_data_new)['mobilephone'])
+                sql = "'select * from future.member where mobilephone = '{0}'".format(json.loads(recharge_data_new)['mobilephone'])
                 results = self.mysql.fetch_all(sql)
                 member = results[0]  # 获取到这一条数据，是一个字典
                 # 首先判断是否有成功插入数据
