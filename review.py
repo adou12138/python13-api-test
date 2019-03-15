@@ -81,7 +81,7 @@ unittest分层：testcase,testsuite,testload,testrun,mock
 原理: 整个流程就是首先要写好TestCase，然后由TestLoader加载TestCase到TestSuite，
 然后由TextTestRunner来运行TestSuite，运行的结果保存在TextTestResult中，整个过程集成在unittest.main模块中。
 
-3. 接口调用 request ---是最简洁的，底层就是urlib2，唯一一个转基因http库
+3. 接口调用 request ---是最简洁的，底层就是urlib2，唯一一个非转基因http库
 urlib 也可以完成http请求
 
 4. 数据驱动 ddt
