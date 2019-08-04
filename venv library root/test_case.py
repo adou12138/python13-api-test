@@ -162,7 +162,6 @@ SELECT * FROM future.member WHERE MobilePhone='15999999999';
 C:\Python34\lib\site-packages\pymysql\cursors.py:329: Warning: (1292, "Truncated incorrect DOUBLE value: '${mobilephone}'")
   self._do_get_result()
 
-
 """
 
 

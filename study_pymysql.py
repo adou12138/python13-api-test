@@ -18,7 +18,7 @@ import pymysql
 host = "test.lemonban.com"
 user = "test"
 password = "test"
-mysql = pymysql.connect(host=host, user=user, password=password, port=3306)
+mysql = pymysql.connect(host=host, user=user, password=password, db='future', port=3306)
 # 2. 新建一个查询页面
 cursor = mysql.cursor()
 # 3. 编写SQL
