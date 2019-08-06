@@ -40,7 +40,7 @@ class Request:
 
 if __name__ == '__main__':
     res = Request()
-    result = res.session.request("get", "http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "15666666666", "pwd": "123456"})
+    result = res.session.request("get", "http://test.lemonban.com/futureloan/mvc/api/member/login", params={"mobilephone": "13816031111", "pwd": "123456"})
     print(result.text)
 
     # print(res.session.cookies)
