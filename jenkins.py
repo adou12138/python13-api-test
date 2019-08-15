@@ -82,7 +82,10 @@ jenkins工作空间的路径直接在workspace里面看
 
 设计定时执行： H代表任意合理的数 H/10 * * * * 每隔10分钟
 
-
+Jenkins的国内升级镜像源
+系统管理-管理插件-高级
+将升级站点更改为：
+https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json
 
 
 """
