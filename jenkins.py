@@ -87,6 +87,8 @@ Jenkins的国内升级镜像源
 将升级站点更改为：
 https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json
 
+更改语言，安装插件之后
+系统设置-locale-language
 
 """
 
