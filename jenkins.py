@@ -90,6 +90,32 @@ https://mirrors.tuna.tsinghua.edu.cn/jenkins/updates/current/update-center.json
 更改语言，安装插件之后
 系统设置-locale-language
 
+pip install -i https://pypi.douban.com/simple pymysql
+python test_run.py
+
+http报告丢失css样式：
+在系统管理-脚本命令行执行下面的语句：
+System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+
+定时执行：
+-每15分钟构建一次：H代表形参
+    - H/15 ****
+-每隔5分钟构建一次：
+    - H/5 ****
+-在每个小时的前半个小时内的每15分钟：
+    - H(0-29)/15 ****
+-每3个小时构建一次：
+    - H H/3 ***
+-每天中午12点定时构建一次：
+    - H 12 ***
+-每天的3点，8点，12点，一天构建3次：(多个时间点中间用逗号隔开)
+    - 0 3，8，12 ***
+-每天早上7点到晚上7点每2小时构建一次：
+    - H 7-19/2 ***
+-周一到周五，从上午9：45开始，每天下午3：45结束，每两小时构建一次：
+    - 45 9-16/2 ** 1-5
+-周一到周五，上午9点到下午4点，每两小时构建一次：
+    - H H(9-16)/2 ** 1-5
 """
 
 
