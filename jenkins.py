@@ -94,8 +94,10 @@ pip install -i https://pypi.douban.com/simple pymysql
 python test_run.py
 
 http报告丢失css样式：
+https://testerhome.com/topics/9476
 在系统管理-脚本命令行执行下面的语句：
 System.setProperty("hudson.model.DirectoryBrowserSupport.CSP", "")
+
 
 定时执行：
 -每15分钟构建一次：H代表形参
